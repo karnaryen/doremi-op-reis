@@ -7,18 +7,22 @@ msgstr ""
 "X-Generator: @lingui/cli\n"
 "Language: nl\n"
 
-#: src/app/layout/RootLayout.tsx:69
+#: src/app/layout/RootLayout.tsx:86
 msgid "© {year} Doremi op reis"
 msgstr "© {year} Doremi op reis"
 
 #: src/app/layout/RootLayout.tsx:23
 #: src/pages/about/AboutPage.tsx:9
 msgid "About"
-msgstr "Over"
+msgstr "Over de app"
+
+#: src/pages/home/HomePage.tsx:77
+msgid "An MUI theme based on the Doremi Piano style: plum and peach colors and serif headings, adapted for an app."
+msgstr "Een MUI-thema gebaseerd op de huisstijl van Doremi Piano: pruim- en perziktinten en koppen in een schreeflettertype, aangepast voor een app."
 
 #: src/pages/not-found/NotFoundPage.tsx:20
 msgid "Back home"
-msgstr "Terug naar home"
+msgstr "Terug naar de startpagina"
 
 #: src/features/locale-switcher/LocaleSwitcher.tsx:28
 msgid "Change language"
@@ -28,17 +32,17 @@ msgstr "Taal wijzigen"
 msgid "Dark mode"
 msgstr "Donkere modus"
 
+#: src/pages/home/HomePage.tsx:67
+msgid "Design system"
+msgstr "Designsysteem"
+
 #: src/pages/about/AboutPage.tsx:12
 msgid "Doremi op reis is a React single-page app. Content will follow."
-msgstr "Doremi op reis is een React single-page app. Inhoud volgt."
+msgstr "Doremi op reis is een React single-page app. De inhoud volgt later."
 
-#: src/pages/home/HomePage.tsx:27
-msgid "Enjoy"
-msgstr "Genieten"
-
-#: src/pages/home/HomePage.tsx:17
-msgid "Explore"
-msgstr "Ontdekken"
+#: src/pages/home/HomePage.tsx:89
+msgid "Explore tokens"
+msgstr "Bekijk de tokens"
 
 #: src/app/layout/RootLayout.tsx:22
 msgid "Home"
@@ -56,25 +60,13 @@ msgstr "Lichte modus"
 msgid "Page not found"
 msgstr "Pagina niet gevonden"
 
-#: src/pages/home/HomePage.tsx:18
-msgid "Placeholder for the first feature."
-msgstr "Plaatshouder voor de eerste functie."
-
-#: src/pages/home/HomePage.tsx:23
-msgid "Placeholder for the second feature."
-msgstr "Plaatshouder voor de tweede functie."
-
-#: src/pages/home/HomePage.tsx:28
-msgid "Placeholder for the third feature."
-msgstr "Plaatshouder voor de derde functie."
-
-#: src/pages/home/HomePage.tsx:22
-msgid "Plan"
-msgstr "Plannen"
-
 #: src/pages/error/RouteErrorPage.tsx:28
 msgid "Reload app"
 msgstr "App herladen"
+
+#: src/pages/home/HomePage.tsx:92
+msgid "See components"
+msgstr "Bekijk de componenten"
 
 #: src/pages/error/RouteErrorPage.tsx:24
 msgid "Something went wrong"
@@ -87,7 +79,3 @@ msgstr "Thema wisselen (huidig: {label})"
 #: src/features/theme-mode/ThemeModeToggle.tsx:22
 msgid "System theme"
 msgstr "Systeemthema"
-
-#: src/pages/home/HomePage.tsx:39
-msgid "Welcome! This is the MVP skeleton — features coming soon."
-msgstr "Welkom! Dit is het MVP-skelet — functies volgen binnenkort."

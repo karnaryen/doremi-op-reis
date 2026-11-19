@@ -7,7 +7,7 @@ msgstr ""
 "X-Generator: @lingui/cli\n"
 "Language: en\n"
 
-#: src/app/layout/RootLayout.tsx:69
+#: src/app/layout/RootLayout.tsx:86
 msgid "© {year} Doremi op reis"
 msgstr "© {year} Doremi op reis"
 
@@ -15,6 +15,10 @@ msgstr "© {year} Doremi op reis"
 #: src/pages/about/AboutPage.tsx:9
 msgid "About"
 msgstr "About"
+
+#: src/pages/home/HomePage.tsx:77
+msgid "An MUI theme based on the Doremi Piano style: plum and peach colors and serif headings, adapted for an app."
+msgstr "An MUI theme based on the Doremi Piano style: plum and peach colors and serif headings, adapted for an app."
 
 #: src/pages/not-found/NotFoundPage.tsx:20
 msgid "Back home"
@@ -28,17 +32,17 @@ msgstr "Change language"
 msgid "Dark mode"
 msgstr "Dark mode"
 
+#: src/pages/home/HomePage.tsx:67
+msgid "Design system"
+msgstr "Design system"
+
 #: src/pages/about/AboutPage.tsx:12
 msgid "Doremi op reis is a React single-page app. Content will follow."
 msgstr "Doremi op reis is a React single-page app. Content will follow."
 
-#: src/pages/home/HomePage.tsx:27
-msgid "Enjoy"
-msgstr "Enjoy"
-
-#: src/pages/home/HomePage.tsx:17
-msgid "Explore"
-msgstr "Explore"
+#: src/pages/home/HomePage.tsx:89
+msgid "Explore tokens"
+msgstr "Explore tokens"
 
 #: src/app/layout/RootLayout.tsx:22
 msgid "Home"
@@ -56,25 +60,13 @@ msgstr "Light mode"
 msgid "Page not found"
 msgstr "Page not found"
 
-#: src/pages/home/HomePage.tsx:18
-msgid "Placeholder for the first feature."
-msgstr "Placeholder for the first feature."
-
-#: src/pages/home/HomePage.tsx:23
-msgid "Placeholder for the second feature."
-msgstr "Placeholder for the second feature."
-
-#: src/pages/home/HomePage.tsx:28
-msgid "Placeholder for the third feature."
-msgstr "Placeholder for the third feature."
-
-#: src/pages/home/HomePage.tsx:22
-msgid "Plan"
-msgstr "Plan"
-
 #: src/pages/error/RouteErrorPage.tsx:28
 msgid "Reload app"
 msgstr "Reload app"
+
+#: src/pages/home/HomePage.tsx:92
+msgid "See components"
+msgstr "See components"
 
 #: src/pages/error/RouteErrorPage.tsx:24
 msgid "Something went wrong"
@@ -87,7 +79,3 @@ msgstr "Switch theme (current: {label})"
 #: src/features/theme-mode/ThemeModeToggle.tsx:22
 msgid "System theme"
 msgstr "System theme"
-
-#: src/pages/home/HomePage.tsx:39
-msgid "Welcome! This is the MVP skeleton — features coming soon."
-msgstr "Welcome! This is the MVP skeleton — features coming soon."

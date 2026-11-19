@@ -25,17 +25,28 @@ export function RootLayout() {
 
   return (
     <Box sx={{ display: 'flex', flexDirection: 'column', minHeight: '100dvh' }}>
-      <AppBar position="sticky" elevation={0}>
+      <AppBar position="sticky">
         <Toolbar>
           <Stack
             component={RouterLink}
             to={paths.home}
+            aria-label="Doremi op reis"
             direction="row"
             spacing={1.5}
-            sx={{ alignItems: 'center', color: 'inherit', textDecoration: 'none', mr: 3 }}
+            sx={{
+              alignItems: 'center',
+              color: 'primary.main',
+              textDecoration: 'none',
+              mr: { xs: 1.5, sm: 3 },
+            }}
           >
             <FontAwesomeIcon icon={faSuitcaseRolling} size="lg" />
-            <Typography variant="h6" component="span" sx={{ fontWeight: 700 }}>
+            <Typography
+              variant="h6"
+              component="span"
+              noWrap
+              sx={{ display: { xs: 'none', sm: 'block' } }}
+            >
               Doremi op reis
             </Typography>
           </Stack>
@@ -47,8 +58,14 @@ export function RootLayout() {
                 component={NavLink}
                 to={to}
                 end
-                color="inherit"
-                sx={{ '&.active': { textDecoration: 'underline', textUnderlineOffset: 6 } }}
+                sx={{
+                  fontWeight: 400,
+                  color: 'text.secondary',
+                  '&.active': {
+                    bgcolor: 'primary.main',
+                    color: 'primary.contrastText',
+                  },
+                }}
               >
                 {label}
               </Button>

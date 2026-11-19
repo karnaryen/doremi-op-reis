@@ -14,7 +14,9 @@ export function AppProviders({ children }: { children: ReactNode }) {
   return (
     <QueryClientProvider client={queryClient}>
       <AppI18nProvider>
-        <ThemeProvider theme={theme} defaultMode="system">
+        {/* noSsr: client-only app, read the saved mode on the first render.
+            disableTransitionOnChange: no color animations when the mode changes. */}
+        <ThemeProvider theme={theme} noSsr disableTransitionOnChange>
           <CssBaseline enableColorScheme />
           {children}
         </ThemeProvider>

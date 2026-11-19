@@ -9,6 +9,25 @@ describe('routing', () => {
     expect(await screen.findByRole('heading', { level: 1, name: 'Doremi op reis' })).toBeVisible()
   })
 
+  it('shows the design-system sections on the home page', async () => {
+    renderRoute('/')
+    for (const name of [
+      'Color',
+      'Typography',
+      'Actions',
+      'Inputs',
+      'Feedback and navigation',
+      'Cards',
+    ]) {
+      expect(await screen.findByRole('heading', { level: 2, name })).toBeInTheDocument()
+    }
+  })
+
+  it('keeps an accessible name on the logo link', async () => {
+    renderRoute('/')
+    expect(await screen.findByRole('link', { name: 'Doremi op reis' })).toBeInTheDocument()
+  })
+
   it('navigates to the lazy about page', async () => {
     renderRoute('/')
     await userEvent.click(await screen.findByRole('link', { name: 'About' }))
