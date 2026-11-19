@@ -1,64 +1,113 @@
 import { Trans } from '@lingui/react/macro'
-import { faCompass, faMapLocationDot, faMusic } from '@fortawesome/free-solid-svg-icons'
+import { faArrowRight, faPalette } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import Card from '@mui/material/Card'
-import CardContent from '@mui/material/CardContent'
-import Grid from '@mui/material/Grid'
+import Box from '@mui/material/Box'
+import Button from '@mui/material/Button'
+import Chip from '@mui/material/Chip'
+import Divider from '@mui/material/Divider'
 import Stack from '@mui/material/Stack'
 import Typography from '@mui/material/Typography'
-import type { ReactNode } from 'react'
+import { radius } from '@/shared/theme/tokens'
+import { ButtonsShowcase } from './showcase/ButtonsShowcase'
+import { CardsShowcase } from './showcase/CardsShowcase'
+import { ColorPalette } from './showcase/ColorPalette'
+import { FeedbackShowcase } from './showcase/FeedbackShowcase'
+import { FormsShowcase } from './showcase/FormsShowcase'
+import { TypographyScale } from './showcase/TypographyScale'
 
-type Highlight = { icon: typeof faMusic; title: ReactNode; body: ReactNode }
-
+/**
+ * Temporary home page that shows the MUI theme: colors, typography and components.
+ * Only the hero is translated; the showcase sections are English-only developer content.
+ * Replace this page with the real home page when the first features are ready.
+ */
 export function HomePage() {
-  const highlights: Highlight[] = [
-    {
-      icon: faCompass,
-      title: <Trans>Explore</Trans>,
-      body: <Trans>Placeholder for the first feature.</Trans>,
-    },
-    {
-      icon: faMapLocationDot,
-      title: <Trans>Plan</Trans>,
-      body: <Trans>Placeholder for the second feature.</Trans>,
-    },
-    {
-      icon: faMusic,
-      title: <Trans>Enjoy</Trans>,
-      body: <Trans>Placeholder for the third feature.</Trans>,
-    },
-  ]
-
   return (
-    <Stack spacing={6}>
-      <Stack spacing={2} sx={{ textAlign: 'center', alignItems: 'center' }}>
-        <Typography variant="h2" component="h1">
-          Doremi op reis
-        </Typography>
-        <Typography variant="h6" color="text.secondary" sx={{ maxWidth: 560 }}>
-          <Trans>Welcome! This is the MVP skeleton — features coming soon.</Trans>
-        </Typography>
-      </Stack>
+    <Stack spacing={{ xs: 8, md: 10 }}>
+      <Box
+        sx={{
+          position: 'relative',
+          overflow: 'hidden',
+          borderRadius: `${radius.xl}px`,
+          bgcolor: 'brand.surface',
+          color: 'brand.onSurface',
+          px: { xs: 3, md: 8 },
+          py: { xs: 6, md: 10 },
+        }}
+      >
+        <Box
+          aria-hidden
+          sx={{
+            position: 'absolute',
+            width: 420,
+            height: 420,
+            borderRadius: '50%',
+            right: -120,
+            top: -160,
+            bgcolor: 'brand.blush',
+            opacity: 0.9,
+          }}
+        />
+        <Box
+          aria-hidden
+          sx={(theme) => ({
+            position: 'absolute',
+            width: 220,
+            height: 220,
+            borderRadius: '50%',
+            right: 140,
+            bottom: -120,
+            bgcolor: 'secondary.light',
+            opacity: 0.35,
+            ...theme.applyStyles('dark', { bgcolor: 'secondary.main', opacity: 0.12 }),
+          })}
+        />
+        <Stack spacing={3} sx={{ position: 'relative', maxWidth: 640 }}>
+          <Chip
+            icon={<FontAwesomeIcon icon={faPalette} />}
+            label={<Trans>Design system</Trans>}
+            sx={{
+              alignSelf: 'flex-start',
+              bgcolor: 'background.paper',
+              color: 'primary.main',
+              pl: 0.5,
+            }}
+          />
+          <Typography variant="h1">Doremi op reis</Typography>
+          <Typography variant="lead">
+            <Trans>
+              An MUI theme based on the Doremi Piano style: plum and peach colors and serif
+              headings, adapted for an app.
+            </Trans>
+          </Typography>
+          <Stack direction="row" spacing={1.5} useFlexGap sx={{ flexWrap: 'wrap' }}>
+            <Button
+              size="large"
+              variant="contained"
+              endIcon={<FontAwesomeIcon icon={faArrowRight} />}
+              href="#color"
+            >
+              <Trans>Explore tokens</Trans>
+            </Button>
+            <Button size="large" variant="outlined" href="#components">
+              <Trans>See components</Trans>
+            </Button>
+          </Stack>
+        </Stack>
+      </Box>
 
-      <Grid container spacing={3}>
-        {highlights.map(({ icon, title, body }, i) => (
-          <Grid key={i} size={{ xs: 12, md: 4 }}>
-            <Card variant="outlined" sx={{ height: '100%' }}>
-              <CardContent>
-                <Stack spacing={1.5}>
-                  <Typography color="primary" sx={{ fontSize: 28 }}>
-                    <FontAwesomeIcon icon={icon} />
-                  </Typography>
-                  <Typography variant="h6" component="h2">
-                    {title}
-                  </Typography>
-                  <Typography color="text.secondary">{body}</Typography>
-                </Stack>
-              </CardContent>
-            </Card>
-          </Grid>
-        ))}
-      </Grid>
+      <Box id="color" sx={{ scrollMarginTop: 96 }}>
+        <ColorPalette />
+      </Box>
+      <Divider />
+      <TypographyScale />
+      <Divider />
+      <Box id="components" sx={{ scrollMarginTop: 96 }}>
+        <ButtonsShowcase />
+      </Box>
+      <FormsShowcase />
+      <FeedbackShowcase />
+      <Divider />
+      <CardsShowcase />
     </Stack>
   )
 }

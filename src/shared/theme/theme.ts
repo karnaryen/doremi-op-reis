@@ -1,26 +1,21 @@
 import { createTheme } from '@mui/material/styles'
+import './augmentation'
+import { components } from './components'
+import { darkPalette, lightPalette } from './palette'
+import { shadows } from './shadows'
+import { radius } from './tokens'
+import { typography } from './typography'
 
 export const theme = createTheme({
   cssVariables: { colorSchemeSelector: 'class' },
   colorSchemes: {
-    light: {
-      palette: {
-        primary: { main: '#2f6fde' },
-        secondary: { main: '#f2994a' },
-        background: { default: '#f7f8fb' },
-      },
-    },
-    dark: {
-      palette: {
-        primary: { main: '#7aa7ff' },
-        secondary: { main: '#ffb877' },
-      },
-    },
+    light: { palette: lightPalette },
+    dark: { palette: darkPalette },
   },
-  shape: { borderRadius: 12 },
-  typography: {
-    fontFamily: '"Roboto", "Helvetica", "Arial", sans-serif',
-    h1: { fontWeight: 700 },
-    h2: { fontWeight: 700 },
-  },
+  shape: { borderRadius: radius.sm },
+  shadows,
+  typography,
+  // Keyboard focus ring: 2px solid primary.main (MUI built-in, 7:1 contrast or more in both modes).
+  focusVisible: true,
+  components,
 })
