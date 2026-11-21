@@ -34,7 +34,7 @@ React → Controller → Service → Repository (Doctrine) → PostgreSQL → JS
    - the parent `User`: role parent, no password hash, `teacher` = the current teacher;
    - the `Student`, linked to this parent;
    - an invitation token with an expiry date.
-4. After the commit, Symfony Mailer sends the parent an email. It contains a link to the set-password page of the SPA, with the token in the URL.
+4. When the transaction succeeds and all rows are saved in PostgreSQL, Symfony Mailer sends the parent an email. The email contains a link to the set-password page of the SPA, with the token in the URL. If the transaction fails, nothing is saved and no email is sent.
 5. The parent opens the link and enters a password. The SPA sends the token and the password, for example `POST /api/invitations/accept`.
 6. Symfony checks that the token exists and has not expired. It saves the password hash and deletes the token. The parent can now sign in.
 7. If the token has expired or the email was not sent, the teacher resends the invitation, for example `POST /api/parents/{id}/invitation`. Symfony replaces the token and sends a new email.
@@ -44,7 +44,7 @@ React → Controller → Service → Repository (Doctrine) → PostgreSQL → JS
 1. The teacher confirms the deletion.
 2. Symfony checks that the parent belongs to this teacher.
 3. One database transaction deletes the parent and their data ([data-model.md](data-model.md#ownership)).
-4. After the commit, Symfony deletes the recordings from S3. Objects that fail to delete have no record; the daily job removes them.
+4. When the transaction succeeds and the rows are deleted from PostgreSQL, Symfony deletes the recordings from S3. Objects that fail to delete have no record; the daily job removes them.
 
 ## Upload flow
 
