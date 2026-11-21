@@ -28,11 +28,16 @@ React → Controller → Service → Repository (Doctrine) → PostgreSQL → JS
 
 ## Parent invitation flow
 
-1. The teacher sends the parent's name and email and the child's name.
-2. Symfony checks that the email is not used, then creates the parent `User` without a password, the `Student` and an invitation token with an expiry date.
-3. Symfony Mailer sends an email with a link to the set-password page of the SPA.
-4. The parent sets a password. Symfony checks the token, saves the password hash and removes the token.
-5. If the token has expired, the teacher sends the invitation again.
+1. The signed-in teacher submits the "Add parent" form. The SPA sends a request, for example `POST /api/parents`, with the parent's name, the parent's email and the child's name.
+2. Symfony validates the request body and checks that the email is unique. The teacher comes from the authenticated user, not from the request body.
+3. In one database transaction Symfony creates:
+   - the parent `User`: role parent, no password hash, `teacher` = the current teacher;
+   - the `Student`, linked to this parent;
+   - an invitation token with an expiry date.
+4. After the commit, Symfony Mailer sends the parent an email. It contains a link to the set-password page of the SPA, with the token in the URL.
+5. The parent opens the link and enters a password. The SPA sends the token and the password, for example `POST /api/invitations/accept`.
+6. Symfony checks that the token exists and has not expired. It saves the password hash and deletes the token. The parent can now sign in.
+7. If the token has expired or the email was not sent, the teacher resends the invitation, for example `POST /api/parents/{id}/invitation`. Symfony replaces the token and sends a new email.
 
 ## Parent deletion flow
 
