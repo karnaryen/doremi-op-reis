@@ -9,6 +9,7 @@
 | [features.md](product/features.md)                         | MVP features, UX rules, later ideas                   |
 | [assignment-lifecycle.md](product/assignment-lifecycle.md) | Statuses, recording replacement, completion, deletion |
 | [privacy.md](product/privacy.md)                           | Personal data rules and the notice for parents        |
+| [mobile-design.md](product/mobile-design.md)               | Mobile-first layout and design rules                  |
 
 ## Technical
 

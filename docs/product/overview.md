@@ -18,7 +18,7 @@ There are no weeks, deadlines or overdue states. Each piece has a status. The te
 
 - 1 teacher, 20–30 families.
 - 1 developer, no budget: free tiers where possible.
-- Mobile-first: both roles use the app mainly on a phone.
+- Mobile-first: both roles use the app mainly on a phone. See [mobile-design.md](mobile-design.md).
 - App languages: English and Dutch. See [features.md](features.md#languages).
 
 ## Out of scope

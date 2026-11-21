@@ -9,6 +9,8 @@
 
 Product and technical docs: [docs/README.md](docs/README.md). Read the related file before you work on a feature.
 
+The app is mobile-first. Follow [docs/product/mobile-design.md](docs/product/mobile-design.md) for all UI work.
+
 ## Learning the backend stack
 
 I am learning PHP, Symfony, PostgreSQL and AWS on this project. Follow this guide in every session:
