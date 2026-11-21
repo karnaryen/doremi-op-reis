@@ -1,29 +1,21 @@
-import { Trans, useLingui } from '@lingui/react/macro'
-import { faCircleUser, faSuitcaseRolling } from '@fortawesome/free-solid-svg-icons'
+import { Trans } from '@lingui/react/macro'
+import { faSuitcaseRolling } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import AppBar from '@mui/material/AppBar'
 import Box from '@mui/material/Box'
-import Button from '@mui/material/Button'
 import Container from '@mui/material/Container'
-import IconButton from '@mui/material/IconButton'
+import Link from '@mui/material/Link'
 import Stack from '@mui/material/Stack'
 import Toolbar from '@mui/material/Toolbar'
-import Tooltip from '@mui/material/Tooltip'
 import Typography from '@mui/material/Typography'
-import { NavLink, Outlet, Link as RouterLink } from 'react-router'
+import { Outlet, Link as RouterLink } from 'react-router'
 import { ThemeModeToggle } from '@/features/theme-mode/ThemeModeToggle'
 import { paths } from '@/shared/config/paths'
+import { BottomNav } from './BottomNav'
 
 const year = new Date().getFullYear()
 
 export function RootLayout() {
-  const { t } = useLingui()
-
-  const nav = [
-    { to: paths.home, label: t`Home` },
-    { to: paths.about, label: t`About` },
-  ]
-
   return (
     <Box sx={{ display: 'flex', flexDirection: 'column', minHeight: '100dvh' }}>
       <AppBar position="sticky">
@@ -38,52 +30,16 @@ export function RootLayout() {
               alignItems: 'center',
               color: 'primary.main',
               textDecoration: 'none',
-              mr: { xs: 1.5, sm: 3 },
+              flexGrow: 1,
             }}
           >
             <FontAwesomeIcon icon={faSuitcaseRolling} size="lg" />
-            <Typography
-              variant="h6"
-              component="span"
-              noWrap
-              sx={{ display: { xs: 'none', sm: 'block' } }}
-            >
+            <Typography variant="h6" component="span" noWrap>
               Doremi op reis
             </Typography>
           </Stack>
 
-          <Stack component="nav" direction="row" spacing={1} sx={{ flexGrow: 1 }}>
-            {nav.map(({ to, label }) => (
-              <Button
-                key={to}
-                component={NavLink}
-                to={to}
-                end
-                sx={{
-                  fontWeight: 400,
-                  color: 'text.secondary',
-                  '&.active': {
-                    bgcolor: 'primary.main',
-                    color: 'primary.contrastText',
-                  },
-                }}
-              >
-                {label}
-              </Button>
-            ))}
-          </Stack>
-
           <ThemeModeToggle />
-          <Tooltip title={t`Profile`}>
-            <IconButton
-              component={RouterLink}
-              to={paths.profile}
-              color="inherit"
-              aria-label={t`Profile`}
-            >
-              <FontAwesomeIcon icon={faCircleUser} fixedWidth />
-            </IconButton>
-          </Tooltip>
         </Toolbar>
       </AppBar>
 
@@ -94,8 +50,14 @@ export function RootLayout() {
       <Box component="footer" sx={{ py: 3, textAlign: 'center', color: 'text.secondary' }}>
         <Typography variant="body2">
           <Trans>© {year} Doremi op reis</Trans>
+          {' · '}
+          <Link component={RouterLink} to={paths.about} color="inherit">
+            <Trans>About</Trans>
+          </Link>
         </Typography>
       </Box>
+
+      <BottomNav />
     </Box>
   )
 }

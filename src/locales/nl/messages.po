@@ -7,11 +7,11 @@ msgstr ""
 "X-Generator: @lingui/cli\n"
 "Language: nl\n"
 
-#: src/app/layout/RootLayout.tsx:96
+#: src/app/layout/RootLayout.tsx:52
 msgid "© {year} Doremi op reis"
 msgstr "© {year} Doremi op reis"
 
-#: src/app/layout/RootLayout.tsx:24
+#: src/app/layout/RootLayout.tsx:55
 #: src/pages/about/AboutPage.tsx:9
 msgid "About"
 msgstr "Over de app"
@@ -40,10 +40,6 @@ msgstr "Doremi op reis is een React single-page app. De inhoud volgt later."
 msgid "Explore tokens"
 msgstr "Bekijk de tokens"
 
-#: src/app/layout/RootLayout.tsx:23
-msgid "Home"
-msgstr "Home"
-
 #: src/features/locale-switcher/LocaleSwitcher.tsx:20
 msgid "Language"
 msgstr "Taal"
@@ -52,12 +48,15 @@ msgstr "Taal"
 msgid "Light mode"
 msgstr "Lichte modus"
 
+#: src/app/layout/BottomNav.tsx:19
+msgid "Main"
+msgstr "Start"
+
 #: src/pages/not-found/NotFoundPage.tsx:17
 msgid "Page not found"
 msgstr "Pagina niet gevonden"
 
-#: src/app/layout/RootLayout.tsx:77
-#: src/app/layout/RootLayout.tsx:82
+#: src/app/layout/BottomNav.tsx:20
 #: src/pages/profile/ProfilePage.tsx:12
 msgid "Profile"
 msgstr "Profiel"
