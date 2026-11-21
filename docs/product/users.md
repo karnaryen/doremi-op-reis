@@ -2,6 +2,10 @@
 
 One app with two interfaces. Settings and profile open from an icon in the top bar.
 
+## Guest
+
+A visitor who is not signed in. Sees only the homepage, which explains the app, and the sign-in page.
+
 ## Parent
 
 - Signs in with email. Children have no own accounts.

@@ -12,16 +12,17 @@ Parents and the teacher use the app mainly on a phone. Every screen is designed 
 
 ## MVP screens
 
-| Role    | Screen         | Content                                                                   |
-| ------- | -------------- | ------------------------------------------------------------------------- |
-| Parent  | My music       | Piece cards with status, "In progress" and "Completed" tabs               |
-| Parent  | Piece card     | Teacher's task, files to download, parent hint, upload button             |
-| Parent  | Upload         | Video or audio, pick a file or record, the privacy notice                 |
-| Teacher | To review      | New recordings: student, piece, length                                    |
-| Teacher | Recording      | Player, feedback field, "Mark as viewed", "Ask to try again", "Complete"  |
-| Teacher | Student        | All Assignments of one child with status, "Assign a piece" button         |
-| Teacher | Assign a piece | Students, title, instruction, parent hint, optional sheet music and audio |
-| Both    | Profile        | Language, sign-out                                                        |
+| Role    | Screen         | Content                                                                              |
+| ------- | -------------- | ------------------------------------------------------------------------------------ |
+| Guest   | Homepage       | What the app is, for whom, how it works ([overview.md](overview.md)); sign-in button |
+| Parent  | My music       | Piece cards with status, "In progress" and "Completed" tabs                          |
+| Parent  | Piece card     | Teacher's task, files to download, parent hint, upload button                        |
+| Parent  | Upload         | Video or audio, pick a file or record, the privacy notice                            |
+| Teacher | To review      | New recordings: student, piece, length                                               |
+| Teacher | Recording      | Player, feedback field, "Mark as viewed", "Ask to try again", "Complete"             |
+| Teacher | Student        | All Assignments of one child with status, "Assign a piece" button                    |
+| Teacher | Assign a piece | Students, title, instruction, parent hint, optional sheet music and audio            |
+| Both    | Profile        | Language, sign-out                                                                   |
 
 ## Touch
 
