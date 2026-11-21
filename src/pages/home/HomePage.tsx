@@ -75,8 +75,8 @@ export function HomePage() {
           <Typography variant="h1">Doremi op reis</Typography>
           <Typography variant="lead">
             <Trans>
-              An MUI theme based on the Doremi Piano style: plum and peach colors and serif
-              headings, adapted for an app.
+              An MUI theme based on the Doremi style: plum and peach colors and serif headings,
+              adapted for an app.
             </Trans>
           </Typography>
           <Stack direction="row" spacing={1.5} useFlexGap sx={{ flexWrap: 'wrap' }}>

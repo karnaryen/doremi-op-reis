@@ -7,26 +7,22 @@ msgstr ""
 "X-Generator: @lingui/cli\n"
 "Language: nl\n"
 
-#: src/app/layout/RootLayout.tsx:86
+#: src/app/layout/RootLayout.tsx:54
 msgid "© {year} Doremi op reis"
 msgstr "© {year} Doremi op reis"
 
-#: src/app/layout/RootLayout.tsx:23
+#: src/app/layout/RootLayout.tsx:57
 #: src/pages/about/AboutPage.tsx:9
 msgid "About"
 msgstr "Over de app"
 
 #: src/pages/home/HomePage.tsx:77
-msgid "An MUI theme based on the Doremi Piano style: plum and peach colors and serif headings, adapted for an app."
-msgstr "Een MUI-thema gebaseerd op de huisstijl van Doremi Piano: pruim- en perziktinten en koppen in een schreeflettertype, aangepast voor een app."
+msgid "An MUI theme based on the Doremi style: plum and peach colors and serif headings, adapted for an app."
+msgstr "Een MUI-thema gebaseerd op de huisstijl van Doremi: pruim- en perziktinten en koppen in een schreeflettertype, aangepast voor een app."
 
 #: src/pages/not-found/NotFoundPage.tsx:20
 msgid "Back home"
 msgstr "Terug naar de startpagina"
-
-#: src/features/locale-switcher/LocaleSwitcher.tsx:28
-msgid "Change language"
-msgstr "Taal wijzigen"
 
 #: src/features/theme-mode/ThemeModeToggle.tsx:21
 msgid "Dark mode"
@@ -44,11 +40,7 @@ msgstr "Doremi op reis is een React single-page app. De inhoud volgt later."
 msgid "Explore tokens"
 msgstr "Bekijk de tokens"
 
-#: src/app/layout/RootLayout.tsx:22
-msgid "Home"
-msgstr "Home"
-
-#: src/features/locale-switcher/LocaleSwitcher.tsx:27
+#: src/features/locale-switcher/LocaleSwitcher.tsx:20
 msgid "Language"
 msgstr "Taal"
 
@@ -56,13 +48,27 @@ msgstr "Taal"
 msgid "Light mode"
 msgstr "Lichte modus"
 
+#: src/app/layout/useSections.ts:16
+msgid "Main"
+msgstr "Start"
+
 #: src/pages/not-found/NotFoundPage.tsx:17
 msgid "Page not found"
 msgstr "Pagina niet gevonden"
 
+#: src/app/layout/useSections.ts:17
+#: src/pages/profile/ProfilePage.tsx:12
+msgid "Profile"
+msgstr "Profiel"
+
 #: src/pages/error/RouteErrorPage.tsx:28
 msgid "Reload app"
 msgstr "App herladen"
+
+#: src/app/layout/BottomNav.tsx:17
+#: src/app/layout/TopNav.tsx:16
+msgid "Sections"
+msgstr "Onderdelen"
 
 #: src/pages/home/HomePage.tsx:92
 msgid "See components"

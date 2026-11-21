@@ -4,7 +4,7 @@ import { fonts } from './tokens'
 const heading = { fontFamily: fonts.heading, fontWeight: 400 } as const
 
 /**
- * Headings use Merriweather (like doremipiano.nl), body text uses Lato.
+ * Headings use Merriweather (Doremi brand font), body text uses Lato.
  * h1–h3 change size with the screen width (CSS clamp). All sizes are in rem.
  */
 export const typography: TypographyVariantsOptions = {

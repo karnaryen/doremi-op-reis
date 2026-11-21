@@ -74,7 +74,7 @@ export function ColorPalette() {
     <ShowcaseSection
       eyebrow="Foundations"
       title="Color"
-      description="Plum and peach are the colors of doremipiano.nl. The theme adds a lighter page background, darker text for better contrast, and status colors that match the brand. Use the theme button in the top bar to see the dark mode colors."
+      description="Plum and peach are the Doremi brand colors. The theme adds a lighter page background, darker text for better contrast, and status colors that match the brand. Use the theme button in the top bar to see the dark mode colors."
     >
       <Box>
         <ShowcaseLabel>Semantic tokens ({colorScheme} mode)</ShowcaseLabel>
