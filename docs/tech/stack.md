@@ -8,8 +8,8 @@
 | ORM              | Doctrine                                                                                  |
 | Authentication   | Symfony Security                                                                          |
 | Database         | PostgreSQL                                                                                |
-| File storage     | AWS S3                                                                                    |
-| Storage SDK      | `aws/aws-sdk-php`                                                                         |
+| File storage     | Cloudflare R2 (S3-compatible API)                                                         |
+| Storage SDK      | `aws/aws-sdk-php` with the R2 endpoint                                                    |
 | Email            | Symfony Mailer; provider is an open question ([roadmap.md](../roadmap.md#open-questions)) |
 | Background jobs  | Symfony console command, run once a day by a scheduler                                    |
 | Frontend hosting | Netlify                                                                                   |
@@ -28,16 +28,20 @@ Netlify does not run PHP. The SPA and the API are deployed separately:
 
 The Netlify proxy has a 26-second timeout, so `/api/*` is not proxied to a sleeping Render service. The SPA calls the API directly, with CORS.
 
-## File storage: AWS S3
+## File storage: Cloudflare R2
 
-| Aspect           | AWS S3                                            |
-| ---------------- | ------------------------------------------------- |
-| Free use         | Start credits; Free Plan max. 6 months            |
-| Download traffic | Paid above the free limits                        |
-| Alternative      | Cloudflare R2: S3-compatible, permanent free plan |
+| Aspect           | Cloudflare R2                                        |
+| ---------------- | ---------------------------------------------------- |
+| Free use         | Permanent free plan: 10 GB storage per month         |
+| Download traffic | Free (no egress fees)                                |
+| API              | S3-compatible: buckets, objects, presigned URLs      |
+| Access keys      | R2 API token (access key ID and secret access key)   |
+| Alternative      | AWS S3: free plan only for max. 6 months, then paid  |
 
-R2 uses the same API and the same PHP SDK. If S3 costs become a problem, switching is a configuration change.
+R2 has the S3 API, so Symfony uses the AWS SDK for PHP with the R2 endpoint. Switching to S3 later is a configuration change.
+
+R2 has no IAM. Access is controlled by API tokens with bucket-level permissions. The bucket is private; the browser gets files only through presigned URLs from Symfony.
 
 ## Storage estimate
 
-30 videos × 30 MB = 0.9 GB per week; 3.6 GB in 4 weeks; 7.2 GB in 8 weeks. Auto-deletion 30 days after completion keeps the total at this level.
+30 videos × 30 MB = 0.9 GB per week; 3.6 GB in 4 weeks; 7.2 GB in 8 weeks. Auto-deletion 30 days after completion keeps the total at this level, below the 10 GB of the R2 free plan.

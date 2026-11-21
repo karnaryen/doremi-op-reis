@@ -12,8 +12,8 @@ Material and Assignment are separate entities. Example: one minuet is assigned t
 | `Assignment`   | Links `Student` and `Material`. Individual instruction, parent hint, `status`, `completedAt`, `deleteAt`.                                                                                 |
 | `Submission`   | Belongs to one `Assignment`. Max. one video and one audio (`Recording`), `status`.                                                                                                        |
 | `Feedback`     | Belongs to one `Assignment`. Latest text, or a "viewed" mark. A new one replaces the old one.                                                                                             |
-| `MaterialFile` | Sheet music page or audio example of a `Material`. Metadata of an object in S3.                                                                                                           |
-| `Recording`    | Video or audio of a `Submission`. Metadata of an object in S3.                                                                                                                            |
+| `MaterialFile` | Sheet music page or audio example of a `Material`. Metadata of an object in R2.                                                                                                           |
+| `Recording`    | Video or audio of a `Submission`. Metadata of an object in R2.                                                                                                                            |
 
 ## Relations
 
@@ -60,7 +60,7 @@ Mapping to the UI statuses from [assignment-lifecycle.md](../product/assignment-
 
 ## Media files
 
-Files are in S3. PostgreSQL stores only their metadata. Symfony uses these rows for access checks and creates presigned URLs from `objectKey`.
+Files are in Cloudflare R2. PostgreSQL stores only their metadata. Symfony uses these rows for access checks and creates presigned URLs from `objectKey`.
 
 Material files and recordings are two tables, because they differ in almost everything:
 
@@ -75,7 +75,7 @@ With one table, every check and query would first ask which owner is set.
 
 ### Shared fields
 
-Both entities have the same S3 fields: `objectKey`, MIME type, size, upload date. They are in one Doctrine `#[Embeddable]` class, `StoredObject`, so the code is not repeated. In the table these are normal columns.
+Both entities have the same storage fields: `objectKey`, MIME type, size, upload date. They are in one Doctrine `#[Embeddable]` class, `StoredObject`, so the code is not repeated. In the table these are normal columns.
 
 ### MaterialFile
 
@@ -85,7 +85,7 @@ Both entities have the same S3 fields: `objectKey`, MIME type, size, upload date
 | `purpose`     | `sheet_music`, `audio_example` | What the file is in the Material            |
 | `position`    | 1, 2, 3 …                      | Page order of sheet music images; else null |
 
-S3 key prefix: `materials/`.
+R2 key prefix: `materials/`.
 
 ### Recording
 
@@ -94,21 +94,21 @@ S3 key prefix: `materials/`.
 | `submission_id` | not null         | Foreign key, `ON DELETE CASCADE` |
 | `kind`          | `video`, `audio` | Type of the recording            |
 
-S3 key prefix: `recordings/`.
+R2 key prefix: `recordings/`.
 
 ### Rules in the database
 
 - `UNIQUE (submission_id, kind)`: a Submission has max. one video and one audio.
 - Partial unique index `UNIQUE (material_id) WHERE purpose = 'audio_example'`: a Material has max. one audio example.
 - Each row has exactly one owner, because the foreign key is not null. No nullable keys and no `CHECK` for the owner.
-- Deleting a `Submission` or `Material` row deletes its file rows (`ON DELETE CASCADE`). The S3 objects are deleted by Symfony or by the daily job.
+- Deleting a `Submission` or `Material` row deletes its file rows (`ON DELETE CASCADE`). The R2 objects are deleted by Symfony or by the daily job.
 
 ### Rules in the service
 
 The Symfony service checks these rules on upload:
 
 - Sheet music is one PDF **or** one or more images, not both.
-- A new recording replaces the old one of the same kind ([assignment-lifecycle.md](../product/assignment-lifecycle.md#replacing-a-recording)). The old S3 object is deleted after the new row is saved.
+- A new recording replaces the old one of the same kind ([assignment-lifecycle.md](../product/assignment-lifecycle.md#replacing-a-recording)). The old R2 object is deleted after the new row is saved.
 
 ### Rejected alternatives
 
