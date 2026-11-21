@@ -30,8 +30,6 @@ The Netlify proxy has a 26-second timeout, so `/api/*` is not proxied to a sleep
 
 ## File storage: AWS S3
 
-**Decision:** AWS S3, because it is the storage at my work and a learning goal.
-
 | Aspect           | AWS S3                                            |
 | ---------------- | ------------------------------------------------- |
 | Free use         | Start credits; Free Plan max. 6 months            |

@@ -7,7 +7,7 @@
 
 ## Goals
 
-- **PHP and Symfony:** read code in the work repository, judge if code is good or bad, and implement backend features myself.
+- **PHP and Symfony:** read Symfony code, judge if code is good or bad, and implement backend features myself.
 - **PostgreSQL:** create, read, update and delete data; understand tables, relations and migrations.
 - **AWS:** upload, update and delete files (PDF, images, audio, video) in S3 and control access to them.
 
