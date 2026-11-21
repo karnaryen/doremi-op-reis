@@ -34,6 +34,18 @@ describe('routing', () => {
     expect(await screen.findByRole('heading', { level: 1, name: 'About' })).toBeVisible()
   })
 
+  it('changes the language on the profile page', async () => {
+    renderRoute('/')
+    await userEvent.click(await screen.findByRole('link', { name: 'Profile' }))
+    expect(await screen.findByRole('heading', { level: 1, name: 'Profile' })).toBeVisible()
+
+    await userEvent.click(screen.getByRole('radio', { name: 'Nederlands' }))
+    expect(await screen.findByRole('heading', { level: 1, name: 'Profiel' })).toBeVisible()
+
+    await userEvent.click(screen.getByRole('radio', { name: 'English' }))
+    expect(await screen.findByRole('heading', { level: 1, name: 'Profile' })).toBeVisible()
+  })
+
   it('shows 404 for unknown routes', async () => {
     renderRoute('/does-not-exist')
     expect(await screen.findByRole('heading', { name: 'Page not found' })).toBeVisible()

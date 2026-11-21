@@ -1,15 +1,16 @@
 import { Trans, useLingui } from '@lingui/react/macro'
-import { faSuitcaseRolling } from '@fortawesome/free-solid-svg-icons'
+import { faCircleUser, faSuitcaseRolling } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import AppBar from '@mui/material/AppBar'
 import Box from '@mui/material/Box'
 import Button from '@mui/material/Button'
 import Container from '@mui/material/Container'
+import IconButton from '@mui/material/IconButton'
 import Stack from '@mui/material/Stack'
 import Toolbar from '@mui/material/Toolbar'
+import Tooltip from '@mui/material/Tooltip'
 import Typography from '@mui/material/Typography'
 import { NavLink, Outlet, Link as RouterLink } from 'react-router'
-import { LocaleSwitcher } from '@/features/locale-switcher/LocaleSwitcher'
 import { ThemeModeToggle } from '@/features/theme-mode/ThemeModeToggle'
 import { paths } from '@/shared/config/paths'
 
@@ -72,8 +73,17 @@ export function RootLayout() {
             ))}
           </Stack>
 
-          <LocaleSwitcher />
           <ThemeModeToggle />
+          <Tooltip title={t`Profile`}>
+            <IconButton
+              component={RouterLink}
+              to={paths.profile}
+              color="inherit"
+              aria-label={t`Profile`}
+            >
+              <FontAwesomeIcon icon={faCircleUser} fixedWidth />
+            </IconButton>
+          </Tooltip>
         </Toolbar>
       </AppBar>
 

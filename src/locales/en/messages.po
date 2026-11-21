@@ -7,11 +7,11 @@ msgstr ""
 "X-Generator: @lingui/cli\n"
 "Language: en\n"
 
-#: src/app/layout/RootLayout.tsx:86
+#: src/app/layout/RootLayout.tsx:96
 msgid "© {year} Doremi op reis"
 msgstr "© {year} Doremi op reis"
 
-#: src/app/layout/RootLayout.tsx:23
+#: src/app/layout/RootLayout.tsx:24
 #: src/pages/about/AboutPage.tsx:9
 msgid "About"
 msgstr "About"
@@ -23,10 +23,6 @@ msgstr "An MUI theme based on the Doremi Piano style: plum and peach colors and 
 #: src/pages/not-found/NotFoundPage.tsx:20
 msgid "Back home"
 msgstr "Back home"
-
-#: src/features/locale-switcher/LocaleSwitcher.tsx:28
-msgid "Change language"
-msgstr "Change language"
 
 #: src/features/theme-mode/ThemeModeToggle.tsx:21
 msgid "Dark mode"
@@ -44,11 +40,11 @@ msgstr "Doremi op reis is a React single-page app. Content will follow."
 msgid "Explore tokens"
 msgstr "Explore tokens"
 
-#: src/app/layout/RootLayout.tsx:22
+#: src/app/layout/RootLayout.tsx:23
 msgid "Home"
 msgstr "Home"
 
-#: src/features/locale-switcher/LocaleSwitcher.tsx:27
+#: src/features/locale-switcher/LocaleSwitcher.tsx:20
 msgid "Language"
 msgstr "Language"
 
@@ -59,6 +55,12 @@ msgstr "Light mode"
 #: src/pages/not-found/NotFoundPage.tsx:17
 msgid "Page not found"
 msgstr "Page not found"
+
+#: src/app/layout/RootLayout.tsx:77
+#: src/app/layout/RootLayout.tsx:82
+#: src/pages/profile/ProfilePage.tsx:12
+msgid "Profile"
+msgstr "Profile"
 
 #: src/pages/error/RouteErrorPage.tsx:28
 msgid "Reload app"

@@ -18,6 +18,12 @@ export const routes: RouteObject[] = [
         path: paths.about,
         lazy: async () => ({ Component: (await import('@/pages/about/AboutPage')).AboutPage }),
       },
+      {
+        path: paths.profile,
+        lazy: async () => ({
+          Component: (await import('@/pages/profile/ProfilePage')).ProfilePage,
+        }),
+      },
       { path: '*', element: <NotFoundPage /> },
     ],
   },
