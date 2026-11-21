@@ -7,7 +7,7 @@ Material and Assignment are separate entities. Example: one minuet is assigned t
 | Entity       | Fields and purpose                                                                                                                                                                        |
 | ------------ | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `User`       | Teacher or parent. Name, email, password hash, role. A parent has a `teacher` link to the teacher who created the account, and an invitation token with expiry until the password is set. |
-| `Student`    | A child. Linked to one parent `User`.                                                                                                                                                     |
+| `Student`    | A child. Linked to one parent `User`; in the MVP a unique constraint allows one Student per parent.                                                                                       |
 | `Material`   | Belongs to one teacher `User`. Title, general instruction, sheet music and audio example (`MediaFile`).                                                                                   |
 | `Assignment` | Links `Student` and `Material`. Individual instruction, parent hint, `status`, `completedAt`, `deleteAt`.                                                                                 |
 | `Submission` | Belongs to one `Assignment`. Max. one video and one audio (`MediaFile`), `status`.                                                                                                        |

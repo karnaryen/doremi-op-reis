@@ -6,8 +6,8 @@ Parents and the teacher use the app mainly on a phone. Every screen is designed 
 
 - Design for a width of 360–430 px first. Add tablet and desktop layouts with `min-width` breakpoints (MUI `sm`, `md` and up).
 - One column. No side panels, no wide tables on phones.
-- Main navigation: a bottom navigation bar with the role's tabs (see [users.md](users.md)).
-- Top bar: screen title, back button where needed, profile icon.
+- Main navigation: a bottom navigation bar with the role's sections; tabs inside a section (see [users.md](users.md#navigation)).
+- Top bar: screen title, back button where needed.
 - Forms and multi-step actions (assign a piece, upload a recording) use a full screen, not a dialog.
 
 ## MVP screens
@@ -18,17 +18,17 @@ Parents and the teacher use the app mainly on a phone. Every screen is designed 
 | Guest   | Sign-in         | Email, password                                                                                           |
 | Guest   | Teacher sign-up | Name, email, password                                                                                     |
 | Guest   | Set password    | Opened from the invitation link; the parent sets a password                                               |
-| Parent  | My music        | Piece cards with status, "In progress" and "Completed" tabs                                               |
+| Parent  | Main            | Child's name; "Active" and "Completed" tabs with piece cards and their status                             |
 | Parent  | Piece card      | Teacher's task, files to download, parent hint, upload button                                             |
 | Parent  | Upload          | Video or audio, pick a file or record, the privacy notice                                                 |
-| Teacher | To review       | New recordings: student, piece, length                                                                    |
+| Teacher | Main            | "To review" tab (student, piece, recording length), "Active" and "Completed" tabs                         |
 | Teacher | Recording       | Player, feedback field, "Mark as viewed", "Ask to try again", "Complete"                                  |
-| Teacher | Students        | Own students grouped by parent, "Add parent" button                                                       |
+| Teacher | Students        | Section: own students with their parents, "Add parent" button                                             |
 | Teacher | Add parent      | Parent's name and email, child's name; sends the invitation                                               |
-| Teacher | Parent          | Name, email, children, "Add child", "Delete parent" with confirmation                                     |
+| Teacher | Parent          | Name, email, child, "Delete parent" with confirmation                                                     |
 | Teacher | Student         | All Assignments of one child with status, "Assign a piece" button                                         |
 | Teacher | Assign a piece  | Students, title, instruction, parent hint, optional sheet music and audio                                 |
-| Both    | Profile         | Language, sign-out                                                                                        |
+| Both    | Profile         | Section: language, sign-out                                                                               |
 
 ## Touch
 

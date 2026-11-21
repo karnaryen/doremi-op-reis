@@ -22,7 +22,7 @@ Status rules and recording replacement are in [assignment-lifecycle.md](assignme
 ## Languages
 
 - All UI text is available in English and Dutch.
-- The language switcher is in the profile settings, for teachers and parents.
+- The language switcher is in the Profile section, for teachers and parents.
 - Default language: the browser language if it is English or Dutch, otherwise English.
 - Content written by the teacher (instructions, feedback) is not translated.
 
@@ -46,6 +46,7 @@ Status rules and recording replacement are in [assignment-lifecycle.md](assignme
 | 3     | Email notifications: new Assignment, new feedback.                                                                                              |
 | 3     | Material library: search and reuse with an individual goal.                                                                                     |
 | 3     | Music postcards: an optional message from the teacher's travels to all own students (text, place, small task). Not homework, not a social feed. |
+| —     | Several children per parent: the Main header shows the child's name; tapping it switches to another child.                                      |
 | —     | Practice mood on upload: "It went well", "It was difficult", "Need help".                                                                       |
 | —     | Timestamp comments: feedback linked to a second of the recording. Only if one comment per recording is not enough.                              |
 

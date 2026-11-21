@@ -9,7 +9,7 @@
 | Try again   | The teacher left feedback; the child continues and can send a new recording. Optional step: the teacher can complete after the first review. |
 | Completed   | The teacher finished the work. Deletion follows after 30 days.                                                                               |
 
-The parent sees only two tabs: "In progress" and "Completed". The word "archive" is not used.
+The parent's Main section has two tabs: "Active" (statuses In progress, Sent, Try again) and "Completed". The word "archive" is not used.
 
 In the database these statuses come from two separate fields (Assignment status and Submission status). See [data-model.md](../tech/data-model.md#status-fields).
 
