@@ -57,7 +57,7 @@ Media files do not pass through Symfony.
 5. The SPA confirms the upload; Symfony checks the object in S3, saves the metadata and sets the Submission to `pending_review`.
 6. Symfony deletes the previous file of the same type from S3.
 
-If step 5 fails after a successful upload, the new object in S3 has no database record. The deletion job must find and remove such objects.
+If step 5 fails after a successful upload, the new object in S3 has no `Recording` row. The deletion job must find and remove such objects.
 
 If step 6 fails, the old object stays in S3 without a record. The same job removes it.
 
@@ -72,6 +72,6 @@ A scheduler runs a Symfony console command once a day.
 1. Find Assignments where `deleteAt` is in the past.
 2. Delete the child's video and audio from S3.
 3. Delete sheet music and audio examples if no other Assignment uses the Material.
-4. Delete the `Assignment`, its `Submission`, `Feedback` and `MediaFile` rows from PostgreSQL.
+4. Delete the `Assignment`, its `Submission`, `Feedback` and `Recording` rows from PostgreSQL.
 5. If an S3 deletion fails, keep the record and retry on the next run.
 6. Remove S3 objects without a database record (failed uploads and deletions).
