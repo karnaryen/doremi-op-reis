@@ -6,8 +6,9 @@ Parents and the teacher use the app mainly on a phone. Every screen is designed 
 
 - Design for a width of 360–430 px first. Add tablet and desktop layouts with `min-width` breakpoints (MUI `sm`, `md` and up).
 - One column. No side panels, no wide tables on phones.
-- Main navigation: a bottom navigation bar with the role's sections; tabs inside a section (see [users.md](users.md#navigation)).
-- Top bar: screen title, back button where needed.
+- Sections and tabs are defined in [users.md](users.md#navigation).
+- Phones (MUI `xs`, below 600 px): sections in a bottom navigation bar. Top bar: logo or screen title, back button where needed.
+- Tablet and desktop (`sm` and up): no bottom bar. Sections are links in the top bar, like a usual website header.
 - Forms and multi-step actions (assign a piece, upload a recording) use a full screen, not a dialog.
 
 ## MVP screens

@@ -12,6 +12,7 @@ import { Outlet, Link as RouterLink } from 'react-router'
 import { ThemeModeToggle } from '@/features/theme-mode/ThemeModeToggle'
 import { paths } from '@/shared/config/paths'
 import { BottomNav } from './BottomNav'
+import { TopNav } from './TopNav'
 
 const year = new Date().getFullYear()
 
@@ -39,6 +40,7 @@ export function RootLayout() {
             </Typography>
           </Stack>
 
+          <TopNav />
           <ThemeModeToggle />
         </Toolbar>
       </AppBar>

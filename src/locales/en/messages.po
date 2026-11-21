@@ -7,11 +7,11 @@ msgstr ""
 "X-Generator: @lingui/cli\n"
 "Language: en\n"
 
-#: src/app/layout/RootLayout.tsx:52
+#: src/app/layout/RootLayout.tsx:54
 msgid "© {year} Doremi op reis"
 msgstr "© {year} Doremi op reis"
 
-#: src/app/layout/RootLayout.tsx:55
+#: src/app/layout/RootLayout.tsx:57
 #: src/pages/about/AboutPage.tsx:9
 msgid "About"
 msgstr "About"
@@ -48,7 +48,7 @@ msgstr "Language"
 msgid "Light mode"
 msgstr "Light mode"
 
-#: src/app/layout/BottomNav.tsx:19
+#: src/app/layout/useSections.ts:16
 msgid "Main"
 msgstr "Main"
 
@@ -56,7 +56,7 @@ msgstr "Main"
 msgid "Page not found"
 msgstr "Page not found"
 
-#: src/app/layout/BottomNav.tsx:20
+#: src/app/layout/useSections.ts:17
 #: src/pages/profile/ProfilePage.tsx:12
 msgid "Profile"
 msgstr "Profile"
@@ -64,6 +64,11 @@ msgstr "Profile"
 #: src/pages/error/RouteErrorPage.tsx:28
 msgid "Reload app"
 msgstr "Reload app"
+
+#: src/app/layout/BottomNav.tsx:17
+#: src/app/layout/TopNav.tsx:16
+msgid "Sections"
+msgstr "Sections"
 
 #: src/pages/home/HomePage.tsx:92
 msgid "See components"

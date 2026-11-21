@@ -1,32 +1,24 @@
 import { useLingui } from '@lingui/react/macro'
-import { faCircleUser, faHouse } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import BottomNavigation from '@mui/material/BottomNavigation'
 import BottomNavigationAction from '@mui/material/BottomNavigationAction'
 import Paper from '@mui/material/Paper'
-import { Link as RouterLink, useLocation } from 'react-router'
-import { paths } from '@/shared/config/paths'
+import { Link as RouterLink } from 'react-router'
+import { useSections } from './useSections'
 
-/**
- * Bottom navigation with the app sections (see docs/product/users.md#navigation).
- * Role-specific sections (Students) are added with authentication.
- */
+/** Section navigation for phones. Hidden from `sm` up, where TopNav takes over. */
 export function BottomNav() {
   const { t } = useLingui()
-  const { pathname } = useLocation()
-
-  const sections = [
-    { to: paths.home, label: t`Main`, icon: faHouse },
-    { to: paths.profile, label: t`Profile`, icon: faCircleUser },
-  ]
-  const active = sections.find((s) => s.to === pathname)?.to ?? false
+  const { sections, active } = useSections()
 
   return (
     <Paper
       component="nav"
+      aria-label={t`Sections`}
       square
       elevation={0}
       sx={{
+        display: { xs: 'block', sm: 'none' },
         position: 'sticky',
         bottom: 0,
         zIndex: 'appBar',
@@ -35,7 +27,7 @@ export function BottomNav() {
         pb: 'env(safe-area-inset-bottom)',
       }}
     >
-      <BottomNavigation showLabels value={active} sx={{ bgcolor: 'transparent' }}>
+      <BottomNavigation showLabels value={active ?? false} sx={{ bgcolor: 'transparent' }}>
         {sections.map(({ to, label, icon }) => (
           <BottomNavigationAction
             key={to}
