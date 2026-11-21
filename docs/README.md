@@ -21,8 +21,9 @@
 
 ## Planning
 
-| File                                   | Content                                     |
-| -------------------------------------- | ------------------------------------------- |
-| [roadmap.md](roadmap.md)               | Development phases and open questions       |
-| [glossary.md](glossary.md)             | Domain terms used in the docs and code      |
-| [learning-guide.md](learning-guide.md) | How Claude helps me learn the backend stack |
+| File                                                     | Content                                            |
+| -------------------------------------------------------- | -------------------------------------------------- |
+| [roadmap.md](roadmap.md)                                 | Development phases and open questions              |
+| [open-questions-to-users.md](open-questions-to-users.md) | Questions to the teacher before we build a feature |
+| [glossary.md](glossary.md)                               | Domain terms used in the docs and code             |
+| [learning-guide.md](learning-guide.md)                   | How Claude helps me learn the backend stack        |

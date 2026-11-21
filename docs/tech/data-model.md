@@ -23,7 +23,7 @@ User (parent) 1 ── * Student 1 ── * Assignment * ── 1 Material
                                        │ 1
                                        ├── 0..1 Submission ── 0..2 MediaFile
                                        └── 0..1 Feedback
-Material ── 0..* MediaFile (sheet music: one PDF or several images; one audio example)
+Material 1 ── 0..* MediaFile (sheet music: one PDF or several images; one audio example)
 ```
 
 ## Ownership
@@ -56,3 +56,29 @@ Mapping to the UI statuses from [assignment-lifecycle.md](../product/assignment-
 
 - `completedAt`: set when the teacher completes the Assignment.
 - `deleteAt` = `completedAt` + 30 days. The deletion job reads this field.
+
+## Media files
+
+A `MediaFile` row describes one file in S3. The file itself is in S3; the row stores its `objectKey`, type and size. Symfony uses the row for access checks and creates presigned URLs from `objectKey`.
+
+### Purpose and order
+
+`type` tells an image from an audio file, but not what the file is for. Two more fields:
+
+| Field      | Values                               | Purpose                          |
+| ---------- | ------------------------------------ | -------------------------------- |
+| `purpose`  | `sheet_music`, `audio_example`       | What the file is in a Material   |
+|            | `recording_video`, `recording_audio` | What the file is in a Submission |
+| `position` | 1, 2, 3 …                            | Page order of sheet music images |
+
+### Rules in the service
+
+The database does not check these rules. The Symfony service checks them on upload:
+
+- Sheet music is one PDF **or** one or more images, not both.
+- A Material has max. one audio example.
+- A Submission has max. one video and one audio. A new file replaces the old one ([assignment-lifecycle.md](../product/assignment-lifecycle.md#replacing-a-recording)).
+
+### Two owners
+
+A `MediaFile` belongs to a `Material` **or** to a `Submission`. The table has two nullable foreign keys, `material_id` and `submission_id`. Exactly one of them is set. A database `CHECK` constraint can enforce this.
