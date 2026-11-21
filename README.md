@@ -80,7 +80,7 @@ src/
 
 ## Design system
 
-The theme is based on the style of doremipiano.nl: plum, peach, Merriweather headings and Lato body text.
+The theme is based on the Doremi brand style: plum, peach, Merriweather headings and Lato body text.
 The home page shows all tokens and components in light and dark mode.
 
 | File                           | Content                                                              |

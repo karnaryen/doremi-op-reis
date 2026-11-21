@@ -17,8 +17,8 @@ msgid "About"
 msgstr "About"
 
 #: src/pages/home/HomePage.tsx:77
-msgid "An MUI theme based on the Doremi Piano style: plum and peach colors and serif headings, adapted for an app."
-msgstr "An MUI theme based on the Doremi Piano style: plum and peach colors and serif headings, adapted for an app."
+msgid "An MUI theme based on the Doremi style: plum and peach colors and serif headings, adapted for an app."
+msgstr "An MUI theme based on the Doremi style: plum and peach colors and serif headings, adapted for an app."
 
 #: src/pages/not-found/NotFoundPage.tsx:20
 msgid "Back home"
