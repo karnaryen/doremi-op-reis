@@ -17,4 +17,4 @@ Shown on the upload screen and repeated in the privacy policy:
 > **About your recordings**
 > We store only the latest video and the latest audio for each piece. A new recording replaces the previous one.
 > All recordings and comments are deleted 30 days after the work is completed.
-> Please film only the child's hands and the keys, without the face.
+> Please film only the child's hands and the instrument, without the face.

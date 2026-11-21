@@ -1,6 +1,6 @@
 # Doremi op reis
 
-A mobile-first web app for a travelling piano teacher. The teacher assigns pieces; parents upload recordings of the child; the teacher reviews them.
+A mobile-first web app for a travelling music teacher. The teacher assigns pieces; parents upload recordings of the child; the teacher reviews them.
 
 This repository holds the React frontend, deployed on Netlify. The Symfony API is planned. Product and technical docs: [docs/README.md](docs/README.md).
 
