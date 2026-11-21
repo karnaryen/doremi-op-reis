@@ -1,6 +1,8 @@
 # Doremi op reis
 
-React single-page app, deployed on Netlify.
+A mobile-first web app for a travelling piano teacher. The teacher assigns pieces; parents upload recordings of the child; the teacher reviews them.
+
+This repository holds the React frontend, deployed on Netlify. The Symfony API is planned. Product and technical docs: [docs/README.md](docs/README.md).
 
 ## Stack
 
@@ -52,7 +54,7 @@ src/
 │   ├── layout/           #   app shell (AppBar, footer, <Outlet/>)
 │   └── providers/        #   Query, Lingui, MUI theme providers
 ├── pages/                # One folder per route; compose features, no business logic
-│   ├── home/  about/  not-found/  error/
+│   ├── home/  about/  profile/  not-found/  error/
 │   │   └── home/showcase/ #   temporary design-system showcase (English only)
 ├── features/             # User-facing capabilities, self-contained
 │   ├── locale-switcher/  #   UI + model/ (Zustand store, persisted)

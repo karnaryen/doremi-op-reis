@@ -27,7 +27,14 @@ Each piece card shows two texts:
 | --------- | ----------------------------------------------------------------------------- |
 | To review | New recordings of all students, viewed one after another                      |
 | Students  | One screen per child with all their Assignments; assigns new pieces from here |
-| Materials | Sheet music and audio examples that can be given to several children          |
+
+A "Materials" tab comes with the material library in phase 3 ([roadmap.md](../roadmap.md)).
+
+## Main flows
+
+**Parent:** open a piece → download the sheet music and listen to the example → record and upload video or audio → read the feedback and continue.
+
+**Teacher:** open "To review" → watch or listen to a recording → mark as viewed, leave feedback or ask to try again → complete the work (deleted after 30 days).
 
 ## Access rule
 

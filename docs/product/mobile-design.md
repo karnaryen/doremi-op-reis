@@ -10,6 +10,19 @@ Parents and the teacher use the app mainly on a phone. Every screen is designed 
 - Top bar: screen title, back button where needed, profile icon.
 - Forms and multi-step actions (assign a piece, upload a recording) use a full screen, not a dialog.
 
+## MVP screens
+
+| Role    | Screen         | Content                                                                  |
+| ------- | -------------- | ------------------------------------------------------------------------ |
+| Parent  | My music       | Piece cards with status, "In progress" and "Completed" tabs              |
+| Parent  | Piece card     | Teacher's task, files to download, parent hint, upload button            |
+| Parent  | Upload         | Video or audio, pick a file or record, the privacy notice                |
+| Teacher | To review      | New recordings: student, piece, length                                   |
+| Teacher | Recording      | Player, feedback field, "Mark as viewed", "Ask to try again", "Complete" |
+| Teacher | Student        | All Assignments of one child with status, "Assign a piece" button        |
+| Teacher | Assign a piece | Students, title, instruction, parent hint, optional PDF and audio        |
+| Both    | Profile        | Language, sign-out                                                       |
+
 ## Touch
 
 - Touch targets are at least 48 × 48 px.
