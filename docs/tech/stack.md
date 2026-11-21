@@ -1,7 +1,5 @@
 # Tech stack
 
-The stack is the same as at my work. No Next.js, Tailwind, Firebase or Supabase.
-
 | Layer            | Technology                                                                                |
 | ---------------- | ----------------------------------------------------------------------------------------- |
 | Frontend         | React SPA, TypeScript, Vite, MUI. Details: [README](../../README.md#stack)                |
