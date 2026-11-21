@@ -23,4 +23,5 @@ Teacher creates an Assignment, parent sees it. No files and no storage yet. Enti
 - How parent accounts are created: invitation by the teacher or self sign-up.
 - Production PHP host with a scheduler: choose before all families start.
 - Maximum recording length and file size.
+- Sheet music images: maximum number of pages, and whether HEIC photos from iPhones are converted to JPEG.
 - Material library (phase 3): the deletion job removes a Material that no Assignment uses. With a library the teacher wants to keep it. Decide when a library Material is deleted.

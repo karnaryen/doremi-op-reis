@@ -2,18 +2,18 @@
 
 ## MVP
 
-| Feature            | Description                                                                                                                                                                                            |
-| ------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| Sign-in            | Email-based account for parents and the teacher.                                                                                                                                                       |
-| Students           | The teacher manages students; each student is linked to a parent.                                                                                                                                      |
-| Assign a piece     | The teacher selects a student, enters a title, instruction and parent hint, adds sheet music (PDF) and an audio example. One student can have several active Assignments.                              |
-| Reuse a Material   | The teacher selects several students in the assign form. Each student gets an own Assignment with own notes; the files are stored once.                                                                |
-| Download materials | "Download PDF" opens the file; the phone's share menu handles printing or sending by email.                                                                                                            |
-| Upload a recording | Video or audio, or both. Native file picker or camera, progress bar, retry on error, confirmation.                                                                                                     |
-| Review             | The teacher plays a recording and chooses "Mark as viewed" or "Leave feedback". Both actions are equal; feedback is not required. "Ask to try again" is text feedback: the status becomes "Try again". |
-| Review in sequence | The teacher goes from one new recording to the next without returning to the list.                                                                                                                     |
-| Complete           | The teacher completes an Assignment from the review screen or the student screen. It moves to "Completed".                                                                                             |
-| Auto-deletion      | Completed Assignments are deleted after 30 days. See [assignment-lifecycle.md](assignment-lifecycle.md).                                                                                               |
+| Feature            | Description                                                                                                                                                                                                              |
+| ------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| Sign-in            | Email-based account for parents and the teacher.                                                                                                                                                                         |
+| Students           | The teacher manages students; each student is linked to a parent.                                                                                                                                                        |
+| Assign a piece     | The teacher selects a student, enters a title, instruction and parent hint, adds sheet music (a PDF, image files or photos from the phone camera) and an audio example. One student can have several active Assignments. |
+| Reuse a Material   | The teacher selects several students in the assign form. Each student gets an own Assignment with own notes; the files are stored once.                                                                                  |
+| Download materials | "Download" opens the sheet music file; the phone's share menu handles printing or sending by email.                                                                                                                      |
+| Upload a recording | Video or audio, or both. Native file picker or camera, progress bar, retry on error, confirmation.                                                                                                                       |
+| Review             | The teacher plays a recording and chooses "Mark as viewed" or "Leave feedback". Both actions are equal; feedback is not required. "Ask to try again" is text feedback: the status becomes "Try again".                   |
+| Review in sequence | The teacher goes from one new recording to the next without returning to the list.                                                                                                                                       |
+| Complete           | The teacher completes an Assignment from the review screen or the student screen. It moves to "Completed".                                                                                                               |
+| Auto-deletion      | Completed Assignments are deleted after 30 days. See [assignment-lifecycle.md](assignment-lifecycle.md).                                                                                                                 |
 
 Status rules and recording replacement are in [assignment-lifecycle.md](assignment-lifecycle.md).
 

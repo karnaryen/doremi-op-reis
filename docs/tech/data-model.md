@@ -12,7 +12,7 @@ Material and Assignment are separate entities. Example: one minuet is assigned t
 | `Assignment` | Links `Student` and `Material`. Individual instruction, parent hint, `status`, `completedAt`, `deleteAt`. |
 | `Submission` | Belongs to one `Assignment`. Max. one video and one audio (`MediaFile`), `status`.                        |
 | `Feedback`   | Belongs to one `Assignment`. Latest text, or a "viewed" mark. A new one replaces the old one.             |
-| `MediaFile`  | Metadata of an object in S3: object key, type (PDF, audio, video), MIME type, size, upload date.          |
+| `MediaFile`  | Metadata of an object in S3: object key, type (PDF, image, audio, video), MIME type, size, upload date.   |
 
 ## Relations
 
@@ -21,7 +21,7 @@ User (parent) 1 ── * Student 1 ── * Assignment * ── 1 Material
                                        │ 1
                                        ├── 0..1 Submission ── 0..2 MediaFile
                                        └── 0..1 Feedback
-Material ── 0..2 MediaFile (PDF, audio example)
+Material ── 0..* MediaFile (sheet music: one PDF or several images; one audio example)
 ```
 
 ## Status fields

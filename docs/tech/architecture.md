@@ -10,7 +10,7 @@ Symfony API (PHP, Doctrine, Symfony Security)
    │                    │
    ▼                    ▼
 PostgreSQL (Neon)    Object storage (S3)
-users, materials,    PDF, audio, video
+users, materials,    PDF, images, audio, video
 assignments,
 feedback, file
 metadata
