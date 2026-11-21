@@ -30,17 +30,19 @@ The Netlify proxy has a 26-second timeout, so `/api/*` is not proxied to a sleep
 
 ## File storage: Cloudflare R2
 
-| Aspect           | Cloudflare R2                                        |
-| ---------------- | ---------------------------------------------------- |
-| Free use         | Permanent free plan: 10 GB storage per month         |
-| Download traffic | Free (no egress fees)                                |
-| API              | S3-compatible: buckets, objects, presigned URLs      |
-| Access keys      | R2 API token (access key ID and secret access key)   |
-| Alternative      | AWS S3: free plan only for max. 6 months, then paid  |
+| Aspect           | Cloudflare R2                                                                                                                        |
+| ---------------- | ------------------------------------------------------------------------------------------------------------------------------------ |
+| Free use         | Each month: 10 GB-month storage, 1 million Class A and 10 million Class B operations. No end date given. Standard storage class only |
+| Download traffic | Free (no egress fees)                                                                                                                |
+| API              | S3-compatible: buckets, objects, presigned URLs                                                                                      |
+| Access keys      | R2 API token (access key ID and secret access key)                                                                                   |
+| Alternative      | AWS S3: free plan only for max. 6 months, then paid                                                                                  |
 
 R2 has the S3 API, so Symfony uses the AWS SDK for PHP with the R2 endpoint. Switching to S3 later is a configuration change.
 
-R2 has no IAM. Access is controlled by API tokens with bucket-level permissions. The bucket is private; the browser gets files only through presigned URLs from Symfony.
+R2 has no IAM. Access is controlled by API tokens with bucket-level permissions. The bucket is private; the browser gets files only through presigned URLs from Symfony. Presigned URLs work only on the R2 S3 API domain, not on a custom domain, and live at most 7 days.
+
+Class A operations are uploads and lists (for example `PutObject`); Class B are reads (for example `GetObject`). Deletes are free. Source: [R2 pricing](https://developers.cloudflare.com/r2/pricing/).
 
 ## Storage estimate
 
