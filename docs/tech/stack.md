@@ -10,7 +10,7 @@ The stack is the same as at my work. No Next.js, Tailwind, Firebase or Supabase.
 | ORM              | Doctrine                                                                       |
 | Authentication   | Symfony Security                                                               |
 | Database         | PostgreSQL                                                                     |
-| File storage     | Cloudflare R2 (S3-compatible API)                                              |
+| File storage     | AWS S3                                                                         |
 | Storage SDK      | `aws/aws-sdk-php`                                                              |
 | Background jobs  | Symfony console command, run once a day by a scheduler                         |
 | Frontend hosting | Netlify                                                                        |
@@ -29,17 +29,18 @@ Netlify does not run PHP. The SPA and the API are deployed separately:
 
 The Netlify proxy has a 26-second timeout, so `/api/*` is not proxied to a sleeping Render service. The SPA calls the API directly, with CORS.
 
-## File storage: R2 or S3
+## File storage: AWS S3
 
-Both are object storage with the same API. The same PHP SDK works with both; only the configuration changes.
+**Decision:** AWS S3, because it is the storage at my work and a learning goal.
 
-|                  | Cloudflare R2              | AWS S3                                 |
-| ---------------- | -------------------------- | -------------------------------------- |
-| Free storage     | 10 GB-month, no time limit | Start credits; Free Plan max. 6 months |
-| Download traffic | Free                       | Paid above limits                      |
+| Aspect           | AWS S3                                            |
+| ---------------- | ------------------------------------------------- |
+| Free use         | Start credits; Free Plan max. 6 months            |
+| Download traffic | Paid above the free limits                        |
+| Alternative      | Cloudflare R2: S3-compatible, permanent free plan |
 
-**Decision:** R2. Switching to S3 is a configuration change.
+R2 uses the same API and the same PHP SDK. If S3 costs become a problem, switching is a configuration change.
 
 ## Storage estimate
 
-30 videos × 30 MB = 0.9 GB per week; 3.6 GB in 4 weeks; 7.2 GB in 8 weeks. Auto-deletion 30 days after completion keeps the total under the 10 GB R2 limit.
+30 videos × 30 MB = 0.9 GB per week; 3.6 GB in 4 weeks; 7.2 GB in 8 weeks. Auto-deletion 30 days after completion keeps the total at this level.

@@ -12,7 +12,7 @@ Material and Assignment are separate entities. Example: one minuet is assigned t
 | `Assignment` | Links `Student` and `Material`. Individual instruction, parent hint, `status`, `completedAt`, `deleteAt`. |
 | `Submission` | Belongs to one `Assignment`. Max. one video and one audio (`MediaFile`), `status`.                        |
 | `Feedback`   | Belongs to one `Assignment`. Latest text, or a "viewed" mark. A new one replaces the old one.             |
-| `MediaFile`  | Metadata of a file in R2: object key, type (PDF, audio, video), MIME type, size, upload date.             |
+| `MediaFile`  | Metadata of an object in S3: object key, type (PDF, audio, video), MIME type, size, upload date.          |
 
 ## Relations
 

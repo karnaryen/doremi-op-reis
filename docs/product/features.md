@@ -17,6 +17,13 @@
 
 Status rules and recording replacement are in [assignment-lifecycle.md](assignment-lifecycle.md).
 
+## Languages
+
+- All UI text is available in English and Dutch.
+- The language switcher is in the profile settings, for both roles.
+- Default language: the browser language if it is English or Dutch, otherwise English.
+- Content written by the teacher (instructions, feedback) is not translated.
+
 ## UX rules
 
 - A sent recording does not create a duty for the teacher to answer quickly. Parents see no red warnings.
