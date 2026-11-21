@@ -20,16 +20,17 @@ Parents and the teacher use the app mainly on a phone. Every screen is designed 
 | Guest   | Teacher sign-up | Name, email, password                                                                                     |
 | Guest   | Set password    | Opened from the invitation link; the parent sets a password                                               |
 | Parent  | Main            | Child's name; "Active" and "Completed" tabs with piece cards and their status                             |
-| Parent  | Piece card      | Teacher's task, files to download, parent hint, upload button                                             |
+| Parent  | Piece card      | General and personal instruction, files to download, parent hint, upload button                           |
 | Parent  | Upload          | Video or audio, pick a file or record, the privacy notice                                                 |
 | Teacher | Main            | "To review" tab (student, piece, recording length), "Active" and "Completed" tabs                         |
-| Teacher | Recording       | Player, feedback field, "Mark as viewed", "Ask to try again", "Complete"                                  |
+| Teacher | Recording       | Player, required feedback field, "Complete", "Ask to try again"                                           |
 | Teacher | Students        | Section: own students with their parents, "Add parent" button                                             |
 | Teacher | Add parent      | Parent's name and email, child's name; sends the invitation                                               |
 | Teacher | Parent          | Name, email, child, "Delete parent" with confirmation                                                     |
 | Teacher | Student         | All Assignments of one child with status, "Assign a piece" button                                         |
-| Teacher | Assign a piece  | Students, title, instruction, parent hint, optional sheet music and audio                                 |
-| Both    | Profile         | Section: language, sign-out                                                                               |
+| Teacher | Assign a piece  | Students, title, optional general and personal instruction, parent hint, optional sheet music and audio   |
+| Both    | Profile         | Section: language, sign-out; for the teacher a link to Materials                                          |
+| Teacher | Materials       | In Profile: all own Materials, upload, "Delete" with confirmation                                         |
 
 ## Touch
 

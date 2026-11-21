@@ -2,21 +2,16 @@
 
 ## Phases
 
-| Phase             | Goal                 | Scope                                                                                                                                     |
-| ----------------- | -------------------- | ----------------------------------------------------------------------------------------------------------------------------------------- |
-| 1. First loop     | One full cycle works | Teacher sign-up, parent invitation and deletion, sign-in, students, assign a piece, upload a recording, statuses, text feedback, complete |
-| 2. Teacher's time | Review is fast       | "To review" in sequence, "Mark as viewed", one Material for several students, auto-deletion                                               |
-| 3. Comfort        | Better contact       | Voice feedback, email notifications, material library, music postcards                                                                    |
+| Phase                    | Goal                                 | Scope                                                                                                                                     |
+| ------------------------ | ------------------------------------ | ----------------------------------------------------------------------------------------------------------------------------------------- |
+| 1. Monorepo              | One repository for frontend and API  | Nx monorepo                                                                                                                               |
+| 2. Backend setup         | The API can save data and files      | Symfony backend, PostgreSQL database, Cloudflare R2                                                                                       |
+| 3. Quality and structure | Code rules are checked automatically | PHPStan, ESLint, Prettier, module boundaries, apps structure and package boundaries                                                       |
+| 4. MVP, part 1           | First loop: one full cycle works     | Teacher sign-up, parent invitation and deletion, sign-in, students, assign a piece, upload a recording, statuses, text feedback, complete |
+| 5. MVP, part 2           | Teacher's time: review is fast       | "To review" in sequence, one Material for several students, Materials list in Profile, auto-deletion                                      |
+| 6. Comfort               | Better contact                       | Voice feedback, email notifications, material library, music postcards                                                                    |
 
-Features are described in [features.md](product/features.md).
-
-## Before phase 1
-
-Test the format with the teacher and 2–3 families on a few pieces in a row. Then build the full app.
-
-## First step
-
-Teacher signs up, adds a parent, creates an Assignment; the parent sees it. No files and no storage yet. Entities: `User`, `Student`, `Assignment`. Materials, Submissions and Feedback follow.
+Features are described in [features.md](product/features.md). The MVP is phases 4 and 5.
 
 ## Open questions
 
@@ -26,4 +21,3 @@ Teacher signs up, adds a parent, creates an Assignment; the parent sees it. No f
 - Production PHP host with a scheduler: choose before all families start.
 - Maximum recording length and file size.
 - Sheet music images: maximum number of pages, and whether HEIC photos from iPhones are converted to JPEG.
-- Material library (phase 3): the deletion job removes a Material that no Assignment uses. With a library the teacher wants to keep it. Decide when a library Material is deleted.

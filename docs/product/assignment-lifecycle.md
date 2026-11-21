@@ -2,12 +2,12 @@
 
 ## Statuses in the UI
 
-| Status      | Meaning                                                                                                                                      |
-| ----------- | -------------------------------------------------------------------------------------------------------------------------------------------- |
-| In progress | The parent has the materials; the child practises.                                                                                           |
-| Sent        | The parent uploaded a recording; it waits for review.                                                                                        |
-| Try again   | The teacher left feedback; the child continues and can send a new recording. Optional step: the teacher can complete after the first review. |
-| Completed   | The teacher finished the work. Deletion follows after 30 days.                                                                               |
+| Status      | Meaning                                                                                                                                                             |
+| ----------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| In progress | The parent has the materials; the child practises.                                                                                                                  |
+| Sent        | The parent uploaded a recording; it waits for review.                                                                                                               |
+| Try again   | The teacher left feedback and asked to try again; the child continues and can send a new recording. Optional step: the teacher can complete after the first review. |
+| Completed   | The teacher finished the work. Deletion follows after 30 days.                                                                                                      |
 
 The parent's Main section has two tabs: "Active" (statuses In progress, Sent, Try again) and "Completed". The word "archive" is not used.
 
@@ -20,7 +20,7 @@ An Assignment keeps:
 - one video: the latest;
 - one audio: the latest;
 - one feedback: the latest;
-- the Material and the teacher's instruction.
+- the Material and the teacher's instructions (general and personal).
 
 | Event                    | Result                                               |
 | ------------------------ | ---------------------------------------------------- |
@@ -43,7 +43,7 @@ An Assignment keeps:
 
 - The 30 days start when the teacher presses "Complete", not at assignment or upload time.
 - Deletion removes the Assignment for both roles at the same moment.
-- Shared sheet music and audio examples are kept while another student's Assignment uses them.
+- The Material (sheet music, audio example, general instruction) is not deleted with the Assignment. It stays in the teacher's Materials list until the teacher deletes it.
 - Files a parent has already downloaded to their device are out of the app's control.
 
 Technical steps are in [architecture.md](../tech/architecture.md#daily-deletion-job).

@@ -8,10 +8,10 @@ Material and Assignment are separate entities. Example: one minuet is assigned t
 | -------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `User`         | Teacher or parent. Name, email, password hash, role. A parent has a `teacher` link to the teacher who created the account, and an invitation token with expiry until the password is set. |
 | `Student`      | A child. Linked to one parent `User`; in the MVP a unique constraint allows one Student per parent.                                                                                       |
-| `Material`     | Belongs to one teacher `User`. Title, general instruction, sheet music and audio example (`MaterialFile`).                                                                                |
-| `Assignment`   | Links `Student` and `Material`. Individual instruction, parent hint, `status`, `completedAt`, `deleteAt`.                                                                                 |
-| `Submission`   | Belongs to one `Assignment`. Max. one video and one audio (`Recording`), `status`.                                                                                                        |
-| `Feedback`     | Belongs to one `Assignment`. Latest text, or a "viewed" mark. A new one replaces the old one.                                                                                             |
+| `Material`     | Belongs to one teacher `User`. Title, optional general instruction for all students, sheet music and audio example (`MaterialFile`).                                                      |
+| `Assignment`   | Links `Student` and `Material`. Optional personal instruction for this student, parent hint, `status`, `completedAt`, `deleteAt`.                                                         |
+| `Submission`   | Belongs to one `Assignment`. Created with the first uploaded recording. Max. one video and one audio (`Recording`), `status`.                                                             |
+| `Feedback`     | Belongs to one `Assignment`. Latest text of the teacher, required at every review. A new one replaces the old one.                                                                        |
 | `MaterialFile` | Sheet music page or audio example of a `Material`. Metadata of an object in R2.                                                                                                           |
 | `Recording`    | Video or audio of a `Submission`. Metadata of an object in R2.                                                                                                                            |
 
@@ -33,25 +33,27 @@ A teacher owns: parents with `teacher` = this teacher, their students and Assign
 
 Deleting a parent deletes their students, Assignments, Submissions, Feedback and `Recording` rows. Materials are not deleted.
 
+Materials are kept when their Assignments are deleted. Only the teacher deletes a Material, in the Materials list, and only if no Assignment uses it.
+
 ## Status fields
 
 Two simple fields instead of one complex workflow.
 
-| Field               | Values                                        |
-| ------------------- | --------------------------------------------- |
-| `Assignment.status` | `active`, `completed`                         |
-| `Submission.status` | `not_submitted`, `pending_review`, `reviewed` |
+| Field               | Values                       |
+| ------------------- | ---------------------------- |
+| `Assignment.status` | `active`, `completed`        |
+| `Submission.status` | `pending_review`, `reviewed` |
 
 Mapping to the UI statuses from [assignment-lifecycle.md](../product/assignment-lifecycle.md):
 
-| UI status   | Fields                                                                    |
-| ----------- | ------------------------------------------------------------------------- |
-| In progress | `active` + `not_submitted`, or `active` + `reviewed` with a "viewed" mark |
-| Sent        | `active` + `pending_review`                                               |
-| Try again   | `active` + `reviewed` with text feedback                                  |
-| Completed   | `completed`                                                               |
+| UI status   | Fields                        |
+| ----------- | ----------------------------- |
+| In progress | `active`, no `Submission` yet |
+| Sent        | `active` + `pending_review`   |
+| Try again   | `active` + `reviewed`         |
+| Completed   | `completed`                   |
 
-"Try again" is a result of feedback, not a stored value.
+A `Submission` row is created with the first upload, so there is no "not submitted" value. A review ends in "Complete" or "Ask to try again"; both save `Feedback`.
 
 ## Dates
 
@@ -68,7 +70,7 @@ Material files and recordings are two tables, because they differ in almost ever
 | -------------- | ----------------------------------------------------------------- | ------------------------------------------------------------- |
 | Owner          | `Material`                                                        | `Submission`                                                  |
 | Who has access | The teacher and every parent with an Assignment for this Material | The teacher and the parent of this Assignment                 |
-| Lifecycle      | Kept while an Assignment uses the Material                        | Deleted 30 days after the Assignment is completed             |
+| Lifecycle      | Kept until the teacher deletes the Material                       | Deleted 30 days after the Assignment is completed             |
 | Rules          | PDF or images, page order, max. one audio example                 | Max. one video and one audio, a new file replaces the old one |
 
 With one table, every check and query would first ask which owner is set.

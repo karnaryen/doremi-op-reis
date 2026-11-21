@@ -22,9 +22,10 @@ A visitor who is not signed in. Sees the homepage, which explains the app, the s
 - Sees only the Assignments of their own child.
 - The only role that can upload recordings.
 
-Each piece card shows two texts:
+Each piece card shows three texts. An empty text is not shown.
 
-- **From the teacher:** the musical goal.
+- **From the teacher, general instruction:** the same for all students with this piece.
+- **From the teacher, personal instruction:** for this child only.
 - **For parents:** how to help without music education (the parent hint).
 
 ## Navigation
@@ -48,9 +49,7 @@ Each piece card shows two texts:
 ### Other sections
 
 - **Students** (teacher): own students with their parents; add and delete parents; one screen per student with all Assignments; assign new pieces.
-- **Profile** (both roles): language, sign-out.
-
-A "Materials" section comes with the material library in phase 3 ([roadmap.md](../roadmap.md)).
+- **Profile** (both roles): language, sign-out. For the teacher also the Materials list: all own Materials, upload and delete.
 
 ## Account rules
 
@@ -66,7 +65,7 @@ A "Materials" section comes with the material library in phase 3 ([roadmap.md](.
 
 **Parent:** open a piece → download the sheet music and listen to the example → record and upload video or audio → read the feedback and continue.
 
-**Teacher (daily):** open the "To review" tab → watch or listen to a recording → mark as viewed, leave feedback or ask to try again → complete the work (deleted after 30 days).
+**Teacher (daily):** open the "To review" tab → watch or listen to a recording → write feedback → complete the work (deleted after 30 days) or ask to try again.
 
 ## Access rule
 
