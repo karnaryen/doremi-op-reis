@@ -7,7 +7,7 @@ type Sample = { variant: NonNullable<TypographyProps['variant']>; meta: string; 
 
 const SAMPLES: Sample[] = [
   { variant: 'h1', meta: 'h1 · Merriweather 400', text: 'Muziek op reis' },
-  { variant: 'h2', meta: 'h2 · Merriweather 400', text: 'Pianoles aan huis' },
+  { variant: 'h2', meta: 'h2 · Merriweather 400', text: 'Muziekles aan huis' },
   { variant: 'h3', meta: 'h3 · Merriweather 400', text: 'Lesrooster' },
   { variant: 'h4', meta: 'h4 · Merriweather 400', text: 'Leerlingen deze week' },
   { variant: 'h5', meta: 'h5 · Merriweather 700', text: 'Volgende les: dinsdag 16:30' },
@@ -27,7 +27,7 @@ const SAMPLES: Sample[] = [
     meta: 'body2 · Lato 400 / 0.875rem',
     text: 'Lessen van 30, 45 of 60 minuten, wekelijks of om de twee weken.',
   },
-  { variant: 'subtitle1', meta: 'subtitle1 · Lato 700', text: 'Doremi Piano — pianoles aan huis' },
+  { variant: 'subtitle1', meta: 'subtitle1 · Lato 700', text: 'Doremi — muziekles aan huis' },
   { variant: 'overline', meta: 'overline · Lato 700 / 0.14em', text: 'Nieuw lesrooster' },
   {
     variant: 'caption',
@@ -41,7 +41,7 @@ export function TypographyScale() {
     <ShowcaseSection
       eyebrow="Foundations"
       title="Typography"
-      description="Headings use Merriweather, the same font as the doremipiano.nl website. Body text uses Lato. Headings h1–h3 change size with the screen width."
+      description="Headings use Merriweather, the Doremi brand font. Body text uses Lato. Headings h1–h3 change size with the screen width."
     >
       <Stack divider={<Divider flexItem />} spacing={2.5}>
         {SAMPLES.map(({ variant, meta, text }) => (
