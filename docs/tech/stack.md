@@ -2,20 +2,21 @@
 
 The stack is the same as at my work. No Next.js, Tailwind, Firebase or Supabase.
 
-| Layer            | Technology                                                                     |
-| ---------------- | ------------------------------------------------------------------------------ |
-| Frontend         | React SPA, TypeScript, Vite, MUI. Details: [README](../../README.md#stack)     |
-| Server state     | TanStack Query                                                                 |
-| Backend          | PHP, Symfony (REST API, JSON)                                                  |
-| ORM              | Doctrine                                                                       |
-| Authentication   | Symfony Security                                                               |
-| Database         | PostgreSQL                                                                     |
-| File storage     | AWS S3                                                                         |
-| Storage SDK      | `aws/aws-sdk-php`                                                              |
-| Background jobs  | Symfony console command, run once a day by a scheduler                         |
-| Frontend hosting | Netlify                                                                        |
-| Backend hosting  | Render (test period); a paid always-on PHP host with a scheduler before launch |
-| Database hosting | Neon                                                                           |
+| Layer            | Technology                                                                                |
+| ---------------- | ----------------------------------------------------------------------------------------- |
+| Frontend         | React SPA, TypeScript, Vite, MUI. Details: [README](../../README.md#stack)                |
+| Server state     | TanStack Query                                                                            |
+| Backend          | PHP, Symfony (REST API, JSON)                                                             |
+| ORM              | Doctrine                                                                                  |
+| Authentication   | Symfony Security                                                                          |
+| Database         | PostgreSQL                                                                                |
+| File storage     | AWS S3                                                                                    |
+| Storage SDK      | `aws/aws-sdk-php`                                                                         |
+| Email            | Symfony Mailer; provider is an open question ([roadmap.md](../roadmap.md#open-questions)) |
+| Background jobs  | Symfony console command, run once a day by a scheduler                                    |
+| Frontend hosting | Netlify                                                                                   |
+| Backend hosting  | Render (test period); a paid always-on PHP host with a scheduler before launch            |
+| Database hosting | Neon                                                                                      |
 
 No Redux and no extra layers "for scalability".
 

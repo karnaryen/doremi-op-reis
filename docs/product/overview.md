@@ -12,11 +12,13 @@ A mobile web app where:
 - parents send video or audio recordings of the child playing (hands and keys only);
 - the teacher reviews recordings when she has time and leaves feedback.
 
+Several teachers can use the app. Each teacher creates accounts for their own parents.
+
 There are no weeks, deadlines or overdue states. Each piece has a status. The teacher decides when a piece is completed; the parent decides the practice speed.
 
 ## Scale and constraints
 
-- 1 teacher, 20–30 families.
+- First user: 1 teacher with 20–30 families. Other teachers can sign up.
 - 1 developer, no budget: free tiers where possible.
 - Mobile-first: both roles use the app mainly on a phone. See [mobile-design.md](mobile-design.md).
 - App languages: English and Dutch. See [features.md](features.md#languages).

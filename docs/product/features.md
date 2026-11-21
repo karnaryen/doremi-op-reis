@@ -4,8 +4,10 @@
 
 | Feature            | Description                                                                                                                                                                                                              |
 | ------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| Sign-in            | Email-based account for parents and the teacher.                                                                                                                                                                         |
-| Students           | The teacher manages students; each student is linked to a parent.                                                                                                                                                        |
+| Teacher sign-up    | A teacher creates an account from the homepage.                                                                                                                                                                          |
+| Parent accounts    | The teacher adds a parent with the child's name; the parent gets an invitation email and sets a password. The teacher can delete a parent. See [users.md](users.md#account-rules).                                       |
+| Sign-in            | Email and password for teachers and parents.                                                                                                                                                                             |
+| Students           | The teacher manages own students; each student is linked to a parent.                                                                                                                                                    |
 | Assign a piece     | The teacher selects a student, enters a title, instruction and parent hint, adds sheet music (a PDF, image files or photos from the phone camera) and an audio example. One student can have several active Assignments. |
 | Reuse a Material   | The teacher selects several students in the assign form. Each student gets an own Assignment with own notes; the files are stored once.                                                                                  |
 | Download materials | "Download" opens the sheet music file; the phone's share menu handles printing or sending by email.                                                                                                                      |
@@ -20,7 +22,7 @@ Status rules and recording replacement are in [assignment-lifecycle.md](assignme
 ## Languages
 
 - All UI text is available in English and Dutch.
-- The language switcher is in the profile settings, for both roles.
+- The language switcher is in the profile settings, for teachers and parents.
 - Default language: the browser language if it is English or Dutch, otherwise English.
 - Content written by the teacher (instructions, feedback) is not translated.
 
@@ -38,13 +40,13 @@ Status rules and recording replacement are in [assignment-lifecycle.md](assignme
 
 ## Later
 
-| Phase | Feature                                                                                                                                     |
-| ----- | ------------------------------------------------------------------------------------------------------------------------------------------- |
-| 3     | Short voice feedback.                                                                                                                       |
-| 3     | Email notifications: new Assignment, new feedback.                                                                                          |
-| 3     | Material library: search and reuse with an individual goal.                                                                                 |
-| 3     | Music postcards: an optional message from the teacher's travels to all students (text, place, small task). Not homework, not a social feed. |
-| —     | Practice mood on upload: "It went well", "It was difficult", "Need help".                                                                   |
-| —     | Timestamp comments: feedback linked to a second of the recording. Only if one comment per recording is not enough.                          |
+| Phase | Feature                                                                                                                                         |
+| ----- | ----------------------------------------------------------------------------------------------------------------------------------------------- |
+| 3     | Short voice feedback.                                                                                                                           |
+| 3     | Email notifications: new Assignment, new feedback.                                                                                              |
+| 3     | Material library: search and reuse with an individual goal.                                                                                     |
+| 3     | Music postcards: an optional message from the teacher's travels to all own students (text, place, small task). Not homework, not a social feed. |
+| —     | Practice mood on upload: "It went well", "It was difficult", "Need help".                                                                       |
+| —     | Timestamp comments: feedback linked to a second of the recording. Only if one comment per recording is not enough.                              |
 
 Phases are defined in [roadmap.md](../roadmap.md).
