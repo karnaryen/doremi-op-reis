@@ -1,0 +1,59 @@
+# Runs the checks of the repository for every pull request and for every push to main.
+# The same commands work on a computer: `pnpm check` and `pnpm check:api` (docs/tech/quality.md).
+name: CI
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+# The jobs only read the code. https://docs.github.com/en/actions/writing-workflows/workflow-syntax-for-github-actions#permissions
+permissions:
+  contents: read
+
+# A new push to a pull request stops the run of the older push. Runs on main always finish.
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
+
+jobs:
+  frontend:
+    name: Frontend and structure
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    steps:
+      # Actions are pinned to a commit: a tag can be moved to other code, a commit cannot.
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      # Reads the pnpm version from "packageManager" in package.json.
+      - uses: pnpm/action-setup@73e46992e05b19abd31f2f3c20e0e7370d762115 # v6.1.1
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+        with:
+          node-version: 24
+          cache: pnpm
+      # Fails if pnpm-lock.yaml does not match the package.json files.
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm check
+
+  api:
+    name: API
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    env:
+      # compose.override.yaml turns Xdebug on for development. It makes PHPStan and PHP-CS-Fixer slow.
+      XDEBUG_MODE: 'off'
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - uses: pnpm/action-setup@73e46992e05b19abd31f2f3c20e0e7370d762115 # v6.1.1
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+        with:
+          node-version: 24
+          cache: pnpm
+      # Nx starts the Docker commands of packages/api/project.json.
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm nx run api:docker-build
+      - run: pnpm nx run api:install
+      - run: pnpm check:api

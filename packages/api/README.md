@@ -7,9 +7,15 @@ The Symfony API of Doremi op reis. It runs in Docker; setup and deploy: [docs/te
 | `pnpm nx run api:install`      | `composer install` in the container |
 | `pnpm dev:api`                 | Start the API and PostgreSQL, https://localhost |
 | `pnpm test:api`                | PHPUnit (uses the database `app_test`) |
-| `pnpm nx run api:phpstan`      | PHPStan                             |
+| `pnpm nx run api:phpstan`      | PHPStan: types and the architecture rules |
+| `pnpm nx run api:format-check` | PHP-CS-Fixer: is the code formatted? |
+| `pnpm nx run api:format`       | PHP-CS-Fixer: format the code       |
+| `pnpm nx run api:validate`     | `composer validate` and `lint:container` |
+| `pnpm check:api`               | `format-check`, `validate`, PHPStan and PHPUnit |
 | `pnpm nx run api:check`        | `app:check`: PostgreSQL and R2 reachable? |
 | `pnpm nx run api:docker-build` | Rebuild the image                   |
+
+All checks: [docs/tech/quality.md](../../docs/tech/quality.md#api).
 
 The rest of this file is the guide from the Symfony skeleton (it was `AGENTS.md`): rules for people and AI agents who write code here.
 
@@ -101,8 +107,14 @@ a controller or a service call for a service, not just "it didn't throw."
 ## Code style
 
 Symfony's coding standard, the `@Symfony` php-cs-fixer ruleset (a PSR-12-derived
-superset). Run `vendor/bin/php-cs-fixer fix` if `friendsofphp/php-cs-fixer` is
-installed; it isn't part of the skeleton by default.
+superset), configured in `.php-cs-fixer.dist.php`. Check with
+`pnpm nx run api:format-check`, fix with `pnpm nx run api:format`.
+
+## Architecture rules
+
+`tests/Architecture/ArchitectureRules.php` says which namespace may use which;
+PHPStan checks it. Read it before you add a class, and see
+[docs/tech/quality.md](../../docs/tech/quality.md#architecture-rules-phpat).
 
 ## Discover, don't guess
 

@@ -12,7 +12,12 @@
     "test": "vitest run"
   },
   "dependencies": {
-    "@doremi/org-data-api": "workspace:*"
+    "@doremi/org-data-api": "workspace:*",
+    "@tanstack/react-query": "catalog:"
+  },
+  "devDependencies": {
+    "vite": "catalog:",
+    "vitest": "catalog:"
   },
   "nx": {
     "projectType": "library",

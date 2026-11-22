@@ -12,7 +12,14 @@
   },
   "dependencies": {
     "@doremi/apps-doremi-ui-layout": "workspace:*",
-    "@doremi/apps-doremi-utils-routes": "workspace:*"
+    "@doremi/apps-doremi-utils-routes": "workspace:*",
+    "@lingui/react": "catalog:",
+    "@mui/material": "catalog:",
+    "react": "catalog:",
+    "react-router": "catalog:"
+  },
+  "devDependencies": {
+    "@types/react": "catalog:"
   },
   "nx": {
     "projectType": "library",

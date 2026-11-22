@@ -3,10 +3,17 @@
 includes:
     - vendor/phpstan/phpstan-symfony/extension.neon
     - vendor/phpstan/phpstan-doctrine/extension.neon
+    # Knows PHPUnit: the type of a mock, what an assert method proves. https://github.com/phpstan/phpstan-phpunit
+    - vendor/phpstan/phpstan-phpunit/extension.neon
+    - vendor/phpstan/phpstan-phpunit/rules.neon
+    # Architecture rules: which namespace may use which. https://github.com/carlosas/phpat
+    - vendor/phpat/phpat/extension.neon
 
 parameters:
     # 0 is the loosest level, 10 the strictest: https://phpstan.org/user-guide/rule-levels
-    level: 8
+    # Levels 9 and 10 are strict about `mixed`: a value of an unknown type (request data, decoded JSON)
+    # must be checked before it is used.
+    level: 10
     paths:
         - src/
         - tests/
@@ -16,3 +23,10 @@ parameters:
     symfony:
         # The compiled container tells PHPStan the type of every service. `bin/console cache:warmup` writes it.
         containerXmlPath: var/cache/dev/App_KernelDevDebugContainer.xml
+
+services:
+    # The architecture rules of the API. PHPat finds the class by this tag.
+    -
+        class: App\Tests\Architecture\ArchitectureRules
+        tags:
+            - phpat.test

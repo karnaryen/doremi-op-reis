@@ -23,13 +23,14 @@ packages/
       apps-doremi-module-profile         section "Profile"
       apps-doremi-module-teachers-main   section "Main" of the teacher
       apps-doremi-module-parents-main    section "Main" of the parent
-scripts/    repository scripts
+scripts/    repository scripts (Node). An Nx project, not a pnpm package
 ```
 
 - Nx examples put projects in `apps/` and `libs/`. Here all projects are in `packages/`.
 - The folder name is the package name: `packages/web/web-utils-router` is `@doremi/web-utils-router`. The name has the form `<folder>-<type>-<name>`; for app packages `apps-<app>-<type>-<name>`. Exceptions: the app itself (`apps-doremi`) and `packages/api` (Nx name `api`, not a pnpm package).
 - Of the pnpm packages, only `apps-doremi` has `projectType: application`; all others are libraries. Both are set in `package.json` → `nx`. `packages/api` is an application too, set in its `project.json`.
 - A package has no build step. Its `package.json` exports `src/index.ts`, and Vite and TypeScript read the source.
+- `exports` has this one entry. Another package cannot import a file from inside the package: `@doremi/web-utils-router/src/hooks` is a type error.
 
 ### Why `common` and not `shared`
 
@@ -39,7 +40,7 @@ It is checked, not only named:
 
 - Packages in `common` are type-checked without the browser types (`lib: ["ES2023"]`, no `DOM`). `document.title` in `common` fails `pnpm typecheck`.
 - ESLint forbids browser globals there (`window`, `document`, `fetch`, `localStorage` and others) and imports of browser or native libraries (`react-dom`, `react-router`, `@mui/*`, `react-native`). TypeScript does not catch a library import, so this list is needed. Add a new platform library to the list in [eslint.config.js](../../eslint.config.js).
-- `org-utils-auth` is in `org` but has the tag `platform:common`: roles are the same on every platform. It gets the same two checks.
+- `org-utils-auth` is in `org` but has the tag `platform:common`: roles are the same on every platform. It gets the same two checks: ESLint finds the common packages by their tag, not by their folder, and the [structure check](#structure-check) refuses `DOM` in their `tsconfig.json`.
 
 ### Why `org`
 
@@ -58,11 +59,98 @@ Every package has one platform, one layer and one type tag, in `package.json` �
 
 Other type rules: `data` imports `data` and `utils`; `ui` imports `ui` and `utils`; `utils` imports only `utils`.
 
-A second app needs its own rule for its `app:<name>` tag. Without it, the layer rule alone lets it import the packages of another app.
+Every folder in `packages/apps` gets a rule for its `app:<name>` tag: `eslint.config.js` reads the folder names. Without this rule, the layer rule alone would let one app import the packages of another app.
 
 The rules are in [eslint.config.js](../../eslint.config.js), checked by the Nx rule [`@nx/enforce-module-boundaries`](https://nx.dev/docs/features/enforce-module-boundaries). A package must satisfy all rules that match its tags. Nx also reports circular dependencies.
 
-`packages/api` has the tag `platform:api`. It has no rule: PHP code is not checked by ESLint.
+`packages/api` has the tag `platform:api`. It has no rule: PHP code is not checked by ESLint. The API has its own rules for namespaces, checked by PHPStan ([quality.md](quality.md#architecture-rules-phpat)).
+
+## Dependencies
+
+Every package lists the libraries it imports in its own `package.json`. The root `package.json` has only the tools of the whole repository: Nx, ESLint, Prettier, TypeScript, and Vitest for `scripts/`.
+
+```jsonc
+// packages/org/org-utils-auth/package.json
+"dependencies": { "react": "catalog:", "zustand": "catalog:" }
+
+// packages/apps/doremi/apps-doremi-data-profile/package.json
+"dependencies": { "@doremi/org-data-api": "workspace:*", "@tanstack/react-query": "catalog:" },
+"devDependencies": { "vite": "catalog:", "vitest": "catalog:" }
+```
+
+- `workspace:*` is a package of this repository ([pnpm workspaces](https://pnpm.io/workspaces)).
+- `catalog:` means "the version from the catalog". The catalog is the `catalog:` list in [pnpm-workspace.yaml](../../pnpm-workspace.yaml): one version of every library for all packages ([pnpm catalogs](https://pnpm.io/catalogs)). To update a library, change one line there and run `pnpm install`.
+- `dependencies`: libraries that the source code imports. `devDependencies`: libraries for tests, tool configs and types (`vitest`, `vite`, `@types/react`).
+
+Why per package and not all in the root:
+
+- pnpm links into a package only the libraries it lists. An import of a library that the package does not list fails `pnpm typecheck`. One exception: Node also looks in the parent folders, so a package can reach the tools of the root `package.json`. This is why the root has tools only, and no library that application code imports.
+- The `package.json` shows what a package needs. `org-utils-auth` needs `zustand` and `react`, and nothing from MUI or the router.
+- The cost: 15 lists instead of one. The catalog removes the worst part of this cost, different versions in different packages.
+
+### Add a library
+
+```bash
+pnpm add --filter @doremi/org-utils-auth clsx
+```
+
+- `catalogMode: strict` in `pnpm-workspace.yaml`: `pnpm add` writes `"clsx": "catalog:"` into the `package.json` and the version into the catalog. For a library that is already in the catalog, it takes the catalog version.
+- A version outside the catalog is refused. pnpm 10.30.1 does it with an unclear message (`pnpm add --filter ... zustand@4.5.0` stops with `Invalid Version: ^5.1.0`), and changes no file.
+- `cleanupUnusedCatalogs: true`: `pnpm install` removes a catalog entry that no `package.json` uses. The current pnpm docs call this setting `catalogPrune` and list the old name as deprecated ([pnpm catalogs](https://pnpm.io/catalogs)); pnpm 10.30.1 knows only `cleanupUnusedCatalogs`. Rename it with the update to a newer pnpm.
+- pnpm rewrites `pnpm-workspace.yaml` when it changes the catalog and drops comments. Do not put comments there: this section is the place for them.
+- Both settings act on pnpm commands. An edit by hand can still write `"react": "^19.0.0"`; the structure check finds it.
+
+### What checks the lists
+
+| Check                               | Finds                                                                                                       |
+| ----------------------------------- | ----------------------------------------------------------------------------------------------------------- |
+| `pnpm typecheck`                    | An import of a library that neither the package nor the root lists (pnpm does not link it into the package) |
+| ESLint rule `@nx/dependency-checks` | A library in `dependencies` that no source file imports; an imported library that is missing                |
+| Structure check                     | A version that is not `catalog:` or `workspace:*`; `dependencies` in the root; two copies of one library    |
+
+Notes on `@nx/dependency-checks` ([eslint.config.js](../../eslint.config.js)):
+
+- It reads the imports from the Nx project graph. By default Nx builds this graph from the `package.json` files only, unless the root has an Nx plugin such as `@nx/js`. `pluginsConfig["@nx/js"].analyzeSourceFiles: true` in `nx.json` makes Nx read the source files. With it, the graph (`pnpm graph`) and the task cache also follow the real imports.
+- The rule works only for a project that has one of its `buildTargets`. Our libraries have no build, so the rule uses `typecheck`.
+- It checks `dependencies`, `peerDependencies` and `optionalDependencies`, not `devDependencies`. Test files and tool configs are left out with `ignoredFiles`.
+- So nothing checks that a `devDependencies` list is complete. A package that forgets `vitest` still works, because the root has `vitest` for `scripts/`. Unused entries in `devDependencies` are not found either.
+- List a library also when the code needs it without an import statement. Two cases today: `react` in a package with JSX, and `react` in a package that calls `create` of `zustand` (it is a React hook, and `react` is only an optional peer dependency of `zustand`, so pnpm does not add it).
+- `react`, `@emotion/react` and `@emotion/styled` are in `ignoredDependencies`: JSX compiles to an import of `react/jsx-runtime`, and MUI loads Emotion as a peer dependency. No import statement names them, so the rule would call them unused.
+- No page of the Nx docs for this rule or for `analyzeSourceFiles` was found (checked November 2026). The facts above are from the installed code: `@nx/eslint-plugin/dist/src/rules/dependency-checks.js` and `nx/dist/src/plugins/js/utils/config.js`, version 24.0.6.
+
+### One copy of every library
+
+pnpm resolves each package on its own. If two packages got two copies of `react`, `@mui/material` or `react-router`, the app would have two React contexts: the theme or the router of one copy is invisible to the other, and the page breaks at runtime. TypeScript and the unit tests of one package do not see it.
+
+- The catalog gives every package the same version.
+- A library with peer dependencies can still exist in two copies with the same version, when two packages give it different peers. pnpm merges such copies by default (`dedupePeerDependents`, [pnpm settings](https://pnpm.io/settings/peer-dependencies)).
+- The structure check reads `pnpm-lock.yaml` and fails if two packages resolve one library in two ways. It compares the libraries that packages list in `dependencies`, not the dependencies of those libraries, and not `devDependencies`: two copies of a test tool do no harm. `pnpm why -r react` shows every copy and who uses it.
+
+## Structure check
+
+`pnpm structure:check` runs [scripts/check-structure.ts](../../scripts/check-structure.ts). It checks the rules of this page that ESLint and TypeScript cannot see. `pnpm check` and CI run it.
+
+| Rule                                                                                                                           | Why                                                                                          |
+| ------------------------------------------------------------------------------------------------------------------------------ | -------------------------------------------------------------------------------------------- |
+| A package is in `packages/<common\|web\|native\|org>/` or in `packages/apps/<app>/`                                            | Other folders are not in the pnpm workspace                                                  |
+| The app folder name is lower-case words with hyphens                                                                           | It becomes a part of the package names and of the `app:` tag                                 |
+| Folder name: `<folder>-<data\|ui\|utils>-<name>`; in an app also `module`, and the app itself `apps-<app>`                     | The name says the platform or layer and the type                                             |
+| Package name: `@doremi/<folder name>`                                                                                          | One name to search for                                                                       |
+| Tags: one platform, one layer, one type; `app:<app>` only in `packages/apps/<app>`; no other tags                              | The import rules of ESLint work on tags. A wrong tag switches a rule off                     |
+| The layer and type tags match the folder; in `common`, `web`, `native` the platform tag too                                    | A `type:utils` tag on a `-ui-` package would allow the wrong imports                         |
+| `projectType`: `application` for the app, `library` for the others                                                             |                                                                                              |
+| A library exports only `src/index.ts`, and the file exists                                                                     | One public entry                                                                             |
+| `private: true`                                                                                                                | The package cannot be published to npm by mistake                                            |
+| Scripts `typecheck` (`tsc -p tsconfig.json`) and `lint` (`eslint .`); `test` if the package has `*.test.*` or `*.spec.*` files | `nx run-many` skips a package without the script. `eslint src` would not lint `package.json` |
+| A `platform:common` package sets `lib` in its own `tsconfig.json`, without `DOM`. The file is plain JSON, without comments     | See [above](#why-common-and-not-shared)                                                      |
+| `README.md` exists                                                                                                             |                                                                                              |
+| Versions are `catalog:` or `workspace:*`; the root has no `dependencies`                                                       | See [Dependencies](#dependencies)                                                            |
+| Every direct dependency is resolved in one way in `pnpm-lock.yaml`                                                             | See [One copy of every library](#one-copy-of-every-library)                                  |
+
+- The rules are functions in [scripts/structure.ts](../../scripts/structure.ts) without file system code, with tests in `structure.test.ts`.
+- The file reading is in [scripts/workspace.ts](../../scripts/workspace.ts), with tests on a temporary folder.
+- `scripts/` is an Nx project (`project.json`) with the targets `typecheck`, `lint` and `test`, so `pnpm check` covers the scripts too. Its tag is `platform:node`. No import rule has this tag as a source, and no package may import from `scripts/`.
+- Node runs the `.ts` files directly; this is stable since Node 24.12 ([Node: TypeScript](https://nodejs.org/api/typescript.html)). Node only removes the types, so the scripts use no `enum` and write the `.ts` extension in imports.
 
 ## Routes and links
 
@@ -124,16 +212,19 @@ Every module imports the one table, so a link from any module to any route is ty
 | `pnpm test:api`                    | PHPUnit in the API container (needs Docker)                                    |
 | `pnpm nx run api:phpstan`          | PHPStan in the API container                                                   |
 | `pnpm nx run api:check`            | `app:check`: does the API reach PostgreSQL and R2                              |
-| `pnpm check`                       | Frontend: typecheck, lint, tests, format, and `i18n:check`                     |
-| `pnpm check:all`                   | `check`, the API tests and PHPStan (needs Docker)                              |
+| `pnpm check`                       | Frontend and scripts: typecheck, lint, tests, structure, format, `i18n:check`  |
+| `pnpm check:api`                   | API: format, `validate`, PHPStan, tests (needs Docker)                         |
+| `pnpm check:all`                   | `check` and `check:api`                                                        |
+| `pnpm structure:check`             | The [structure check](#structure-check)                                        |
 | `pnpm i18n:check`                  | Extracts the messages and fails if a catalog file changed: commit the catalogs |
 | `pnpm graph`                       | The project graph in the browser                                               |
 | `pnpm nx run api:install`          | `composer install` in the API container                                        |
 | `pnpm nx run api:docker-build`     | Rebuild the API image (after a change in `Dockerfile` or `frankenphp/`)        |
 
 - A `package.json` script is an Nx target ([Nx project configuration](https://nx.dev/docs/reference/project-configuration)). `nx.json` → `targetDefaults` makes `build`, `typecheck`, `lint` and `test` cacheable.
-- The API targets are in `packages/api/project.json` and run `docker compose`. They need a running Docker, so `pnpm test` and `pnpm check` do not run them: use `pnpm test:api` or `pnpm check:all`.
-- There is no CI yet. `i18n:check` does not find an empty Dutch translation: check `nl/messages.po` after `pnpm i18n:extract`.
+- The API targets are in `packages/api/project.json` and run `docker compose`. They need a running Docker, so `pnpm test` and `pnpm check` do not run them: use `pnpm check:api` or `pnpm check:all`.
+- CI runs `pnpm check` and `pnpm check:api` for every pull request. All checks: [quality.md](quality.md).
+- `i18n:check` does not find an empty Dutch translation: check `nl/messages.po` after `pnpm i18n:extract`.
 - The Nx documentation lists no official PHP plugin (checked November 2026), so the API uses plain commands.
 
 ## API package

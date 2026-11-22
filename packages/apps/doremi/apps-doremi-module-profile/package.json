@@ -13,7 +13,14 @@
   "dependencies": {
     "@doremi/apps-doremi-utils-routes": "workspace:*",
     "@doremi/org-utils-auth": "workspace:*",
-    "@doremi/org-utils-i18n": "workspace:*"
+    "@doremi/org-utils-i18n": "workspace:*",
+    "@lingui/react": "catalog:",
+    "@mui/material": "catalog:",
+    "react": "catalog:"
+  },
+  "devDependencies": {
+    "@types/react": "catalog:",
+    "vite": "catalog:"
   },
   "nx": {
     "projectType": "library",

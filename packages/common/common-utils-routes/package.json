@@ -11,6 +11,9 @@
     "lint": "eslint .",
     "test": "vitest run"
   },
+  "devDependencies": {
+    "vitest": "catalog:"
+  },
   "nx": {
     "projectType": "library",
     "tags": [
