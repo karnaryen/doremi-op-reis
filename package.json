@@ -4,18 +4,18 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "dev": "vite",
-    "build": "tsc -b && vite build",
-    "preview": "vite preview",
-    "typecheck": "tsc -b",
-    "lint": "eslint .",
-    "lint:fix": "eslint . --fix",
+    "dev": "nx run @doremi/apps-doremi:dev",
+    "dev:api": "nx run api:serve",
+    "build": "nx run @doremi/apps-doremi:build",
+    "preview": "nx run @doremi/apps-doremi:preview",
+    "typecheck": "nx run-many -t typecheck",
+    "lint": "nx run-many -t lint",
+    "test": "nx run-many -t test",
     "format": "prettier --write .",
     "format:check": "prettier --check .",
-    "test": "vitest",
-    "test:run": "vitest run",
-    "i18n:extract": "lingui extract --clean",
-    "check": "pnpm typecheck && pnpm lint && pnpm format:check && pnpm test:run && pnpm i18n:extract"
+    "i18n:extract": "nx run @doremi/apps-doremi:i18n:extract",
+    "graph": "nx graph",
+    "check": "nx run-many -t typecheck lint test && pnpm format:check && pnpm i18n:extract"
   },
   "dependencies": {
     "@emotion/react": "^11.14.0",
@@ -42,6 +42,7 @@
     "@lingui/cli": "^6.12.0",
     "@lingui/conf": "^6.12.0",
     "@lingui/vite-plugin": "^6.12.0",
+    "@nx/eslint-plugin": "24.0.6",
     "@rolldown/plugin-babel": "^0.3.1",
     "@tanstack/react-query-devtools": "^5.108.1",
     "@testing-library/jest-dom": "^8.0.0",
@@ -60,13 +61,14 @@
     "eslint-plugin-react-refresh": "^0.5.8",
     "globals": "^17.14.0",
     "jsdom": "^31.0.1",
+    "nx": "24.0.6",
     "prettier": "^3.10.1",
     "typescript": "npm:@typescript/typescript6@^6.0.2",
     "typescript-eslint": "^8.73.0",
     "vite": "^8.3.6",
     "vitest": "^5.1.1"
   },
-  "description": "Doremi op reis — React SPA",
+  "description": "Doremi op reis — Nx monorepo: React SPA and Symfony API",
   "packageManager": "pnpm@10.30.1",
   "engines": {
     "node": ">=24"

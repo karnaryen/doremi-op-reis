@@ -1,0 +1,6 @@
+packages:
+  - 'packages/common/*'
+  - 'packages/web/*'
+  - 'packages/native/*'
+  - 'packages/org/*'
+  - 'packages/apps/*/*'

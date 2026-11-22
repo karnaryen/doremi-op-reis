@@ -1,0 +1,1 @@
+export { teachersMainScreens } from './routeScreens'

@@ -1,0 +1,27 @@
+{
+  "name": "@doremi/apps-doremi-utils-routes",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "exports": {
+    ".": "./src/index.ts"
+  },
+  "scripts": {
+    "typecheck": "tsc -p tsconfig.json",
+    "lint": "eslint ."
+  },
+  "dependencies": {
+    "@doremi/common-utils-routes": "workspace:*",
+    "@doremi/org-utils-auth": "workspace:*",
+    "@doremi/web-utils-router": "workspace:*"
+  },
+  "nx": {
+    "projectType": "library",
+    "tags": [
+      "platform:web",
+      "layer:app",
+      "app:doremi",
+      "type:utils"
+    ]
+  }
+}

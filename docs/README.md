@@ -13,11 +13,12 @@
 
 ## Technical
 
-| File                                    | Content                               |
-| --------------------------------------- | ------------------------------------- |
-| [stack.md](tech/stack.md)               | Technologies, hosting, storage choice |
-| [architecture.md](tech/architecture.md) | Components and main flows             |
-| [data-model.md](tech/data-model.md)     | Entities, relations, status fields    |
+| File                                    | Content                                                 |
+| --------------------------------------- | ------------------------------------------------------- |
+| [stack.md](tech/stack.md)               | Technologies, hosting, storage choice                   |
+| [architecture.md](tech/architecture.md) | Components and main flows                               |
+| [data-model.md](tech/data-model.md)     | Entities, relations, status fields                      |
+| [monorepo.md](tech/monorepo.md)         | Nx monorepo: folders, import rules, typed routes, tasks |
 
 ## Planning
 

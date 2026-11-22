@@ -12,6 +12,8 @@
 
 Product and technical docs: [docs/README.md](docs/README.md). Read the related file before you work on a feature.
 
+The repository is an Nx monorepo. Follow the folder, tag and route rules in [docs/tech/monorepo.md](docs/tech/monorepo.md).
+
 The app is mobile-first. Follow [docs/product/mobile-design.md](docs/product/mobile-design.md) for all UI work.
 
 ## Checking facts

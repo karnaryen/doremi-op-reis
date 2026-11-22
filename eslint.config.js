@@ -1,4 +1,5 @@
 import js from '@eslint/js'
+import nx from '@nx/eslint-plugin'
 import prettier from 'eslint-config-prettier'
 import { defineConfig, globalIgnores } from 'eslint/config'
 import lingui from 'eslint-plugin-lingui'
@@ -7,8 +8,44 @@ import reactRefresh from 'eslint-plugin-react-refresh'
 import globals from 'globals'
 import tseslint from 'typescript-eslint'
 
+/**
+ * Which package may import which. Every package has one tag of each kind (package.json → nx.tags).
+ * A package must satisfy all rules that match its tags. See docs/tech/monorepo.md.
+ * https://nx.dev/docs/features/enforce-module-boundaries
+ */
+const depConstraints = [
+  // Platform: common code runs everywhere, so it imports only common code.
+  { sourceTag: 'platform:common', onlyDependOnLibsWithTags: ['platform:common'] },
+  { sourceTag: 'platform:web', onlyDependOnLibsWithTags: ['platform:common', 'platform:web'] },
+  {
+    sourceTag: 'platform:native',
+    onlyDependOnLibsWithTags: ['platform:common', 'platform:native'],
+  },
+
+  // Layer: generic code never imports org; org may import generic; an app may import both.
+  { sourceTag: 'layer:generic', onlyDependOnLibsWithTags: ['layer:generic'] },
+  { sourceTag: 'layer:org', onlyDependOnLibsWithTags: ['layer:generic', 'layer:org'] },
+  { sourceTag: 'layer:app', onlyDependOnLibsWithTags: ['layer:generic', 'layer:org', 'layer:app'] },
+
+  // One app never imports the packages of another app.
+  {
+    sourceTag: 'app:doremi',
+    onlyDependOnLibsWithTags: ['layer:generic', 'layer:org', 'app:doremi'],
+  },
+
+  // Type: an app composes modules; a module never imports another module.
+  {
+    sourceTag: 'type:app',
+    onlyDependOnLibsWithTags: ['type:module', 'type:data', 'type:ui', 'type:utils'],
+  },
+  { sourceTag: 'type:module', onlyDependOnLibsWithTags: ['type:data', 'type:ui', 'type:utils'] },
+  { sourceTag: 'type:data', onlyDependOnLibsWithTags: ['type:data', 'type:utils'] },
+  { sourceTag: 'type:ui', onlyDependOnLibsWithTags: ['type:ui', 'type:utils'] },
+  { sourceTag: 'type:utils', onlyDependOnLibsWithTags: ['type:ui', 'type:utils'] },
+]
+
 export default defineConfig([
-  globalIgnores(['dist', 'coverage', 'src/locales']),
+  globalIgnores(['**/dist', '**/coverage', '**/src/locales', '.nx', 'packages/api']),
   {
     files: ['**/*.{ts,tsx}'],
     extends: [
@@ -19,8 +56,20 @@ export default defineConfig([
       reactRefresh.configs.vite,
       lingui.configs['flat/recommended'],
     ],
+    plugins: { '@nx': nx },
     languageOptions: {
       globals: globals.browser,
+    },
+    rules: {
+      '@nx/enforce-module-boundaries': ['error', { allow: [], depConstraints }],
+    },
+  },
+  {
+    // Common code has no browser: no `window`, `document`, `localStorage`.
+    files: ['packages/common/**/*.{ts,tsx}'],
+    languageOptions: { globals: {} },
+    rules: {
+      'no-restricted-globals': ['error', 'window', 'document', 'navigator', 'localStorage'],
     },
   },
   prettier,

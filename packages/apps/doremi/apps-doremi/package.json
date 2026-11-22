@@ -1,0 +1,38 @@
+{
+  "name": "@doremi/apps-doremi",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "i18n:extract": "lingui extract --clean",
+    "typecheck": "tsc -p tsconfig.json",
+    "lint": "eslint .",
+    "test": "vitest run"
+  },
+  "dependencies": {
+    "@doremi/apps-doremi-data-profile": "workspace:*",
+    "@doremi/apps-doremi-module-homepage": "workspace:*",
+    "@doremi/apps-doremi-module-parents-main": "workspace:*",
+    "@doremi/apps-doremi-module-profile": "workspace:*",
+    "@doremi/apps-doremi-module-teachers-main": "workspace:*",
+    "@doremi/apps-doremi-utils-layout": "workspace:*",
+    "@doremi/apps-doremi-utils-routes": "workspace:*",
+    "@doremi/org-data-api": "workspace:*",
+    "@doremi/org-ui-theme": "workspace:*",
+    "@doremi/org-utils-auth": "workspace:*",
+    "@doremi/org-utils-i18n": "workspace:*",
+    "@doremi/web-utils-router": "workspace:*"
+  },
+  "nx": {
+    "projectType": "application",
+    "tags": [
+      "platform:web",
+      "layer:app",
+      "app:doremi",
+      "type:app"
+    ]
+  }
+}

@@ -1,0 +1,22 @@
+{
+  "name": "@doremi/org-ui-theme",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "exports": {
+    ".": "./src/index.ts"
+  },
+  "scripts": {
+    "typecheck": "tsc -p tsconfig.json",
+    "lint": "eslint .",
+    "test": "vitest run"
+  },
+  "nx": {
+    "projectType": "library",
+    "tags": [
+      "platform:web",
+      "layer:org",
+      "type:ui"
+    ]
+  }
+}
