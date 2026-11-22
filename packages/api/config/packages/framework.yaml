@@ -2,11 +2,27 @@
 framework:
     secret: '%env(APP_SECRET)%'
 
+    # The session keeps the signed-in user between requests. The browser gets only the session id, in a cookie.
     # Note that the session will be started ONLY if you read or write from it.
-    session: true
+    # https://symfony.com/doc/current/session.html#configuration
+    session:
+        # JavaScript cannot read the cookie, so a script that got into the page cannot steal the session.
+        cookie_httponly: true
+        # auto: the cookie gets "Secure" when the request came over HTTPS.
+        cookie_secure: auto
+        # The browser does not send the cookie with a POST from another website (CSRF, see JsonBodySubscriber).
+        # "Site" means the registrable domain: app.example.com and api.example.com are one site.
+        # So in production the SPA and the API must be on one site (docs/tech/backend.md, "Sign-in and cookies").
+        cookie_samesite: lax
 
     #esi: true
     #fragments: true
+
+when@prod:
+    framework:
+        session:
+            # Production is HTTPS only. "auto" would depend on the proxy headers (SYMFONY_TRUSTED_PROXIES).
+            cookie_secure: true
 
 when@test:
     framework:

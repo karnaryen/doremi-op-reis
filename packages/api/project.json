@@ -34,6 +34,7 @@
       "options": {
         "commands": [
           "docker compose run --rm php php bin/console --env=test doctrine:database:create --if-not-exists",
+          "docker compose run --rm php php bin/console --env=test doctrine:migrations:migrate --no-interaction --all-or-nothing",
           "docker compose run --rm php php bin/phpunit"
         ],
         "parallel": false,

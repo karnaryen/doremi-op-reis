@@ -57,4 +57,37 @@ final class ArchitectureRules
             ->classes(Selector::inNamespace('Doctrine'))
             ->because('a controller calls a service or a repository, not Doctrine');
     }
+
+    /**
+     * An entity holds data and the rules of its own state. It does not send emails, call the storage
+     * or build JSON: a service or a view does that with the entity.
+     */
+    public function testEntitiesDoNotKnowServicesControllersOrViews(): Rule
+    {
+        return PHPat::rule()
+            ->classes(Selector::inNamespace('App\Entity'))
+            ->shouldNotDependOn()
+            ->classes(
+                Selector::inNamespace('App\Service'),
+                Selector::inNamespace('App\Controller'),
+                Selector::inNamespace('App\View'),
+                Selector::inNamespace('App\Dto'),
+                Selector::inNamespace('App\Upload'),
+                Selector::inNamespace('App\Storage'),
+            )
+            ->because('entities are the centre of the app: other code uses them, they use no other layer');
+    }
+
+    /**
+     * The data path has one direction: Controller → Service → Repository. A service that needs a controller,
+     * or a repository that needs a service, turns the path into a circle.
+     */
+    public function testServicesAndRepositoriesDoNotUseControllers(): Rule
+    {
+        return PHPat::rule()
+            ->classes(Selector::inNamespace('App\Service'), Selector::inNamespace('App\Repository'), Selector::inNamespace('App\Upload'))
+            ->shouldNotDependOn()
+            ->classes(Selector::inNamespace('App\Controller'))
+            ->because('the data path is Controller → Service → Repository, never back');
+    }
 }

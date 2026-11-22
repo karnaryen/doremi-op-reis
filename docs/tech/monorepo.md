@@ -17,12 +17,16 @@ packages/
     doremi/
       apps-doremi                        the app: entry point, providers, the screens of all routes
       apps-doremi-utils-routes           the route table of the app and its typed link helpers
-      apps-doremi-ui-layout              header, footer, navigation, 404 and error pages
-      apps-doremi-data-profile           TanStack Query options for the profile
-      apps-doremi-module-homepage        public pages
+      apps-doremi-ui-layout              header, footer, navigation, 404 and error pages, loader and error message
+      apps-doremi-ui-assignments         components that draw an Assignment: status, list, texts, player
+      apps-doremi-data-profile           the signed-in user: profile, sign-in, sign-up, sign-out
+      apps-doremi-data-students          students and parent accounts of the teacher
+      apps-doremi-data-assignments       Assignments, review, uploads, links to files
+      apps-doremi-module-homepage        public pages: homepage, sign-in, sign-up, set password
       apps-doremi-module-profile         section "Profile"
-      apps-doremi-module-teachers-main   section "Main" of the teacher
-      apps-doremi-module-parents-main    section "Main" of the parent
+      apps-doremi-module-teachers-main      section "Main" of the teacher
+      apps-doremi-module-teachers-students  section "Students" of the teacher
+      apps-doremi-module-parents-main       section "Main" of the parent
 scripts/    repository scripts (Node). An Nx project, not a pnpm package
 ```
 
@@ -40,7 +44,7 @@ It is checked, not only named:
 
 - Packages in `common` are type-checked without the browser types (`lib: ["ES2023"]`, no `DOM`). `document.title` in `common` fails `pnpm typecheck`.
 - ESLint forbids browser globals there (`window`, `document`, `fetch`, `localStorage` and others) and imports of browser or native libraries (`react-dom`, `react-router`, `@mui/*`, `react-native`). TypeScript does not catch a library import, so this list is needed. Add a new platform library to the list in [eslint.config.js](../../eslint.config.js).
-- `org-utils-auth` is in `org` but has the tag `platform:common`: roles are the same on every platform. It gets the same two checks: ESLint finds the common packages by their tag, not by their folder, and the [structure check](#structure-check) refuses `DOM` in their `tsconfig.json`.
+- `org-utils-auth` is in `org` but has the tag `platform:common`: role names are the same on every platform. It gets the same two checks: ESLint finds the common packages by their tag, not by their folder, and the [structure check](#structure-check) refuses `DOM` in their `tsconfig.json`.
 
 ### Why `org`
 
@@ -156,14 +160,14 @@ pnpm resolves each package on its own. If two packages got two copies of `react`
 
 One typed table per app describes its routes: [apps-doremi-utils-routes/src/index.ts](../../packages/apps/doremi/apps-doremi-utils-routes/src/index.ts). The router, the navigation, the breadcrumbs, the tabs and the access checks are built from this table.
 
-| Package                    | Content                                                                                                                                   |
-| -------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------- |
-| `common-utils-routes`      | The table types, `indexRoutes`, `canAccess`, `fillPath`, `createPathBuilder`. No React: native can use it too.                            |
-| `web-utils-router`         | React Router bindings: `toRouteObjects`, `bindRoutes`, `defineRoutesFor`, `useSections`, `useBreadcrumbs`, `RouteTableProvider`.          |
-| `org-utils-auth`           | The roles (`guest`, `teacher`, `parent`) and the current role. No router code.                                                            |
-| `apps-doremi-utils-routes` | `appRoutes` (the table), `AppRouteId`, and the helpers typed with it: `RouteLink`, `useLinkTo`, `useCanOpen`, `useTabs`, `defineScreens`. |
-| `apps-doremi-module-*`     | The screens of the module's routes (`routeScreens.ts`).                                                                                   |
-| `apps-doremi`              | Joins the screens of all modules ([routes.tsx](../../packages/apps/doremi/apps-doremi/src/routes.tsx)).                                   |
+| Package                    | Content                                                                                                                                                  |
+| -------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `common-utils-routes`      | The table types, `indexRoutes`, `canAccess`, `fillPath`, `createPathBuilder`. No React: native can use it too.                                           |
+| `web-utils-router`         | React Router bindings: `toRouteObjects`, `bindRoutes`, `defineRoutesFor`, `useSections`, `useBreadcrumbs`, `RouteTableProvider`.                         |
+| `org-utils-auth`           | The role names (`guest`, `teacher`, `parent`). The current role comes from the API (`apps-doremi-data-profile`).                                         |
+| `apps-doremi-utils-routes` | `appRoutes` (the table), `AppRouteId`, and the helpers typed with it: `RouteLink`, `useLinkTo`, `useCanOpen`, `useTabs`, `useMainLink`, `defineScreens`. |
+| `apps-doremi-module-*`     | The screens of the module's routes (`routeScreens.ts`).                                                                                                  |
+| `apps-doremi`              | Joins the screens of all modules ([routes.tsx](../../packages/apps/doremi/apps-doremi/src/routes.tsx)).                                                  |
 
 ```ts
 // packages/apps/doremi/apps-doremi-utils-routes/src/index.ts
@@ -186,8 +190,10 @@ Rules:
 - `meta.nav: 'section'` puts the route in the main navigation; `'tab'` makes it a tab of its parent.
 - `meta.navFor` lists the roles that see the route in the navigation. Example: everyone may open `home`, but only a guest has it as a section.
 - `access` lists the roles that may open the route. No `access` at all: everyone. A child inherits the access of its parent and can only narrow it.
-- `access` is not security. It hides links and screens in the browser, and the user can change the role there. The API must check access for every request (Symfony Security and Voters, roadmap phase 4).
-- A link the user may not open is not drawn: `RouteLink` returns nothing and `useLinkTo()` returns `null`. Opening such a URL shows the 404 page.
+- `access` is not security. It hides links and screens in the browser, and the user can change the role there. The API checks access for every request itself, with Symfony Security and voters ([backend.md](backend.md#access-rules)).
+- A link the user may not open is not drawn: `RouteLink` returns nothing and `useLinkTo()` returns `null`. Opening such a URL shows the sign-in page to a guest (and the wanted page after the sign-in), and the 404 page to a signed-in user with another role (`ForbiddenScreen` in the app).
+- A child route with the path `''` is the screen of its parent's own URL: `students.list` is `/students`. The parent route (`students`) is then only a frame with an `<Outlet />`.
+- A detail screen can be a child of a section without being a tab (`teacher.assignment`): the section draws its title and tabs only while a tab is open.
 - Links are typed: `<RouteLink to="teacher.students">` (no such route) and a missing `params` are type errors, in every package.
 
 ### New screen or module
@@ -203,23 +209,23 @@ Every module imports the one table, so a link from any module to any route is ty
 
 ## Tasks
 
-| Command                            | What it does                                                                   |
-| ---------------------------------- | ------------------------------------------------------------------------------ |
-| `pnpm dev`                         | Vite dev server of the app                                                     |
-| `pnpm dev:api`                     | Symfony API and PostgreSQL in Docker, https://localhost                        |
-| `pnpm build`                       | Production build to `packages/apps/doremi/apps-doremi/dist`                    |
-| `pnpm typecheck` / `lint` / `test` | The target in all frontend packages (`nx run-many`)                            |
-| `pnpm test:api`                    | PHPUnit in the API container (needs Docker)                                    |
-| `pnpm nx run api:phpstan`          | PHPStan in the API container                                                   |
-| `pnpm nx run api:check`            | `app:check`: does the API reach PostgreSQL and R2                              |
-| `pnpm check`                       | Frontend and scripts: typecheck, lint, tests, structure, format, `i18n:check`  |
-| `pnpm check:api`                   | API: format, `validate`, PHPStan, tests (needs Docker)                         |
-| `pnpm check:all`                   | `check` and `check:api`                                                        |
-| `pnpm structure:check`             | The [structure check](#structure-check)                                        |
-| `pnpm i18n:check`                  | Extracts the messages and fails if a catalog file changed: commit the catalogs |
-| `pnpm graph`                       | The project graph in the browser                                               |
-| `pnpm nx run api:install`          | `composer install` in the API container                                        |
-| `pnpm nx run api:docker-build`     | Rebuild the API image (after a change in `Dockerfile` or `frankenphp/`)        |
+| Command                            | What it does                                                                    |
+| ---------------------------------- | ------------------------------------------------------------------------------- |
+| `pnpm dev`                         | Vite dev server of the app                                                      |
+| `pnpm dev:api`                     | Symfony API and PostgreSQL in Docker, https://localhost                         |
+| `pnpm build`                       | Production build to `packages/apps/doremi/apps-doremi/dist`                     |
+| `pnpm typecheck` / `lint` / `test` | The target in all frontend packages (`nx run-many`)                             |
+| `pnpm test:api`                    | Migrates the test database and runs PHPUnit in the API container (needs Docker) |
+| `pnpm nx run api:phpstan`          | PHPStan in the API container                                                    |
+| `pnpm nx run api:check`            | `app:check`: does the API reach PostgreSQL and R2                               |
+| `pnpm check`                       | Frontend and scripts: typecheck, lint, tests, structure, format, `i18n:check`   |
+| `pnpm check:api`                   | API: format, `validate`, PHPStan, tests (needs Docker)                          |
+| `pnpm check:all`                   | `check` and `check:api`                                                         |
+| `pnpm structure:check`             | The [structure check](#structure-check)                                         |
+| `pnpm i18n:check`                  | Extracts the messages and fails if a catalog file changed: commit the catalogs  |
+| `pnpm graph`                       | The project graph in the browser                                                |
+| `pnpm nx run api:install`          | `composer install` in the API container                                         |
+| `pnpm nx run api:docker-build`     | Rebuild the API image (after a change in `Dockerfile` or `frankenphp/`)         |
 
 - A `package.json` script is an Nx target ([Nx project configuration](https://nx.dev/docs/reference/project-configuration)). `nx.json` → `targetDefaults` makes `build`, `typecheck`, `lint` and `test` cacheable.
 - The API targets are in `packages/api/project.json` and run `docker compose`. They need a running Docker, so `pnpm test` and `pnpm check` do not run them: use `pnpm check:api` or `pnpm check:all`.
@@ -235,7 +241,8 @@ Every module imports the one table, so a link from any module to any route is ty
 - One `Dockerfile`, several stages: `frankenphp_dev` (Xdebug, file watcher) for local work, `frankenphp_prod` (the last stage, so the default build) for deploy.
 - `compose.yaml` + `compose.override.yaml` = local dev (Compose merges the override automatically). `compose.prod.yaml` is for a single server with Docker Compose; Render does not use it.
 - Removed from the template: the Mercure hub and browser hot reload (it needs Mercure). The app has no real-time features. To add them back, compare with the template.
-- One endpoint exists: `GET /api/health` → `{"status":"ok"}`. It checks the PHP process only; `bin/console app:check` checks the database and the storage.
+- `GET /api/health` → `{"status":"ok"}` checks the PHP process only; `bin/console app:check` checks the database and the storage. All other endpoints: [architecture.md](architecture.md#api-endpoints).
+- Local Docker also starts Mailpit, which catches the emails of the API: http://localhost:8025 ([backend.md](backend.md#email)).
 - Secrets: copy `.env.local.example` to `.env.local` and set `APP_SECRET`; the Cloudflare R2 keys go there too ([backend.md](backend.md#file-storage-cloudflare-r2)). `.env` and `.env.dev` have no secrets.
 - Deploy on Render (Docker web service). Settings: **Root Directory** `packages/api`, **Dockerfile Path** `Dockerfile` (both paths are relative to the root directory, see [Render monorepo support](https://render.com/docs/monorepo-support)), **Health Check Path** `/api/health` ([Render health checks](https://render.com/docs/health-checks)). Env vars: `SERVER_NAME=:10000`, `APP_SECRET` and the variables of the database, the storage and CORS ([backend.md](backend.md#env-vars-in-production)).
   - Why `SERVER_NAME=:10000`: Render terminates HTTPS and sends plain HTTP to the port in `PORT`, default 10000 ([Render web services](https://render.com/docs/web-services)). An address without a host name makes Caddy serve HTTP only ([symfony-docker production](https://github.com/dunglas/symfony-docker/blob/main/docs/production.md)).

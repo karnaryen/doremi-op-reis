@@ -162,6 +162,72 @@ final class S3ObjectStorageTest extends TestCase
         $this->storage->delete('recordings/a.mp4');
     }
 
+    public function testCopySendsTheSourceAsBucketAndKey(): void
+    {
+        $this->r2->append(new Response(200, [], '<?xml version="1.0" encoding="UTF-8"?><CopyObjectResult><ETag>"abc"</ETag></CopyObjectResult>'));
+
+        self::assertTrue($this->storage->copy('uploads/recordings/7/video/a b', 'recordings/a.mp4'));
+
+        // A copy is a PUT to the new key; the header names the object to copy.
+        self::assertSame('PUT', $this->lastRequest()->getMethod());
+        self::assertSame(self::OBJECT_URL, (string) $this->lastRequest()->getUri());
+        self::assertSame('test-bucket/uploads/recordings/7/video/a%20b', $this->lastRequest()->getHeaderLine('x-amz-copy-source'));
+    }
+
+    public function testCopyReturnsFalseWhenTheSourceDoesNotExist(): void
+    {
+        $this->r2->append(new Response(404, [], '<?xml version="1.0" encoding="UTF-8"?><Error><Code>NoSuchKey</Code><Message>The specified key does not exist.</Message></Error>'));
+
+        self::assertFalse($this->storage->copy('uploads/missing', 'recordings/a.mp4'));
+    }
+
+    public function testCopyFailsWithTheErrorCodeOfR2(): void
+    {
+        $this->r2->append(new Response(403, [], '<?xml version="1.0" encoding="UTF-8"?><Error><Code>AccessDenied</Code><Message>Access Denied</Message></Error>'));
+
+        $this->expectException(StorageException::class);
+        $this->expectExceptionMessage('Could not copy the object "uploads/a": AccessDenied.');
+
+        $this->storage->copy('uploads/a', 'recordings/a.mp4');
+    }
+
+    public function testDeletePrefixDeletesEveryListedObjectOnEveryPage(): void
+    {
+        $page = static fn (string $keys, string $more): Response => new Response(200, [], '<?xml version="1.0" encoding="UTF-8"?><ListBucketResult>'.$keys.$more.'</ListBucketResult>');
+        $this->r2->append(
+            $page('<Contents><Key>uploads/recordings/7/video/a</Key></Contents><Contents><Key>uploads/recordings/7/audio/b</Key></Contents>', '<IsTruncated>true</IsTruncated><NextContinuationToken>next-page</NextContinuationToken>'),
+            new Response(204),
+            new Response(204),
+            $page('<Contents><Key>uploads/recordings/7/video/c</Key></Contents>', '<IsTruncated>false</IsTruncated>'),
+            new Response(204),
+        );
+
+        $this->storage->deletePrefix('uploads/recordings/7/');
+
+        // Every answer was used: two list requests and three deletes.
+        self::assertCount(0, $this->r2);
+        self::assertSame('DELETE', $this->lastRequest()->getMethod());
+        self::assertStringEndsWith('/uploads/recordings/7/video/c', $this->lastRequest()->getUri()->getPath());
+    }
+
+    public function testDeletePrefixSendsThePrefixToR2(): void
+    {
+        $this->r2->append(new Response(200, [], '<?xml version="1.0" encoding="UTF-8"?><ListBucketResult><IsTruncated>false</IsTruncated></ListBucketResult>'));
+
+        $this->storage->deletePrefix('uploads/recordings/7/');
+
+        parse_str($this->lastRequest()->getUri()->getQuery(), $query);
+        self::assertSame('2', $query['list-type'] ?? null);
+        self::assertSame('uploads/recordings/7/', $query['prefix'] ?? null);
+    }
+
+    public function testDeletePrefixRefusesAnEmptyPrefix(): void
+    {
+        $this->expectException(\InvalidArgumentException::class);
+
+        $this->storage->deletePrefix('');
+    }
+
     public function testAnEmptyBucketNameIsAConfigurationError(): void
     {
         $storage = new S3ObjectStorage($this->client(), '');

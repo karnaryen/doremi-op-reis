@@ -31,8 +31,8 @@ final readonly class InMemoryStorageResponseFactory
         $key = substr($path, \strlen(InMemoryObjectStorage::BASE_URL));
 
         if ('PUT' === $method && InMemoryObjectStorage::UPLOAD_MARK === $mark) {
-            if (200 !== $this->storage->uploadStatus) {
-                return new MockResponse('', ['http_code' => $this->storage->uploadStatus]);
+            if (200 !== InMemoryObjectStorage::$uploadStatus) {
+                return new MockResponse('', ['http_code' => InMemoryObjectStorage::$uploadStatus]);
             }
 
             $body = $options['body'] ?? '';

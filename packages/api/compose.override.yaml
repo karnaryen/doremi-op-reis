@@ -20,6 +20,8 @@ services:
       # See https://xdebug.org/docs/all_settings#mode
       XDEBUG_MODE: "${XDEBUG_MODE:-develop}"
       APP_ENV: "${APP_ENV:-dev}"
+      # Emails go to the mail catcher below, never to a real mailbox.
+      MAILER_DSN: smtp://mailer:1025
     extra_hosts:
       # Ensure that host.docker.internal is correctly defined on Linux
       - host.docker.internal:host-gateway
@@ -33,3 +35,16 @@ services:
       # Only this computer can connect, on a random free port: `docker compose port database 5432`.
       - "127.0.0.1::5432"
 ###< doctrine/doctrine-bundle ###
+
+###> symfony/mailer ###
+  # Mailpit catches every email of the local API and shows it in a web page: http://localhost:8025
+  # https://mailpit.axllent.org/
+  mailer:
+    image: axllent/mailpit
+    ports:
+      # Only this computer can open the web page. The SMTP port 1025 is used inside the Docker network only.
+      - "127.0.0.1:${MAILPIT_PORT:-8025}:8025"
+    environment:
+      MP_SMTP_AUTH_ACCEPT_ANY: 1
+      MP_SMTP_AUTH_ALLOW_INSECURE: 1
+###< symfony/mailer ###

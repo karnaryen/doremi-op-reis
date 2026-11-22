@@ -23,7 +23,8 @@ final class CorsTest extends WebTestCase
 
         self::assertResponseIsSuccessful();
         self::assertResponseHeaderSame('Access-Control-Allow-Origin', self::ALLOWED_ORIGIN);
-        self::assertResponseNotHasHeader('Access-Control-Allow-Credentials');
+        // The SPA sends the session cookie: without this header the browser hides the answer from the page.
+        self::assertResponseHeaderSame('Access-Control-Allow-Credentials', 'true');
     }
 
     /** The regular expression must match the whole origin, not a part of it. */

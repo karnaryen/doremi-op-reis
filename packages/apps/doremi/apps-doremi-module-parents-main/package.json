@@ -11,10 +11,16 @@
     "lint": "eslint ."
   },
   "dependencies": {
+    "@doremi/apps-doremi-data-assignments": "workspace:*",
+    "@doremi/apps-doremi-data-profile": "workspace:*",
+    "@doremi/apps-doremi-ui-assignments": "workspace:*",
     "@doremi/apps-doremi-ui-layout": "workspace:*",
     "@doremi/apps-doremi-utils-routes": "workspace:*",
+    "@fortawesome/free-solid-svg-icons": "catalog:",
+    "@fortawesome/react-fontawesome": "catalog:",
     "@lingui/react": "catalog:",
     "@mui/material": "catalog:",
+    "@tanstack/react-query": "catalog:",
     "react": "catalog:",
     "react-router": "catalog:"
   },

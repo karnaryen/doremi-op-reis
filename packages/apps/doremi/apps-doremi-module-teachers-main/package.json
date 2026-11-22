@@ -11,10 +11,13 @@
     "lint": "eslint ."
   },
   "dependencies": {
+    "@doremi/apps-doremi-data-assignments": "workspace:*",
+    "@doremi/apps-doremi-ui-assignments": "workspace:*",
     "@doremi/apps-doremi-ui-layout": "workspace:*",
     "@doremi/apps-doremi-utils-routes": "workspace:*",
     "@lingui/react": "catalog:",
     "@mui/material": "catalog:",
+    "@tanstack/react-query": "catalog:",
     "react": "catalog:",
     "react-router": "catalog:"
   },

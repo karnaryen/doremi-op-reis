@@ -1,21 +1,21 @@
 # Tech stack
 
-| Layer            | Technology                                                                                |
-| ---------------- | ----------------------------------------------------------------------------------------- |
-| Monorepo         | Nx, pnpm workspaces. Details: [monorepo.md](monorepo.md)                                  |
-| Frontend         | React SPA, TypeScript, Vite, MUI. Details: [README](../../README.md#stack)                |
-| Server state     | TanStack Query                                                                            |
-| Backend          | PHP, Symfony (REST API, JSON)                                                             |
-| ORM              | Doctrine                                                                                  |
-| Authentication   | Symfony Security                                                                          |
-| Database         | PostgreSQL                                                                                |
-| File storage     | Cloudflare R2 (S3-compatible API)                                                         |
-| Storage SDK      | `aws/aws-sdk-php` with the R2 endpoint. Details: [backend.md](backend.md)                 |
-| Email            | Symfony Mailer; provider is an open question ([roadmap.md](../roadmap.md#open-questions)) |
-| Background jobs  | Symfony console command, run once a day by a scheduler                                    |
-| Frontend hosting | Netlify                                                                                   |
-| Backend hosting  | Render (test period); a paid always-on PHP host with a scheduler before launch            |
-| Database hosting | Neon                                                                                      |
+| Layer            | Technology                                                                                                 |
+| ---------------- | ---------------------------------------------------------------------------------------------------------- |
+| Monorepo         | Nx, pnpm workspaces. Details: [monorepo.md](monorepo.md)                                                   |
+| Frontend         | React SPA, TypeScript, Vite, MUI. Details: [README](../../README.md#stack)                                 |
+| Server state     | TanStack Query                                                                                             |
+| Backend          | PHP, Symfony (REST API, JSON)                                                                              |
+| ORM              | Doctrine                                                                                                   |
+| Authentication   | Symfony Security: session cookie. Details: [backend.md](backend.md#sign-in-and-cookies)                    |
+| Database         | PostgreSQL                                                                                                 |
+| File storage     | Cloudflare R2 (S3-compatible API)                                                                          |
+| Storage SDK      | `aws/aws-sdk-php` with the R2 endpoint. Details: [backend.md](backend.md)                                  |
+| Email            | Symfony Mailer; Mailpit locally; provider is an open question ([roadmap.md](../roadmap.md#open-questions)) |
+| Background jobs  | Symfony console command, run once a day by a scheduler                                                     |
+| Frontend hosting | Netlify                                                                                                    |
+| Backend hosting  | Render (test period); a paid always-on PHP host with a scheduler before launch                             |
+| Database hosting | Neon                                                                                                       |
 
 No Redux and no extra layers "for scalability".
 
@@ -28,7 +28,7 @@ Netlify does not run PHP. The SPA and the API are deployed separately:
   The same page lists no cron jobs among the free service types, so the daily job needs another host.
 - Neon: PostgreSQL, free plan 1 GB storage per project (20 GB for the whole account). The page gives no end date for the free plan. Enough because media files are not stored in the database. Source: [Neon plans](https://neon.com/docs/introduction/plans#storage).
 
-Netlify proxy rewrites time out after 26 seconds, so `/api/*` is not proxied to a sleeping Render service. The SPA calls the API directly, with CORS. Source: [Netlify rewrites and proxies](https://docs.netlify.com/manage/routing/redirects/rewrites-proxies/).
+Netlify proxy rewrites time out after 26 seconds, so `/api/*` is not proxied to a sleeping Render service. The SPA calls the API directly, with CORS. The sign-in cookie then needs the SPA and the API on subdomains of one domain ([backend.md](backend.md#production-one-site-for-the-spa-and-the-api)). Source: [Netlify rewrites and proxies](https://docs.netlify.com/manage/routing/redirects/rewrites-proxies/).
 
 ## File storage: Cloudflare R2
 
