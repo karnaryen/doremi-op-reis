@@ -1,4 +1,15 @@
-# AGENTS.md
+# API (Symfony)
+
+The Symfony API of Doremi op reis. It runs in Docker; setup and deploy: [docs/tech/monorepo.md](../../docs/tech/monorepo.md#api-package).
+
+| Command (repository root)        | What it does                           |
+| -------------------------------- | -------------------------------------- |
+| `pnpm nx run api:install`        | `composer install` in the container    |
+| `pnpm dev:api`                   | Start the API, https://localhost       |
+| `pnpm nx run api:test`           | PHPUnit                                |
+| `pnpm nx run api:docker-build`   | Rebuild the image                      |
+
+The rest of this file is the guide from the Symfony skeleton (it was `AGENTS.md`): rules for people and AI agents who write code here.
 
 This is a Symfony project. Check `composer.json` for the exact Symfony/PHP version
 in use, and read `symfony.lock` to see which recipes ran. Don't assume Doctrine,
@@ -61,8 +72,8 @@ Three specifics worth spelling out, because they are easy to get wrong:
 
 ## Everyday workflow
 
-- Run the app with `symfony serve -d`, and commands with `symfony console ...`
-  (or `bin/console` when the Symfony CLI isn't available).
+- Run the app with `pnpm dev:api`, and commands in the container:
+  `docker compose exec php bin/console ...` (in `packages/api`, while the app runs).
 - When something fails, read `var/log/dev.log` and the web profiler
   (`/_profiler`) before changing code.
 - If `maker-bundle` is installed, prefer `bin/console make:*` with every argument
