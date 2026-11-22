@@ -296,7 +296,7 @@ A confirmation email at sign-up, or sign-up approved by the app owner, closes th
 
 - Symfony Mailer sends the invitation ([Symfony Mailer](https://symfony.com/doc/current/mailer.html)). Without Symfony Messenger an email is sent at once, inside the request.
 - Local: Docker starts [Mailpit](https://mailpit.axllent.org/), which catches every email. Open http://localhost:8025 to read them. No email leaves the computer. Another port: `MAILPIT_PORT`.
-- Tests: emails are not sent; a test reads them with `getMailerMessage()`.
+- Tests: emails are not sent; a test reads them with `getMailerMessage()`. `config/packages/mailer.yaml` sets `null://null` for the test environment. `.env.test` is not enough: local Docker sets `MAILER_DSN` as a real env var, and a real env var wins over the `.env` files. Without this line the tests pass only while Mailpit runs.
 - Production: set `MAILER_DSN` of the provider on the host. The provider is an open question ([roadmap.md](../roadmap.md#open-questions)). `.env` has `null://null`: nothing is sent.
 - The link in the email is `<APP_FRONTEND_URL>/set-password#token=...`. The token is in the fragment: a browser does not send a fragment to a server, so the token is not in the access log of the web host. The database has only the SHA-256 hash of the token; it works once and for 7 days.
 - If the email cannot be sent, the parent account stays and the answer says `"invitationSent": false`: the teacher sends the invitation again.
