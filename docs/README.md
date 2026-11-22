@@ -19,6 +19,7 @@
 | [architecture.md](tech/architecture.md) | Components and main flows                               |
 | [data-model.md](tech/data-model.md)     | Entities, relations, status fields                      |
 | [monorepo.md](tech/monorepo.md)         | Nx monorepo: folders, import rules, typed routes, tasks |
+| [backend.md](tech/backend.md)           | Backend setup: database, file storage (R2), CORS        |
 
 ## Planning
 

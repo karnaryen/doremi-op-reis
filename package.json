@@ -18,7 +18,7 @@
     "check": "nx run-many -t typecheck lint test --exclude api && pnpm format:check && pnpm i18n:check",
     "test:api": "nx run api:test",
     "i18n:check": "pnpm i18n:extract && git diff --exit-code -- '*.po'",
-    "check:all": "pnpm check && pnpm test:api"
+    "check:all": "pnpm check && pnpm test:api && nx run api:phpstan"
   },
   "dependencies": {
     "@emotion/react": "^11.14.0",

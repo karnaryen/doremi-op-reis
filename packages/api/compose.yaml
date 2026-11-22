@@ -5,8 +5,11 @@ services:
     environment:
       SERVER_NAME: ${SERVER_NAME:-localhost}, php:80
       DEFAULT_URI: ${DEFAULT_URI:-https://${SERVER_NAME:-localhost}:${HTTPS_PORT:-443}}
-      # No DATABASE_URL yet: there is no database service. It comes with Doctrine in phase 2
-      # (template line: https://github.com/dunglas/symfony-docker/blob/main/compose.yaml).
+      # The host is "database": the name of the service below. A real env var wins over .env.
+      DATABASE_URL: postgresql://${POSTGRES_USER:-app}:${POSTGRES_PASSWORD:-!ChangeMe!}@database:5432/${POSTGRES_DB:-app}?serverVersion=${POSTGRES_VERSION:-18}&charset=utf8
+    depends_on:
+      database:
+        condition: service_healthy
     volumes:
       - caddy_data:/data
       - caddy_config:/config
@@ -29,8 +32,30 @@ services:
 ###> symfony/mercure-bundle ###
 ###< symfony/mercure-bundle ###
 
+###> doctrine/doctrine-bundle ###
+  database:
+    image: postgres:${POSTGRES_VERSION:-18}-alpine
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB:-app}
+      # A local password only. compose.prod.yaml makes POSTGRES_PASSWORD required.
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-!ChangeMe!}
+      POSTGRES_USER: ${POSTGRES_USER:-app}
+    healthcheck:
+      test: ["CMD", "pg_isready", "-d", "${POSTGRES_DB:-app}", "-U", "${POSTGRES_USER:-app}"]
+      timeout: 5s
+      retries: 5
+      start_period: 60s
+    volumes:
+      # PostgreSQL 18 images keep the data in /var/lib/postgresql/<version>, so the volume is one level up.
+      - database_data:/var/lib/postgresql:rw
+###< doctrine/doctrine-bundle ###
+
 volumes:
   caddy_data:
   caddy_config:
 ###> symfony/mercure-bundle ###
 ###< symfony/mercure-bundle ###
+
+###> doctrine/doctrine-bundle ###
+  database_data:
+###< doctrine/doctrine-bundle ###

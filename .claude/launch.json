@@ -3,8 +3,10 @@
   "configurations": [
     {
       "name": "dev",
-      "runtimeExecutable": "pnpm",
+      "runtimeExecutable": "env",
       "runtimeArgs": [
+        "API_PROXY_TARGET=https://localhost:8443",
+        "pnpm",
         "--filter",
         "@doremi/apps-doremi",
         "exec",

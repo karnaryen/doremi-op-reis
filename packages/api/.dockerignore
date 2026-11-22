@@ -35,4 +35,5 @@ vendor/
 .env.local.example
 .phpunit.cache/
 phpunit.dist.xml
+phpstan.dist.neon
 project.json

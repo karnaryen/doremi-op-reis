@@ -32,7 +32,27 @@
       "executor": "nx:run-commands",
       "cache": false,
       "options": {
-        "command": "docker compose run --rm php php bin/phpunit",
+        "commands": [
+          "docker compose run --rm php php bin/console --env=test doctrine:database:create --if-not-exists",
+          "docker compose run --rm php php bin/phpunit"
+        ],
+        "parallel": false,
+        "cwd": "{projectRoot}"
+      }
+    },
+    "phpstan": {
+      "executor": "nx:run-commands",
+      "cache": false,
+      "options": {
+        "command": "docker compose run --rm php sh -c 'php bin/console cache:warmup --quiet && vendor/bin/phpstan analyse --no-progress --memory-limit=1G'",
+        "cwd": "{projectRoot}"
+      }
+    },
+    "check": {
+      "executor": "nx:run-commands",
+      "cache": false,
+      "options": {
+        "command": "docker compose run --rm php php bin/console app:check",
         "cwd": "{projectRoot}"
       }
     }
