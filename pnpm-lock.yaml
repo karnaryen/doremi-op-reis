@@ -153,9 +153,6 @@ importers:
 
   packages/apps/doremi/apps-doremi:
     dependencies:
-      '@doremi/apps-doremi-data-profile':
-        specifier: workspace:*
-        version: link:../apps-doremi-data-profile
       '@doremi/apps-doremi-module-homepage':
         specifier: workspace:*
         version: link:../apps-doremi-module-homepage
@@ -219,9 +216,6 @@ importers:
       '@doremi/apps-doremi-utils-routes':
         specifier: workspace:*
         version: link:../apps-doremi-utils-routes
-      '@doremi/org-data-api':
-        specifier: workspace:*
-        version: link:../../../org/org-data-api
       '@doremi/org-utils-auth':
         specifier: workspace:*
         version: link:../../../org/org-utils-auth
@@ -268,11 +262,7 @@ importers:
 
   packages/org/org-ui-theme: {}
 
-  packages/org/org-utils-auth:
-    dependencies:
-      '@doremi/web-utils-router':
-        specifier: workspace:*
-        version: link:../../web/web-utils-router
+  packages/org/org-utils-auth: {}
 
   packages/org/org-utils-i18n: {}
 

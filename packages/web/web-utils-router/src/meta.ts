@@ -12,7 +12,7 @@ export type NavMeta = {
 }
 
 /**
- * Returns a helper that types one branch of a route table for the given roles.
+ * Returns a helper that types a route table for the given roles.
  * The helper returns its argument unchanged; it only keeps the literal types.
  */
 export function defineRoutesFor<Role extends string>() {

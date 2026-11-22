@@ -8,7 +8,7 @@ export type Locale = keyof typeof LOCALES
 export const DEFAULT_LOCALE: Locale = 'en'
 
 export function isLocale(value: unknown): value is Locale {
-  return typeof value === 'string' && value in LOCALES
+  return typeof value === 'string' && Object.hasOwn(LOCALES, value)
 }
 
 export function detectBrowserLocale(): Locale {

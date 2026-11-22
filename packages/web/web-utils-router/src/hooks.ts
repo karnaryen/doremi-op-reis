@@ -81,8 +81,17 @@ export function useTabs(parentId: string): NavItem[] {
   )
 }
 
-/** The open route and its parents, from the top of the table down. */
+/**
+ * The open route and its parents, from the top of the table down.
+ * `to` is the matched URL, so a route with a `:param` links to the open object.
+ */
 export function useBreadcrumbs(): NavItem[] {
-  const matches = useMatches()
-  return useItems((routes) => matches.flatMap((match) => routes.get(match.id) ?? []))
+  const { routes } = useRouteTable()
+
+  return useMatches().flatMap((match) => {
+    const route = routes.get(match.id)
+    const meta = route?.meta as NavMeta | undefined
+    if (!route || !meta) return []
+    return [{ id: route.id, to: match.pathname, label: meta.label, icon: meta.icon, active: true }]
+  })
 }

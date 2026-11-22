@@ -10,13 +10,10 @@
     "typecheck": "tsc -p tsconfig.json",
     "lint": "eslint ."
   },
-  "dependencies": {
-    "@doremi/web-utils-router": "workspace:*"
-  },
   "nx": {
     "projectType": "library",
     "tags": [
-      "platform:web",
+      "platform:common",
       "layer:org",
       "type:utils"
     ]

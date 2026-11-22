@@ -29,12 +29,13 @@ export function BottomNav() {
       }}
     >
       <BottomNavigation showLabels value={active ?? false} sx={{ bgcolor: 'transparent' }}>
-        {sections.map(({ id, to, label, icon }) => (
+        {sections.map(({ id, to, label, icon, active: current }) => (
           <BottomNavigationAction
             key={id}
             component={RouterLink}
             to={to}
             value={id}
+            aria-current={current ? 'page' : undefined}
             label={t(label)}
             icon={icon && <FontAwesomeIcon icon={icon} fixedWidth />}
           />

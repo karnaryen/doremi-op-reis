@@ -42,25 +42,27 @@ pnpm nx run api:install
 pnpm dev:api
 ```
 
-Frontend: http://localhost:5173. API: https://localhost/api/health. The first time, the browser warns about the local TLS certificate: accept it ([symfony-docker TLS](https://github.com/dunglas/symfony-docker/blob/main/docs/tls.md)). Ports 80 and 443 must be free.
+Frontend: http://localhost:5173. API: https://localhost/api/health. The first time, the browser warns about the local TLS certificate: accept it ([symfony-docker TLS](https://github.com/dunglas/symfony-docker/blob/main/docs/tls.md)). Ports 80 and 443 must be free. If they are in use: `HTTP_PORT=8080 HTTPS_PORT=8443 HTTP3_PORT=8443 pnpm dev:api`, then https://localhost:8443.
 
 Frontend env vars: copy `packages/apps/doremi/apps-doremi/.env.example` → `.env.local` in the same folder (only `VITE_*` reach the client).
 
 ## Scripts
 
-| Script              | What it does                                                 |
-| ------------------- | ------------------------------------------------------------ |
-| `pnpm dev`          | Frontend dev server                                          |
-| `pnpm dev:api`      | Symfony API in Docker                                        |
-| `pnpm build`        | Production build to `packages/apps/doremi/apps-doremi/dist`  |
-| `pnpm preview`      | Serve the production build                                   |
-| `pnpm typecheck`    | TypeScript in all packages                                   |
-| `pnpm lint`         | ESLint in all packages, with the import rules                |
-| `pnpm format`       | Prettier write                                               |
-| `pnpm test`         | Vitest in all packages and PHPUnit in the API (needs Docker) |
-| `pnpm i18n:extract` | Extract messages into the app's `src/locales/*/messages.po`  |
-| `pnpm graph`        | Nx project graph                                             |
-| `pnpm check`        | Everything CI should run                                     |
+| Script              | What it does                                                |
+| ------------------- | ----------------------------------------------------------- |
+| `pnpm dev`          | Frontend dev server                                         |
+| `pnpm dev:api`      | Symfony API in Docker                                       |
+| `pnpm build`        | Production build to `packages/apps/doremi/apps-doremi/dist` |
+| `pnpm preview`      | Serve the production build                                  |
+| `pnpm typecheck`    | TypeScript in all packages                                  |
+| `pnpm lint`         | ESLint in all packages, with the import rules               |
+| `pnpm format`       | Prettier write                                              |
+| `pnpm test`         | Vitest in all frontend packages                             |
+| `pnpm test:api`     | PHPUnit in the API (needs Docker)                           |
+| `pnpm i18n:extract` | Extract messages into the app's `src/locales/*/messages.po` |
+| `pnpm graph`        | Nx project graph                                            |
+| `pnpm check`        | Frontend: typecheck, lint, tests, format, message catalogs  |
+| `pnpm check:all`    | `check` and the API tests (needs Docker)                    |
 
 ## Architecture
 
@@ -72,13 +74,13 @@ packages/
 ├── native/    # Native only (empty for now)
 ├── org/       # Knows the organization: theme, API client, auth, languages
 └── apps/doremi/
-    ├── apps-doremi             # Composition root: providers, route table, locales
+    ├── apps-doremi             # Composition root: providers, the screens of all routes, locales
     ├── apps-doremi-utils-*     # Route table, layout
     ├── apps-doremi-data-*      # TanStack Query
     └── apps-doremi-module-*    # Screens of one section
 ```
 
-**Rules of thumb** (details in [docs/tech/monorepo.md](docs/tech/monorepo.md))
+**Main rules** (details in [docs/tech/monorepo.md](docs/tech/monorepo.md))
 
 - Generic code (`common`, `web`, `native`) never imports `org`. A module never imports another module. ESLint checks this.
 - New screen → add the route to `appRoutes` in `apps-doremi-utils-routes`, and its screen to the `routeScreens.ts` of its module. New module → new package, then add its screens in `apps-doremi/src/routes.tsx`.

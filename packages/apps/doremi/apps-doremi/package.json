@@ -13,7 +13,6 @@
     "test": "vitest run"
   },
   "dependencies": {
-    "@doremi/apps-doremi-data-profile": "workspace:*",
     "@doremi/apps-doremi-module-homepage": "workspace:*",
     "@doremi/apps-doremi-module-parents-main": "workspace:*",
     "@doremi/apps-doremi-module-profile": "workspace:*",

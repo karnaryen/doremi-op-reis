@@ -6,7 +6,10 @@
 export type RouteDef<Role extends string = string, Meta = unknown> = {
   /** Path segment relative to the parent: `''`, `'profile'`, `'students/:studentId'`. */
   readonly path: string
-  /** Roles that may open the route. Omitted: same as the parent. No value at all: everyone. */
+  /**
+   * Roles that may open the route. Omitted: same as the parent. No value at all: everyone.
+   * A child can only narrow the access of its parent, never widen it.
+   */
   readonly access?: readonly Role[]
   /** Key of the child that opens when the user opens this route itself (for example the first tab). */
   readonly index?: string
@@ -14,7 +17,7 @@ export type RouteDef<Role extends string = string, Meta = unknown> = {
   readonly children?: RouteBranch<Role, Meta>
 }
 
-/** A part of a route table. A module builds one branch; the app composes the branches. */
+/** A part of a route table: the whole table, or the children of one route. */
 export type RouteBranch<Role extends string = string, Meta = unknown> = {
   readonly [key: string]: RouteDef<Role, Meta>
 }

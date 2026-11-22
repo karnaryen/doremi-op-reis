@@ -3,7 +3,6 @@ import Card from '@mui/material/Card'
 import CardContent from '@mui/material/CardContent'
 import Stack from '@mui/material/Stack'
 import Typography from '@mui/material/Typography'
-import { env } from '@doremi/org-data-api'
 import { LocaleSwitcher } from './LocaleSwitcher'
 import { RolePreview } from './RolePreview'
 
@@ -18,7 +17,8 @@ export function ProfilePage() {
           <LocaleSwitcher />
         </CardContent>
       </Card>
-      {env.isDev && (
+      {/* A literal `import.meta.env.DEV`, so the production build drops this code. */}
+      {import.meta.env.DEV && (
         <Card variant="outlined">
           <CardContent>
             <RolePreview />

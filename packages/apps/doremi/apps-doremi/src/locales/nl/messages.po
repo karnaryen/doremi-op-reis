@@ -13,12 +13,12 @@ msgstr "© {year} Doremi op reis"
 
 #: packages/apps/doremi/apps-doremi-module-homepage/src/AboutPage.tsx:9
 #: packages/apps/doremi/apps-doremi-utils-layout/src/RootLayout.tsx:64
-#: packages/apps/doremi/apps-doremi-utils-routes/src/index.ts:21
+#: packages/apps/doremi/apps-doremi-utils-routes/src/index.ts:25
 msgid "About"
 msgstr "Over de app"
 
-#: packages/apps/doremi/apps-doremi-utils-routes/src/index.ts:30
-#: packages/apps/doremi/apps-doremi-utils-routes/src/index.ts:41
+#: packages/apps/doremi/apps-doremi-utils-routes/src/index.ts:34
+#: packages/apps/doremi/apps-doremi-utils-routes/src/index.ts:45
 msgid "Active"
 msgstr "Actief"
 
@@ -39,8 +39,8 @@ msgstr "Terug naar de startpagina"
 msgid "Breadcrumbs"
 msgstr "Kruimelpad"
 
-#: packages/apps/doremi/apps-doremi-utils-routes/src/index.ts:31
-#: packages/apps/doremi/apps-doremi-utils-routes/src/index.ts:42
+#: packages/apps/doremi/apps-doremi-utils-routes/src/index.ts:35
+#: packages/apps/doremi/apps-doremi-utils-routes/src/index.ts:46
 msgid "Completed"
 msgstr "Afgerond"
 
@@ -54,7 +54,7 @@ msgstr "Designsysteem"
 
 #: packages/apps/doremi/apps-doremi-module-profile/src/RolePreview.tsx:41
 msgid "Development only. Sign-in will replace this."
-msgstr "Alleen voor ontwikkeling. Het inloggen vervangt dit later."
+msgstr "Alleen voor ontwikkeling. Later komt inloggen hiervoor in de plaats."
 
 #: packages/apps/doremi/apps-doremi-module-homepage/src/AboutPage.tsx:12
 msgid "Doremi op reis is a React single-page app. Content will follow."
@@ -68,9 +68,9 @@ msgstr "Bekijk de tokens"
 msgid "Guest"
 msgstr "Gast"
 
-#: packages/apps/doremi/apps-doremi-utils-routes/src/index.ts:20
+#: packages/apps/doremi/apps-doremi-utils-routes/src/index.ts:24
 msgid "Home"
-msgstr "Start"
+msgstr "Home"
 
 #: packages/apps/doremi/apps-doremi-module-profile/src/LocaleSwitcher.tsx:19
 msgid "Language"
@@ -82,8 +82,8 @@ msgstr "Lichte modus"
 
 #: packages/apps/doremi/apps-doremi-module-parents-main/src/screens.tsx:14
 #: packages/apps/doremi/apps-doremi-module-teachers-main/src/screens.tsx:14
-#: packages/apps/doremi/apps-doremi-utils-routes/src/index.ts:27
-#: packages/apps/doremi/apps-doremi-utils-routes/src/index.ts:39
+#: packages/apps/doremi/apps-doremi-utils-routes/src/index.ts:31
+#: packages/apps/doremi/apps-doremi-utils-routes/src/index.ts:43
 msgid "Main"
 msgstr "Start"
 
@@ -109,8 +109,8 @@ msgstr "Pagina niet gevonden"
 msgid "Parent"
 msgstr "Ouder"
 
-#: packages/apps/doremi/apps-doremi-module-profile/src/ProfilePage.tsx:14
-#: packages/apps/doremi/apps-doremi-utils-routes/src/index.ts:46
+#: packages/apps/doremi/apps-doremi-module-profile/src/ProfilePage.tsx:13
+#: packages/apps/doremi/apps-doremi-utils-routes/src/index.ts:50
 msgid "Profile"
 msgstr "Profiel"
 
@@ -120,7 +120,7 @@ msgstr "App herladen"
 
 #: packages/apps/doremi/apps-doremi-module-profile/src/RolePreview.tsx:29
 msgid "Role preview"
-msgstr "Rolvoorbeeld"
+msgstr "Bekijken als rol"
 
 #: packages/apps/doremi/apps-doremi-utils-layout/src/BottomNav.tsx:18
 #: packages/apps/doremi/apps-doremi-utils-layout/src/TopNav.tsx:16
@@ -147,6 +147,6 @@ msgstr "Systeemthema"
 msgid "Teacher"
 msgstr "Docent"
 
-#: packages/apps/doremi/apps-doremi-utils-routes/src/index.ts:29
+#: packages/apps/doremi/apps-doremi-utils-routes/src/index.ts:33
 msgid "To review"
 msgstr "Te beoordelen"

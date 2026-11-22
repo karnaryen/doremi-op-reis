@@ -10,12 +10,15 @@
     "preview": "nx run @doremi/apps-doremi:preview",
     "typecheck": "nx run-many -t typecheck",
     "lint": "nx run-many -t lint",
-    "test": "nx run-many -t test",
+    "test": "nx run-many -t test --exclude api",
     "format": "prettier --write .",
     "format:check": "prettier --check .",
     "i18n:extract": "nx run @doremi/apps-doremi:i18n:extract",
     "graph": "nx graph",
-    "check": "nx run-many -t typecheck lint test && pnpm format:check && pnpm i18n:extract"
+    "check": "nx run-many -t typecheck lint test --exclude api && pnpm format:check && pnpm i18n:check",
+    "test:api": "nx run api:test",
+    "i18n:check": "pnpm i18n:extract && git diff --exit-code -- '*.po'",
+    "check:all": "pnpm check && pnpm test:api"
   },
   "dependencies": {
     "@emotion/react": "^11.14.0",
@@ -68,7 +71,7 @@
     "vite": "^8.3.6",
     "vitest": "^5.1.1"
   },
-  "description": "Doremi op reis — Nx monorepo: React SPA and Symfony API",
+  "description": "Doremi op reis \u2014 Nx monorepo: React SPA and Symfony API",
   "packageManager": "pnpm@10.30.1",
   "engines": {
     "node": ">=24"

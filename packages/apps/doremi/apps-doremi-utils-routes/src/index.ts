@@ -1,8 +1,11 @@
 import { msg } from '@lingui/core/macro'
 import { faCircleUser, faHouse, faMusic } from '@fortawesome/free-solid-svg-icons'
 import type { RouteId } from '@doremi/common-utils-routes'
-import { defineRoutes } from '@doremi/org-utils-auth'
-import { bindRoutes } from '@doremi/web-utils-router'
+import type { Role } from '@doremi/org-utils-auth'
+import { bindRoutes, defineRoutesFor } from '@doremi/web-utils-router'
+
+/** Types the table: `access` accepts only the roles of the organization. */
+const defineRoutes = defineRoutesFor<Role>()
 
 /**
  * The route table of the app: every URL, who may open it, and its place in the navigation.
@@ -10,7 +13,8 @@ import { bindRoutes } from '@doremi/web-utils-router'
  * It has no screens: each module gives the screens of its own routes (`routeScreens.ts`).
  *
  * - Route id: the path of keys, for example `teacher.toReview`.
- * - `access`: roles that may open the route. Children inherit it. No `access`: everyone.
+ * - `access`: roles that may open the route. Children inherit it or narrow it. No `access`: everyone.
+ *   It only hides links and screens. It is not security: the API must check access itself.
  * - `index`: the child that opens when the user opens the route itself.
  * - `meta.nav`: `section` is an item of the main navigation (in table order), `tab` a tab of its parent.
  *

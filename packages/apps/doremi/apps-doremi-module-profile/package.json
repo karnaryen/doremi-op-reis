@@ -12,7 +12,6 @@
   },
   "dependencies": {
     "@doremi/apps-doremi-utils-routes": "workspace:*",
-    "@doremi/org-data-api": "workspace:*",
     "@doremi/org-utils-auth": "workspace:*",
     "@doremi/org-utils-i18n": "workspace:*"
   },

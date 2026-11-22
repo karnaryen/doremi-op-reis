@@ -65,11 +65,36 @@ export default defineConfig([
     },
   },
   {
-    // Common code has no browser: no `window`, `document`, `localStorage`.
-    files: ['packages/common/**/*.{ts,tsx}'],
-    languageOptions: { globals: {} },
+    // Common code runs on every platform: no browser globals and no browser or native libraries.
+    // TypeScript also checks these packages without the DOM types (see their tsconfig.json),
+    // but it does not catch a library import, so the import list below is needed.
+    files: ['packages/common/**/*.{ts,tsx}', 'packages/org/org-utils-auth/**/*.{ts,tsx}'],
     rules: {
-      'no-restricted-globals': ['error', 'window', 'document', 'navigator', 'localStorage'],
+      'no-restricted-globals': [
+        'error',
+        ...['window', 'document', 'navigator', 'location', 'history', 'self'],
+        ...['localStorage', 'sessionStorage', 'fetch', 'requestAnimationFrame'],
+      ],
+      'no-restricted-imports': [
+        'error',
+        {
+          patterns: [
+            {
+              group: ['react-dom', 'react-dom/*', 'react-router', 'react-router/*', '@mui/*'],
+              message: 'Browser only. Common code must run on every platform.',
+            },
+            {
+              group: [
+                '@emotion/*',
+                '@fortawesome/react-fontawesome',
+                'react-native',
+                'react-native/*',
+              ],
+              message: 'Platform library. Common code must run on every platform.',
+            },
+          ],
+        },
+      ],
     },
   },
   prettier,

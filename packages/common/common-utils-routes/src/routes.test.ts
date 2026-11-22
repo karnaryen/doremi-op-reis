@@ -5,11 +5,11 @@ const table = {
   home: { path: '' },
   teacher: {
     path: 'teacher',
-    access: ['teacher'],
+    access: ['teacher', 'admin'],
     index: 'toReview',
     children: {
       toReview: { path: 'to-review' },
-      student: { path: 'students/:studentId', access: ['teacher', 'admin'] },
+      student: { path: 'students/:studentId', access: ['admin'] },
     },
   },
 } as const
@@ -25,8 +25,23 @@ describe('indexRoutes', () => {
 
   it('inherits access from the parent unless the child sets its own', () => {
     expect(routes.get('home')?.access).toBeNull()
-    expect(routes.get('teacher.toReview')?.access).toEqual(['teacher'])
-    expect(routes.get('teacher.student')?.access).toEqual(['teacher', 'admin'])
+    expect(routes.get('teacher.toReview')?.access).toEqual(['teacher', 'admin'])
+    expect(routes.get('teacher.student')?.access).toEqual(['admin'])
+  })
+
+  it('rejects a child that gives access to more roles than its parent', () => {
+    const wider = {
+      a: {
+        path: 'a',
+        access: ['teacher'],
+        children: { b: { path: 'b', access: ['teacher', 'parent'] } },
+      },
+    }
+    expect(() => indexRoutes(wider)).toThrow(/not in the access of its parent/)
+  })
+
+  it('rejects a key with a dot, because ids join keys with dots', () => {
+    expect(() => indexRoutes({ 'a.b': { path: 'a' } })).toThrow(/must not contain a dot/)
   })
 
   it('rejects an index that is not a child', () => {

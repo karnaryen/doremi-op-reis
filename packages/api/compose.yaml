@@ -24,7 +24,8 @@ services:
         published: ${HTTP3_PORT:-443}
         protocol: udp
 
-# Mercure is installed as a Caddy module, prevent the Flex recipe from installing another service
+# The Mercure hub is removed (see frankenphp/Caddyfile). The empty markers stay,
+# so the Flex recipe of symfony/mercure-bundle adds no Mercure service here.
 ###> symfony/mercure-bundle ###
 ###< symfony/mercure-bundle ###
 

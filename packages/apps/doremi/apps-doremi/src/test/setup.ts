@@ -8,4 +8,8 @@ beforeAll(() => {
   i18n.loadAndActivate({ locale: 'en', messages: {} })
 })
 
-afterEach(() => cleanup())
+afterEach(() => {
+  cleanup()
+  // The locale is saved in localStorage: do not let one test change the language of the next.
+  localStorage.clear()
+})

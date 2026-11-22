@@ -12,10 +12,19 @@ export function indexRoutes(table: RouteBranch): Map<string, FlatRoute> {
   function walk(branch: RouteBranch, parent: FlatRoute | null) {
     for (const [key, def] of Object.entries(branch)) {
       const id = parent ? `${parent.id}.${key}` : key
+      if (key.includes('.')) throw new Error(`Route key "${key}" must not contain a dot`)
       if (routes.has(id)) throw new Error(`Duplicate route id: ${id}`)
       const children = def.children ?? {}
       if (def.index !== undefined && !(def.index in children)) {
         throw new Error(`Route ${id}: index child "${def.index}" does not exist`)
+      }
+      // The router checks the parent first, so a child cannot give access to more roles.
+      const parentAccess = parent?.access ?? null
+      const extra = parentAccess && def.access?.filter((role) => !parentAccess.includes(role))
+      if (extra && extra.length > 0) {
+        throw new Error(
+          `Route ${id}: access "${extra.join(', ')}" is not in the access of its parent`,
+        )
       }
       const route: FlatRoute = {
         id,
