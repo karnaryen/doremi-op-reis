@@ -1,0 +1,24 @@
+{
+  "name": "@doremi/web-utils-router",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "exports": {
+    ".": "./src/index.ts"
+  },
+  "scripts": {
+    "typecheck": "tsc -p tsconfig.json",
+    "lint": "eslint ."
+  },
+  "dependencies": {
+    "@doremi/common-utils-routes": "workspace:*"
+  },
+  "nx": {
+    "projectType": "library",
+    "tags": [
+      "platform:web",
+      "layer:generic",
+      "type:utils"
+    ]
+  }
+}

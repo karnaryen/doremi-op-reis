@@ -1,0 +1,27 @@
+{
+  "name": "@doremi/apps-doremi-ui-layout",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "exports": {
+    ".": "./src/index.ts"
+  },
+  "scripts": {
+    "typecheck": "tsc -p tsconfig.json",
+    "lint": "eslint ."
+  },
+  "dependencies": {
+    "@doremi/apps-doremi-utils-routes": "workspace:*",
+    "@doremi/web-ui-theme-mode": "workspace:*",
+    "@doremi/web-utils-router": "workspace:*"
+  },
+  "nx": {
+    "projectType": "library",
+    "tags": [
+      "platform:web",
+      "layer:app",
+      "app:doremi",
+      "type:ui"
+    ]
+  }
+}

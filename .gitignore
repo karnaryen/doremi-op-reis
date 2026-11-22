@@ -27,3 +27,10 @@ dist-ssr
 .netlify
 
 coverage
+
+# Nx
+.nx/cache
+.nx/workspace-data
+
+# Symfony (packages/api has its own .gitignore too)
+vendor

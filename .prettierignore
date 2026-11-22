@@ -1,4 +1,6 @@
 dist
 coverage
 pnpm-lock.yaml
-src/locales
+.nx
+packages/apps/*/*/src/locales
+packages/api

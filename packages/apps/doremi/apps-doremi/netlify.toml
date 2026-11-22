@@ -1,0 +1,28 @@
+# Netlify UI: set "Package directory" to packages/apps/doremi/apps-doremi and leave "Base directory" empty.
+# The build then runs in the repository root, and `publish` is relative to the root.
+# https://docs.netlify.com/build/configure-builds/monorepos/
+[build]
+  command = "pnpm build"
+  publish = "packages/apps/doremi/apps-doremi/dist"
+
+[build.environment]
+  NODE_VERSION = "24"
+
+# SPA fallback: let React Router handle all paths
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
+
+# Hashed build assets can be cached forever
+[[headers]]
+  for = "/assets/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Content-Type-Options = "nosniff"
+    X-Frame-Options = "DENY"
+    Referrer-Policy = "strict-origin-when-cross-origin"

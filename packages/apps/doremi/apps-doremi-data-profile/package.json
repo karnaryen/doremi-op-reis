@@ -1,0 +1,26 @@
+{
+  "name": "@doremi/apps-doremi-data-profile",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "exports": {
+    ".": "./src/index.ts"
+  },
+  "scripts": {
+    "typecheck": "tsc -p tsconfig.json",
+    "lint": "eslint .",
+    "test": "vitest run"
+  },
+  "dependencies": {
+    "@doremi/org-data-api": "workspace:*"
+  },
+  "nx": {
+    "projectType": "library",
+    "tags": [
+      "platform:web",
+      "layer:app",
+      "app:doremi",
+      "type:data"
+    ]
+  }
+}

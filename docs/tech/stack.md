@@ -2,6 +2,7 @@
 
 | Layer            | Technology                                                                                |
 | ---------------- | ----------------------------------------------------------------------------------------- |
+| Monorepo         | Nx, pnpm workspaces. Details: [monorepo.md](monorepo.md)                                  |
 | Frontend         | React SPA, TypeScript, Vite, MUI. Details: [README](../../README.md#stack)                |
 | Server state     | TanStack Query                                                                            |
 | Backend          | PHP, Symfony (REST API, JSON)                                                             |

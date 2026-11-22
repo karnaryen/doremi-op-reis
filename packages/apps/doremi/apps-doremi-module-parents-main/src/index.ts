@@ -1,0 +1,1 @@
+export { parentsMainScreens } from './routeScreens'

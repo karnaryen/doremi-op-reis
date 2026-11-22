@@ -2,80 +2,92 @@
 
 A mobile-first web app for a travelling music teacher. The teacher assigns pieces; parents upload recordings of the child; the teacher reviews them.
 
-This repository holds the React frontend, deployed on Netlify. The Symfony API is planned. Product and technical docs: [docs/README.md](docs/README.md).
+An Nx monorepo: the React frontend (deployed on Netlify) and the Symfony API. Product and technical docs: [docs/README.md](docs/README.md). Structure, import rules and routes: [docs/tech/monorepo.md](docs/tech/monorepo.md).
 
 ## Stack
 
 | Concern      | Tool                                                                             |
 | ------------ | -------------------------------------------------------------------------------- |
+| Monorepo     | Nx 24 (task runner, cache, module boundaries), pnpm workspaces                   |
 | UI           | React 19 + **React Compiler** (no manual `useMemo`/`useCallback`)                |
 | Build        | Vite 8 (Rolldown), pnpm                                                          |
 | Language     | TypeScript 7 (`tsc`), TS 6 API alias for typescript-eslint                       |
 | Components   | MUI 9 (CSS variables, light/dark/system color schemes)                           |
-| Design       | MUI theme in `shared/theme`, fonts Merriweather + Lato (`@fontsource`)           |
+| Design       | MUI theme in `org-ui-theme`, fonts Merriweather + Lato (`@fontsource`)           |
 | Icons        | Font Awesome 7 Free (solid / regular / brands)                                   |
-| Routing      | React Router 8 (data router, lazy routes)                                        |
+| Routing      | React Router 8 (data router, lazy routes), built from a typed route table        |
 | Server state | TanStack Query 5                                                                 |
 | Client state | Zustand 5                                                                        |
 | i18n         | Lingui 6 (`en` source, `nl`), `.po` catalogs                                     |
 | Quality      | ESLint 10 (+ React Compiler rules, Lingui), Prettier, Vitest 5 + Testing Library |
+| API          | PHP 8.5 (FrankenPHP), Symfony 8.1, PHPUnit; in Docker                            |
 
 ## Getting started
 
 ```bash
 pnpm install
+```
+
+```bash
 pnpm dev
 ```
 
-Copy `.env.example` → `.env.local` for local env vars (only `VITE_*` reach the client).
+The API needs a running Docker. First time: copy `packages/api/.env.local.example` to `packages/api/.env.local`, set `APP_SECRET`, then install the PHP packages.
+
+```bash
+pnpm nx run api:install
+```
+
+```bash
+pnpm dev:api
+```
+
+Frontend: http://localhost:5173. API: https://localhost/api/health. The first time, the browser warns about the local TLS certificate: accept it ([symfony-docker TLS](https://github.com/dunglas/symfony-docker/blob/main/docs/tls.md)). Ports 80 and 443 must be free. If they are in use: `HTTP_PORT=8080 HTTPS_PORT=8443 HTTP3_PORT=8443 pnpm dev:api`, then https://localhost:8443.
+
+Frontend env vars: copy `packages/apps/doremi/apps-doremi/.env.example` → `.env.local` in the same folder (only `VITE_*` reach the client).
 
 ## Scripts
 
-| Script              | What it does                                      |
-| ------------------- | ------------------------------------------------- |
-| `pnpm dev`          | Dev server                                        |
-| `pnpm build`        | Typecheck + production build to `dist/`           |
-| `pnpm preview`      | Serve the production build                        |
-| `pnpm lint`         | ESLint                                            |
-| `pnpm format`       | Prettier write                                    |
-| `pnpm test`         | Vitest watch mode (`test:run` for single run)     |
-| `pnpm i18n:extract` | Extract messages into `src/locales/*/messages.po` |
-| `pnpm check`        | Everything CI should run                          |
+| Script              | What it does                                                |
+| ------------------- | ----------------------------------------------------------- |
+| `pnpm dev`          | Frontend dev server                                         |
+| `pnpm dev:api`      | Symfony API in Docker                                       |
+| `pnpm build`        | Production build to `packages/apps/doremi/apps-doremi/dist` |
+| `pnpm preview`      | Serve the production build                                  |
+| `pnpm typecheck`    | TypeScript in all packages                                  |
+| `pnpm lint`         | ESLint in all packages, with the import rules               |
+| `pnpm format`       | Prettier write                                              |
+| `pnpm test`         | Vitest in all frontend packages                             |
+| `pnpm test:api`     | PHPUnit in the API (needs Docker)                           |
+| `pnpm i18n:extract` | Extract messages into the app's `src/locales/*/messages.po` |
+| `pnpm graph`        | Nx project graph                                            |
+| `pnpm check`        | Frontend: typecheck, lint, tests, format, message catalogs  |
+| `pnpm check:all`    | `check` and the API tests (needs Docker)                    |
 
 ## Architecture
 
-Layered, dependencies point **downward only**: `app → pages → features → shared`.
-
 ```
-src/
-├── app/                  # Composition root: wires everything together
-│   ├── App.tsx           #   creates the router
-│   ├── routes.tsx        #   route tree (lazy pages)
-│   ├── layout/           #   app shell (AppBar, footer, <Outlet/>)
-│   └── providers/        #   Query, Lingui, MUI theme providers
-├── pages/                # One folder per route; compose features, no business logic
-│   ├── home/  about/  profile/  not-found/  error/
-│   │   └── home/showcase/ #   temporary design-system showcase (English only)
-├── features/             # User-facing capabilities, self-contained
-│   ├── locale-switcher/  #   UI + model/ (Zustand store, persisted)
-│   └── theme-mode/       #   light / dark / system toggle
-├── shared/               # Reusable, app-agnostic building blocks
-│   ├── api/              #   http() fetch wrapper, QueryClient factory
-│   ├── config/           #   env, route paths
-│   ├── i18n/             #   locales + catalog loading
-│   └── theme/            #   MUI theme (see "Design system" below)
-├── locales/{en,nl}/      # Lingui .po catalogs (generated, then translated)
-└── test/                 # Vitest setup + render helpers
+packages/
+├── api/       # Symfony API
+├── common/    # Runs on every platform (no browser, no native code)
+├── web/       # Browser only: router bindings, generic MUI components
+├── native/    # Native only (empty for now)
+├── org/       # Knows the organization: theme, API client, auth, languages
+└── apps/doremi/
+    ├── apps-doremi             # Composition root: providers, the screens of all routes, locales
+    ├── apps-doremi-utils-*     # Route table
+    ├── apps-doremi-ui-*        # Layout
+    ├── apps-doremi-data-*      # TanStack Query
+    └── apps-doremi-module-*    # Screens of one section
 ```
 
-**Rules of thumb**
+**Main rules** (details in [docs/tech/monorepo.md](docs/tech/monorepo.md))
 
-- A feature never imports another feature; lift shared bits into `shared/`.
-- Pages are thin: layout + composition of features.
-- New route → add page folder, register it in `app/routes.tsx`, add the URL to `shared/config/paths.ts`.
-- New feature → `features/<name>/` with `ui` components at the root and `model/` (stores, hooks), `api/` (queries) as needed.
-- Server data goes through TanStack Query (`useQuery` + `http()`); Zustand only for client/UI state.
-- All user-visible text uses Lingui macros (`<Trans>`, `` t`...` ``); run `pnpm i18n:extract` and fill in `nl`.
+- Generic code (`common`, `web`, `native`) never imports `org`. A module never imports another module. ESLint checks this.
+- New screen → add the route to `appRoutes` in `apps-doremi-utils-routes`, and its screen to the `routeScreens.ts` of its module. New module → new package, then add its screens in `apps-doremi/src/routes.tsx`.
+- Link with `RouteLink` or `useLinkTo()` and a route id, never with a URL string.
+- Server data goes through TanStack Query (`queryOptions` + `http()`); Zustand only for client/UI state.
+- All user-visible text uses Lingui macros (`<Trans>`, `` t`...` ``, `` msg`...` ``); run `pnpm i18n:extract` and fill in `nl`.
 - Import FA icons individually (`import { faX } from '@fortawesome/free-solid-svg-icons'`) to keep tree-shaking.
 
 ## Design system
@@ -83,15 +95,15 @@ src/
 The theme is based on the Doremi brand style: plum, peach, Merriweather headings and Lato body text.
 The home page shows all tokens and components in light and dark mode.
 
-| File                           | Content                                                              |
-| ------------------------------ | -------------------------------------------------------------------- |
-| `shared/theme/tokens.ts`       | Primitive tokens: color scales, fonts, radius, durations             |
-| `shared/theme/palette.ts`      | Light and dark palettes (semantic colors), with the contrast rules   |
-| `shared/theme/typography.ts`   | Font sizes and weights, including the custom `lead` variant          |
-| `shared/theme/shadows.ts`      | 24 elevation shadows; color and strength change with the mode        |
-| `shared/theme/components.ts`   | Default props and style overrides for MUI components                 |
-| `shared/theme/augmentation.ts` | TypeScript types for `brand`, `softText`, `lead` and the `soft` Chip |
-| `shared/theme/theme.ts`        | `createTheme` with CSS variables and light/dark color schemes        |
+| File                               | Content                                                              |
+| ---------------------------------- | -------------------------------------------------------------------- |
+| `org-ui-theme/src/tokens.ts`       | Primitive tokens: color scales, fonts, radius, durations             |
+| `org-ui-theme/src/palette.ts`      | Light and dark palettes (semantic colors), with the contrast rules   |
+| `org-ui-theme/src/typography.ts`   | Font sizes and weights, including the custom `lead` variant          |
+| `org-ui-theme/src/shadows.ts`      | 24 elevation shadows; color and strength change with the mode        |
+| `org-ui-theme/src/components.ts`   | Default props and style overrides for MUI components                 |
+| `org-ui-theme/src/augmentation.ts` | TypeScript types for `brand`, `softText`, `lead` and the `soft` Chip |
+| `org-ui-theme/src/theme.ts`        | `createTheme` with CSS variables and light/dark color schemes        |
 
 **Rules**
 
@@ -103,5 +115,5 @@ The home page shows all tokens and components in light and dark mode.
 
 ## Deploy (Netlify)
 
-`netlify.toml` sets build command, `dist` publish dir, Node 24, SPA fallback redirect and asset caching headers.
-Connect the GitHub repo in Netlify — no extra settings needed.
+`packages/apps/doremi/apps-doremi/netlify.toml` sets build command, publish dir, Node 24, SPA fallback redirect and asset caching headers.
+In the Netlify UI set **Package directory** to `packages/apps/doremi/apps-doremi` and leave **Base directory** empty.

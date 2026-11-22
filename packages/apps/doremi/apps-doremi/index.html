@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Doremi op reis" />
+    <meta name="color-scheme" content="light dark" />
+    <!-- Colors below copy tokens from packages/org/org-ui-theme (plum[600], apricot[50], aubergine[950]). -->
+    <meta name="theme-color" media="(prefers-color-scheme: light)" content="#8D2F59" />
+    <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#170F13" />
+    <style>
+      html {
+        background: #fff7f1;
+      }
+      html.dark {
+        background: #170f13;
+      }
+    </style>
+    <!-- Set the color scheme class before the app loads, so dark mode users see no light flash.
+         Same storage key and class names as MUI (colorSchemeSelector: 'class'). -->
+    <script>
+      ;(function () {
+        try {
+          var mode = localStorage.getItem('mui-mode') || 'system'
+          var dark =
+            mode === 'dark' ||
+            (mode === 'system' && matchMedia('(prefers-color-scheme: dark)').matches)
+          document.documentElement.classList.add(dark ? 'dark' : 'light')
+        } catch (e) {}
+      })()
+    </script>
+    <title>Doremi op reis</title>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>

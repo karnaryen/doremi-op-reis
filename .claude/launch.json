@@ -4,8 +4,23 @@
     {
       "name": "dev",
       "runtimeExecutable": "pnpm",
-      "runtimeArgs": ["dev", "--port", "5173", "--strictPort"],
+      "runtimeArgs": [
+        "--filter",
+        "@doremi/apps-doremi",
+        "exec",
+        "vite",
+        "--port",
+        "5173",
+        "--strictPort"
+      ],
       "port": 5173
+    },
+    {
+      "name": "api",
+      "runtimeExecutable": "env",
+      "runtimeArgs": ["HTTP_PORT=8080", "HTTPS_PORT=8443", "HTTP3_PORT=8443", "pnpm", "dev:api"],
+      "port": 8443,
+      "url": "https://localhost:8443"
     }
   ]
 }
