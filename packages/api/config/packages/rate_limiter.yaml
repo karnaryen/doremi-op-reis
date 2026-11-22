@@ -1,0 +1,27 @@
+# Limits for endpoints that a script could call again and again. App\Security\Limiter uses them.
+# The limiter of the sign-in is in security.yaml (login_throttling).
+# The counters are in the "app" cache: files in the container. A restart sets them to zero.
+# https://symfony.com/doc/current/rate_limiter.html
+framework:
+    rate_limiter:
+        # Teacher sign-up is open to guests: at most 5 new accounts per hour from one IP address.
+        sign_up:
+            policy: fixed_window
+            limit: 5
+            interval: '1 hour'
+        # Invitation emails: a teacher account must not be a tool to send many emails. Counted per teacher.
+        invitation_email:
+            policy: fixed_window
+            limit: 30
+            interval: '1 hour'
+        # And for all teachers together: many accounts cannot send more than this.
+        # One teacher has 20 to 30 families (docs/product/overview.md). Raise it when more teachers start.
+        invitation_email_total:
+            policy: fixed_window
+            limit: 300
+            interval: '1 day'
+        # Signed upload URLs, per user. A piece has at most 11 files; a parent sends a few recordings a week.
+        upload_url:
+            policy: fixed_window
+            limit: 60
+            interval: '1 hour'

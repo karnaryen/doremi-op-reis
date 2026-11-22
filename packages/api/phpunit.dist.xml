@@ -40,5 +40,8 @@
     </source>
 
     <extensions>
+        <!-- Every test runs in a database transaction that is rolled back at the end:
+             a test never sees the rows of another test. https://github.com/dmaicher/doctrine-test-bundle -->
+        <bootstrap class="DAMA\DoctrineTestBundle\PHPUnit\PHPUnitExtension" />
     </extensions>
 </phpunit>

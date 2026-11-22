@@ -4,16 +4,16 @@ Material and Assignment are separate entities. Example: one minuet is assigned t
 
 ## Entities
 
-| Entity         | Fields and purpose                                                                                                                                                                        |
-| -------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `User`         | Teacher or parent. Name, email, password hash, role. A parent has a `teacher` link to the teacher who created the account, and an invitation token with expiry until the password is set. |
-| `Student`      | A child. Linked to one parent `User`; in the MVP a unique constraint allows one Student per parent.                                                                                       |
-| `Material`     | Belongs to one teacher `User`. Title, optional general instruction for all students, sheet music and audio example (`MaterialFile`).                                                      |
-| `Assignment`   | Links `Student` and `Material`. Optional personal instruction for this student, parent hint, `status`, `completedAt`, `deleteAt`.                                                         |
-| `Submission`   | Belongs to one `Assignment`. Created with the first uploaded recording. Max. one video and one audio (`Recording`), `status`.                                                             |
-| `Feedback`     | Belongs to one `Assignment`. Latest text of the teacher, required at every review. A new one replaces the old one.                                                                        |
-| `MaterialFile` | Sheet music page or audio example of a `Material`. Metadata of an object in R2.                                                                                                           |
-| `Recording`    | Video or audio of a `Submission`. Metadata of an object in R2.                                                                                                                            |
+| Entity         | Fields and purpose                                                                                                                                                                                                                                                                            |
+| -------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `User`         | Teacher or parent. Name, email (lower case, unique), password hash, role. A parent has a `teacher` link to the teacher who created the account, and the SHA-256 hash of an invitation token with expiry until the password is set. Table `app_user`: `user` is a reserved word in PostgreSQL. |
+| `Student`      | A child. Linked to one parent `User`; in the MVP a unique constraint allows one Student per parent.                                                                                                                                                                                           |
+| `Material`     | Belongs to one teacher `User`. Title, optional general instruction for all students, sheet music and audio example (`MaterialFile`).                                                                                                                                                          |
+| `Assignment`   | Links `Student` and `Material`. Optional personal instruction for this student, parent hint, `status`, `completedAt`, `deleteAt`, and `revision` and `version` for [concurrent changes](#concurrent-changes).                                                                                 |
+| `Submission`   | Belongs to one `Assignment`. Created with the first uploaded recording. Max. one video and one audio (`Recording`), `status`, `submittedAt` (the latest recording).                                                                                                                           |
+| `Feedback`     | Belongs to one `Assignment`. Latest text of the teacher, required at every review. A new one replaces the old one.                                                                                                                                                                            |
+| `MaterialFile` | Sheet music page or audio example of a `Material`. Metadata of an object in R2.                                                                                                                                                                                                               |
+| `Recording`    | Video or audio of a `Submission`. Metadata of an object in R2.                                                                                                                                                                                                                                |
 
 ## Relations
 
@@ -54,6 +54,16 @@ Mapping to the UI statuses from [assignment-lifecycle.md](../product/assignment-
 | Completed   | `completed`                   |
 
 A `Submission` row is created with the first upload, so there is no "not submitted" value. A review ends in "Complete" or "Ask to try again"; both save `Feedback`.
+
+The rules of these fields are methods of the `Assignment` entity (`submitRecording()`, `askToTryAgain()`, `complete()`, `getPieceStatus()`): no service can put an Assignment into a state that this table does not have.
+
+## Concurrent changes
+
+Two requests can change one Assignment at the same moment: the parent sends a recording while the teacher completes the work. The `Assignment` row has a `version` column: Doctrine checks it at every `UPDATE` of the row and throws `OptimisticLockException` if another request was first ([Doctrine: optimistic locking](https://www.doctrine-project.org/projects/doctrine-orm/en/current/reference/transactions-and-concurrency.html#optimistic-locking)). The API answers 409 then.
+
+This covers two requests at the same moment. A review can also come late: the teacher opens an Assignment, the parent sends a new recording, and then the teacher sends feedback for the old one. So the API gives the `version` to the SPA with the Assignment, the review sends it back, and `Assignments::review()` compares it with the current version (`EntityManager::lock()` with `LockMode::OPTIMISTIC`, same Doctrine page).
+
+The Doctrine page does not say what happens when only a related row changes (a `Recording`). In our tests no `UPDATE` of the Assignment was sent then, so nothing was checked. This is why every lifecycle method also raises the plain counter `revision`: the Assignment row is always written, and the version is always checked (`tests/Service/ConcurrentChangeTest.php`).
 
 ## Dates
 
@@ -103,6 +113,7 @@ R2 key prefix: `recordings/`.
 - `UNIQUE (submission_id, kind)`: a Submission has max. one video and one audio.
 - Partial unique index `UNIQUE (material_id) WHERE purpose = 'audio_example'`: a Material has max. one audio example.
 - Each row has exactly one owner, because the foreign key is not null. No nullable keys and no `CHECK` for the owner.
+- `UNIQUE (email)` on users, `UNIQUE (parent_id)` on students (one child per parent in the MVP), `UNIQUE (assignment_id)` on submissions and on feedback.
 - Deleting a `Submission` or `Material` row deletes its file rows (`ON DELETE CASCADE`). The R2 objects are deleted by Symfony or by the daily job.
 
 ### Rules in the service
@@ -110,7 +121,8 @@ R2 key prefix: `recordings/`.
 The Symfony service checks these rules on upload:
 
 - Sheet music is one PDF **or** one or more images, not both.
-- A new recording replaces the old one of the same kind ([assignment-lifecycle.md](../product/assignment-lifecycle.md#replacing-a-recording)). The old R2 object is deleted after the new row is saved.
+- A new recording replaces the old one of the same kind ([assignment-lifecycle.md](../product/assignment-lifecycle.md#replacing-a-recording)). The row of the old recording is reused, and the old R2 object is deleted after the new row is saved.
+- Types and sizes of files: [backend.md](backend.md#allowed-files).
 
 ### Rejected alternatives
 

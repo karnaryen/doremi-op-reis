@@ -1,6 +1,6 @@
 # CORS: the browser asks the API if a page from another origin may read the answer.
 # In production the SPA (Netlify) and the API (Render) have different origins, so the API must say yes.
-# CORS is not access control: a program that is not a browser ignores it. Sign-in protects the data (phase 4).
+# CORS is not access control: a program that is not a browser ignores it. Sign-in protects the data (security.yaml).
 # https://symfony.com/bundles/NelmioCorsBundle/current/index.html
 nelmio_cors:
     defaults:
@@ -12,7 +12,10 @@ nelmio_cors:
         allow_origin: ['^(?:%env(CORS_ALLOW_ORIGIN)%)$']
         allow_methods: ['GET', 'OPTIONS', 'POST', 'PUT', 'PATCH', 'DELETE']
         allow_headers: ['Content-Type']
-        # allow_credentials stays false: the API has no cookies or sign-in yet. Decide with sign-in (phase 4).
+        # The SPA sends the session cookie with every request (fetch with credentials: 'include').
+        # A browser accepts the answer to such a request only with this header, and only if the allowed origin
+        # is one exact origin, never "*". The bundle sends back the origin of the request when it matches.
+        allow_credentials: true
         max_age: 3600
     paths:
         '^/api/': null

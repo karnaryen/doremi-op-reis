@@ -197,6 +197,9 @@ importers:
 
   packages/apps/doremi/apps-doremi:
     dependencies:
+      '@doremi/apps-doremi-data-profile':
+        specifier: workspace:*
+        version: link:../apps-doremi-data-profile
       '@doremi/apps-doremi-module-homepage':
         specifier: workspace:*
         version: link:../apps-doremi-module-homepage
@@ -209,6 +212,9 @@ importers:
       '@doremi/apps-doremi-module-teachers-main':
         specifier: workspace:*
         version: link:../apps-doremi-module-teachers-main
+      '@doremi/apps-doremi-module-teachers-students':
+        specifier: workspace:*
+        version: link:../apps-doremi-module-teachers-students
       '@doremi/apps-doremi-ui-layout':
         specifier: workspace:*
         version: link:../apps-doremi-ui-layout
@@ -221,9 +227,6 @@ importers:
       '@doremi/org-ui-theme':
         specifier: workspace:*
         version: link:../../../org/org-ui-theme
-      '@doremi/org-utils-auth':
-        specifier: workspace:*
-        version: link:../../../org/org-utils-auth
       '@doremi/org-utils-i18n':
         specifier: workspace:*
         version: link:../../../org/org-utils-i18n
@@ -316,6 +319,22 @@ importers:
         specifier: 'catalog:'
         version: 5.1.1(@types/node@24.19.2)(jsdom@31.0.1(@noble/hashes@2.4.0))(vite@8.3.8(@types/node@24.19.2)(jiti@2.7.0)(yaml@2.9.0))
 
+  packages/apps/doremi/apps-doremi-data-assignments:
+    dependencies:
+      '@doremi/org-data-api':
+        specifier: workspace:*
+        version: link:../../../org/org-data-api
+      '@tanstack/react-query':
+        specifier: 'catalog:'
+        version: 5.108.1(@types/react@19.3.0)(react@19.3.1)
+      react:
+        specifier: 'catalog:'
+        version: 19.3.1
+    devDependencies:
+      vitest:
+        specifier: 'catalog:'
+        version: 5.1.1(@types/node@24.19.2)(jsdom@31.0.1(@noble/hashes@2.4.0))(vite@8.3.8(@types/node@24.19.2)(jiti@2.7.0)(yaml@2.9.0))
+
   packages/apps/doremi/apps-doremi-data-profile:
     dependencies:
       '@doremi/org-data-api':
@@ -324,16 +343,37 @@ importers:
       '@tanstack/react-query':
         specifier: 'catalog:'
         version: 5.108.1(@types/react@19.3.0)(react@19.3.1)
-    devDependencies:
-      vite:
+      react:
         specifier: 'catalog:'
-        version: 8.3.8(@types/node@24.19.2)(jiti@2.7.0)(yaml@2.9.0)
+        version: 19.3.1
+    devDependencies:
       vitest:
         specifier: 'catalog:'
         version: 5.1.1(@types/node@24.19.2)(jsdom@31.0.1(@noble/hashes@2.4.0))(vite@8.3.8(@types/node@24.19.2)(jiti@2.7.0)(yaml@2.9.0))
 
+  packages/apps/doremi/apps-doremi-data-students:
+    dependencies:
+      '@doremi/apps-doremi-data-assignments':
+        specifier: workspace:*
+        version: link:../apps-doremi-data-assignments
+      '@doremi/org-data-api':
+        specifier: workspace:*
+        version: link:../../../org/org-data-api
+      '@tanstack/react-query':
+        specifier: 'catalog:'
+        version: 5.108.1(@types/react@19.3.0)(react@19.3.1)
+      react:
+        specifier: 'catalog:'
+        version: 19.3.1
+
   packages/apps/doremi/apps-doremi-module-homepage:
     dependencies:
+      '@doremi/apps-doremi-data-profile':
+        specifier: workspace:*
+        version: link:../apps-doremi-data-profile
+      '@doremi/apps-doremi-ui-layout':
+        specifier: workspace:*
+        version: link:../apps-doremi-ui-layout
       '@doremi/apps-doremi-utils-routes':
         specifier: workspace:*
         version: link:../apps-doremi-utils-routes
@@ -355,6 +395,9 @@ importers:
       react:
         specifier: 'catalog:'
         version: 19.3.1
+      react-router:
+        specifier: 'catalog:'
+        version: 8.5.2(@types/react-dom@19.3.0(@types/react@19.3.0))(@types/react@19.3.0)(react-dom@19.3.1(react@19.3.1))(react@19.3.1)
     devDependencies:
       '@types/react':
         specifier: 'catalog:'
@@ -362,12 +405,61 @@ importers:
 
   packages/apps/doremi/apps-doremi-module-parents-main:
     dependencies:
+      '@doremi/apps-doremi-data-assignments':
+        specifier: workspace:*
+        version: link:../apps-doremi-data-assignments
+      '@doremi/apps-doremi-data-profile':
+        specifier: workspace:*
+        version: link:../apps-doremi-data-profile
+      '@doremi/apps-doremi-ui-assignments':
+        specifier: workspace:*
+        version: link:../apps-doremi-ui-assignments
       '@doremi/apps-doremi-ui-layout':
         specifier: workspace:*
         version: link:../apps-doremi-ui-layout
       '@doremi/apps-doremi-utils-routes':
         specifier: workspace:*
         version: link:../apps-doremi-utils-routes
+      '@fortawesome/free-solid-svg-icons':
+        specifier: 'catalog:'
+        version: 7.3.1
+      '@fortawesome/react-fontawesome':
+        specifier: 'catalog:'
+        version: 3.5.0(@fortawesome/fontawesome-svg-core@7.3.1)(react@19.3.1)
+      '@lingui/react':
+        specifier: 'catalog:'
+        version: 6.12.0(@babel/core@8.1.2)(babel-plugin-macros@3.1.0)(react@19.3.1)
+      '@mui/material':
+        specifier: 'catalog:'
+        version: 9.5.0(@emotion/react@11.14.0(@types/react@19.3.0)(react@19.3.1))(@emotion/styled@11.14.1(@emotion/react@11.14.0(@types/react@19.3.0)(react@19.3.1))(@types/react@19.3.0)(react@19.3.1))(@types/react@19.3.0)(react-dom@19.3.1(react@19.3.1))(react@19.3.1)
+      '@tanstack/react-query':
+        specifier: 'catalog:'
+        version: 5.108.1(@types/react@19.3.0)(react@19.3.1)
+      react:
+        specifier: 'catalog:'
+        version: 19.3.1
+      react-router:
+        specifier: 'catalog:'
+        version: 8.5.2(@types/react-dom@19.3.0(@types/react@19.3.0))(@types/react@19.3.0)(react-dom@19.3.1(react@19.3.1))(react@19.3.1)
+    devDependencies:
+      '@types/react':
+        specifier: 'catalog:'
+        version: 19.3.0
+
+  packages/apps/doremi/apps-doremi-module-profile:
+    dependencies:
+      '@doremi/apps-doremi-data-profile':
+        specifier: workspace:*
+        version: link:../apps-doremi-data-profile
+      '@doremi/apps-doremi-ui-layout':
+        specifier: workspace:*
+        version: link:../apps-doremi-ui-layout
+      '@doremi/apps-doremi-utils-routes':
+        specifier: workspace:*
+        version: link:../apps-doremi-utils-routes
+      '@doremi/org-utils-i18n':
+        specifier: workspace:*
+        version: link:../../../org/org-utils-i18n
       '@lingui/react':
         specifier: 'catalog:'
         version: 6.12.0(@babel/core@8.1.2)(babel-plugin-macros@3.1.0)(react@19.3.1)
@@ -385,42 +477,97 @@ importers:
         specifier: 'catalog:'
         version: 19.3.0
 
-  packages/apps/doremi/apps-doremi-module-profile:
-    dependencies:
-      '@doremi/apps-doremi-utils-routes':
-        specifier: workspace:*
-        version: link:../apps-doremi-utils-routes
-      '@doremi/org-utils-auth':
-        specifier: workspace:*
-        version: link:../../../org/org-utils-auth
-      '@doremi/org-utils-i18n':
-        specifier: workspace:*
-        version: link:../../../org/org-utils-i18n
-      '@lingui/react':
-        specifier: 'catalog:'
-        version: 6.12.0(@babel/core@8.1.2)(babel-plugin-macros@3.1.0)(react@19.3.1)
-      '@mui/material':
-        specifier: 'catalog:'
-        version: 9.5.0(@emotion/react@11.14.0(@types/react@19.3.0)(react@19.3.1))(@emotion/styled@11.14.1(@emotion/react@11.14.0(@types/react@19.3.0)(react@19.3.1))(@types/react@19.3.0)(react@19.3.1))(@types/react@19.3.0)(react-dom@19.3.1(react@19.3.1))(react@19.3.1)
-      react:
-        specifier: 'catalog:'
-        version: 19.3.1
-    devDependencies:
-      '@types/react':
-        specifier: 'catalog:'
-        version: 19.3.0
-      vite:
-        specifier: 'catalog:'
-        version: 8.3.8(@types/node@24.19.2)(jiti@2.7.0)(yaml@2.9.0)
-
   packages/apps/doremi/apps-doremi-module-teachers-main:
     dependencies:
+      '@doremi/apps-doremi-data-assignments':
+        specifier: workspace:*
+        version: link:../apps-doremi-data-assignments
+      '@doremi/apps-doremi-ui-assignments':
+        specifier: workspace:*
+        version: link:../apps-doremi-ui-assignments
       '@doremi/apps-doremi-ui-layout':
         specifier: workspace:*
         version: link:../apps-doremi-ui-layout
       '@doremi/apps-doremi-utils-routes':
         specifier: workspace:*
         version: link:../apps-doremi-utils-routes
+      '@lingui/react':
+        specifier: 'catalog:'
+        version: 6.12.0(@babel/core@8.1.2)(babel-plugin-macros@3.1.0)(react@19.3.1)
+      '@mui/material':
+        specifier: 'catalog:'
+        version: 9.5.0(@emotion/react@11.14.0(@types/react@19.3.0)(react@19.3.1))(@emotion/styled@11.14.1(@emotion/react@11.14.0(@types/react@19.3.0)(react@19.3.1))(@types/react@19.3.0)(react@19.3.1))(@types/react@19.3.0)(react-dom@19.3.1(react@19.3.1))(react@19.3.1)
+      '@tanstack/react-query':
+        specifier: 'catalog:'
+        version: 5.108.1(@types/react@19.3.0)(react@19.3.1)
+      react:
+        specifier: 'catalog:'
+        version: 19.3.1
+      react-router:
+        specifier: 'catalog:'
+        version: 8.5.2(@types/react-dom@19.3.0(@types/react@19.3.0))(@types/react@19.3.0)(react-dom@19.3.1(react@19.3.1))(react@19.3.1)
+    devDependencies:
+      '@types/react':
+        specifier: 'catalog:'
+        version: 19.3.0
+
+  packages/apps/doremi/apps-doremi-module-teachers-students:
+    dependencies:
+      '@doremi/apps-doremi-data-assignments':
+        specifier: workspace:*
+        version: link:../apps-doremi-data-assignments
+      '@doremi/apps-doremi-data-students':
+        specifier: workspace:*
+        version: link:../apps-doremi-data-students
+      '@doremi/apps-doremi-ui-assignments':
+        specifier: workspace:*
+        version: link:../apps-doremi-ui-assignments
+      '@doremi/apps-doremi-ui-layout':
+        specifier: workspace:*
+        version: link:../apps-doremi-ui-layout
+      '@doremi/apps-doremi-utils-routes':
+        specifier: workspace:*
+        version: link:../apps-doremi-utils-routes
+      '@fortawesome/free-solid-svg-icons':
+        specifier: 'catalog:'
+        version: 7.3.1
+      '@fortawesome/react-fontawesome':
+        specifier: 'catalog:'
+        version: 3.5.0(@fortawesome/fontawesome-svg-core@7.3.1)(react@19.3.1)
+      '@lingui/react':
+        specifier: 'catalog:'
+        version: 6.12.0(@babel/core@8.1.2)(babel-plugin-macros@3.1.0)(react@19.3.1)
+      '@mui/material':
+        specifier: 'catalog:'
+        version: 9.5.0(@emotion/react@11.14.0(@types/react@19.3.0)(react@19.3.1))(@emotion/styled@11.14.1(@emotion/react@11.14.0(@types/react@19.3.0)(react@19.3.1))(@types/react@19.3.0)(react@19.3.1))(@types/react@19.3.0)(react-dom@19.3.1(react@19.3.1))(react@19.3.1)
+      '@tanstack/react-query':
+        specifier: 'catalog:'
+        version: 5.108.1(@types/react@19.3.0)(react@19.3.1)
+      react:
+        specifier: 'catalog:'
+        version: 19.3.1
+      react-router:
+        specifier: 'catalog:'
+        version: 8.5.2(@types/react-dom@19.3.0(@types/react@19.3.0))(@types/react@19.3.0)(react-dom@19.3.1(react@19.3.1))(react@19.3.1)
+    devDependencies:
+      '@types/react':
+        specifier: 'catalog:'
+        version: 19.3.0
+
+  packages/apps/doremi/apps-doremi-ui-assignments:
+    dependencies:
+      '@fortawesome/fontawesome-svg-core':
+        specifier: 'catalog:'
+        version: 7.3.1
+      '@fortawesome/free-solid-svg-icons':
+        specifier: 'catalog:'
+        version: 7.3.1
+      '@fortawesome/react-fontawesome':
+        specifier: 'catalog:'
+        version: 3.5.0(@fortawesome/fontawesome-svg-core@7.3.1)(react@19.3.1)
+      '@lingui/core':
+        specifier: 'catalog:'
+        version: 6.12.0(@babel/core@8.1.2)(babel-plugin-macros@3.1.0)
       '@lingui/react':
         specifier: 'catalog:'
         version: 6.12.0(@babel/core@8.1.2)(babel-plugin-macros@3.1.0)(react@19.3.1)
@@ -455,6 +602,9 @@ importers:
       '@fortawesome/react-fontawesome':
         specifier: 'catalog:'
         version: 3.5.0(@fortawesome/fontawesome-svg-core@7.3.1)(react@19.3.1)
+      '@lingui/core':
+        specifier: 'catalog:'
+        version: 6.12.0(@babel/core@8.1.2)(babel-plugin-macros@3.1.0)
       '@lingui/react':
         specifier: 'catalog:'
         version: 6.12.0(@babel/core@8.1.2)(babel-plugin-macros@3.1.0)(react@19.3.1)
@@ -489,6 +639,9 @@ importers:
       '@lingui/core':
         specifier: 'catalog:'
         version: 6.12.0(@babel/core@8.1.2)(babel-plugin-macros@3.1.0)
+      react:
+        specifier: 'catalog:'
+        version: 19.3.1
 
   packages/common/common-utils-routes:
     devDependencies:
@@ -522,14 +675,7 @@ importers:
         specifier: 'catalog:'
         version: 5.1.1(@types/node@24.19.2)(jsdom@31.0.1(@noble/hashes@2.4.0))(vite@8.3.8(@types/node@24.19.2)(jiti@2.7.0)(yaml@2.9.0))
 
-  packages/org/org-utils-auth:
-    dependencies:
-      react:
-        specifier: 'catalog:'
-        version: 19.3.1
-      zustand:
-        specifier: 'catalog:'
-        version: 5.1.0(@types/react@19.3.0)(react@19.3.1)(use-sync-external-store@1.7.0(react@19.3.1))
+  packages/org/org-utils-auth: {}
 
   packages/org/org-utils-i18n:
     dependencies:

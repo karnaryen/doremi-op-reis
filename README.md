@@ -48,6 +48,8 @@ Frontend: http://localhost:5173. API: https://localhost/api/health. The first ti
 
 `pnpm dev:api` also starts PostgreSQL. The frontend calls the API through the Vite dev server: http://localhost:5173/api/health gives the same answer, without a certificate warning. If the API runs on other ports, start the frontend with `API_PROXY_TARGET=https://localhost:8443 pnpm dev`.
 
+Emails of the local API (the invitation of a parent) are not sent: open http://localhost:8025 to read them ([docs/tech/backend.md](docs/tech/backend.md#email)).
+
 File storage: put the Cloudflare R2 values into `packages/api/.env.local`, then run `pnpm nx run api:check`. Steps: [docs/tech/backend.md](docs/tech/backend.md#file-storage-cloudflare-r2).
 
 Frontend env vars: copy `packages/apps/doremi/apps-doremi/.env.example` → `.env.local` in the same folder (only `VITE_*` reach the client).
@@ -86,7 +88,7 @@ packages/
 └── apps/doremi/
     ├── apps-doremi             # Composition root: providers, the screens of all routes, locales
     ├── apps-doremi-utils-*     # Route table
-    ├── apps-doremi-ui-*        # Layout
+    ├── apps-doremi-ui-*        # Layout, components for Assignments
     ├── apps-doremi-data-*      # TanStack Query
     └── apps-doremi-module-*    # Screens of one section
 ```
@@ -96,7 +98,7 @@ packages/
 - Generic code (`common`, `web`, `native`) never imports `org`. A module never imports another module. ESLint checks this.
 - New screen → add the route to `appRoutes` in `apps-doremi-utils-routes`, and its screen to the `routeScreens.ts` of its module. New module → new package, then add its screens in `apps-doremi/src/routes.tsx`.
 - Link with `RouteLink` or `useLinkTo()` and a route id, never with a URL string.
-- Server data goes through TanStack Query (`queryOptions` + `http()`); Zustand only for client/UI state.
+- Server data goes through TanStack Query (`queryOptions` + `http()`); Zustand only for client/UI state. The signed-in user is server data too (`apps-doremi-data-profile`).
 - All user-visible text uses Lingui macros (`<Trans>`, `` t`...` ``, `` msg`...` ``); run `pnpm i18n:extract` and fill in `nl`.
 - Import FA icons individually (`import { faX } from '@fortawesome/free-solid-svg-icons'`) to keep tree-shaking.
 - A package lists the libraries it imports in its own `package.json`, with the version `catalog:`. Add one with `pnpm add --filter <package> <library>`; the versions are in `pnpm-workspace.yaml`.

@@ -13,10 +13,10 @@
   },
   "dependencies": {
     "@doremi/org-data-api": "workspace:*",
-    "@tanstack/react-query": "catalog:"
+    "@tanstack/react-query": "catalog:",
+    "react": "catalog:"
   },
   "devDependencies": {
-    "vite": "catalog:",
     "vitest": "catalog:"
   },
   "nx": {

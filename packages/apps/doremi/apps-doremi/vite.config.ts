@@ -25,6 +25,21 @@ export default defineConfig(({ mode }) => {
           changeOrigin: true,
           // Skip the certificate check only for a local API. A remote target is always checked.
           secure: !LOCAL_HOSTS.has(new URL(apiProxyTarget).hostname),
+          // The local API answers over HTTPS, so its session cookie has the "Secure" flag. The page itself is
+          // plain HTTP here (http://localhost:5173, or http://192.168.x.x:5173 on a phone in the same Wi-Fi),
+          // and a browser saves a "Secure" cookie from an HTTP page only on localhost, and Safari not even there
+          // (https://developer.mozilla.org/en-US/docs/Web/HTTP/Guides/Cookies). So the dev proxy removes the flag.
+          // Development only: in production the SPA and the API both use HTTPS and the flag stays.
+          configure: (proxy) => {
+            proxy.on('proxyRes', (proxyRes) => {
+              const cookies = proxyRes.headers['set-cookie']
+              if (cookies) {
+                proxyRes.headers['set-cookie'] = cookies.map((cookie) =>
+                  cookie.replace(/;\s*secure/i, ''),
+                )
+              }
+            })
+          },
         },
       },
     },

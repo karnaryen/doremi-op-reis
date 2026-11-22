@@ -6,7 +6,7 @@ The Symfony API of Doremi op reis. It runs in Docker; setup and deploy: [docs/te
 | ------------------------------ | ----------------------------------- |
 | `pnpm nx run api:install`      | `composer install` in the container |
 | `pnpm dev:api`                 | Start the API and PostgreSQL, https://localhost |
-| `pnpm test:api`                | PHPUnit (uses the database `app_test`) |
+| `pnpm test:api`                | Migrates the database `app_test`, then PHPUnit |
 | `pnpm nx run api:phpstan`      | PHPStan: types and the architecture rules |
 | `pnpm nx run api:format-check` | PHP-CS-Fixer: is the code formatted? |
 | `pnpm nx run api:format`       | PHP-CS-Fixer: format the code       |
@@ -17,11 +17,29 @@ The Symfony API of Doremi op reis. It runs in Docker; setup and deploy: [docs/te
 
 All checks: [docs/tech/quality.md](../../docs/tech/quality.md#api).
 
+Where the code is (`src/`):
+
+| Folder           | Content                                                                             |
+| ---------------- | ----------------------------------------------------------------------------------- |
+| `Controller/`    | HTTP endpoints: read the request, call a service, return JSON                       |
+| `Dto/`           | The typed shape of each JSON request body, with its validation rules                |
+| `Service/`       | The use cases: sign-up, parent accounts, invitations, Assignments, recordings       |
+| `Upload/`        | Which files are allowed, and the two steps of every upload                          |
+| `Entity/`        | The tables as PHP classes, with the rules of their own state (Assignment lifecycle) |
+| `Repository/`    | Queries                                                                             |
+| `Security/`      | Voters (access to one object) and the answer to a failed sign-in                    |
+| `View/`          | The shape of each JSON answer                                                       |
+| `EventListener/` | JSON errors, sign-out answer, the "JSON only" rule against CSRF                     |
+| `Storage/`       | The file storage (Cloudflare R2)                                                    |
+
+Local emails: http://localhost:8025 (Mailpit). Endpoints: [docs/tech/architecture.md](../../docs/tech/architecture.md#api-endpoints).
+
 The rest of this file is the guide from the Symfony skeleton (it was `AGENTS.md`): rules for people and AI agents who write code here.
 
 This is a Symfony project. Check `composer.json` for the exact Symfony/PHP version
 in use, and read `symfony.lock` to see which recipes ran. Doctrine ORM, Doctrine
-Migrations, NelmioCorsBundle and the HTTP client are installed. Don't assume
+Migrations, NelmioCorsBundle, the HTTP client, SecurityBundle, Validator,
+Serializer, Mailer and RateLimiter are installed. Don't assume
 Twig, API Platform, Messenger, or Lock are installed unless one of those says so.
 
 ## Ask before generating

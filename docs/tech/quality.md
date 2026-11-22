@@ -57,7 +57,7 @@ All paths below are in `packages/api`.
 
 - Config: `phpstan.dist.neon`. Levels: [PHPStan rule levels](https://phpstan.org/user-guide/rule-levels).
 - Phase 2 used level 8. Level 9 allows only one thing with an explicit `mixed` value: to pass it to another `mixed`. Level 10 does the same for a value with no type at all.
-- Why now: phase 4 reads JSON from requests, and request data is `mixed`. At level 10 the code must check a value (`is_string()`, a DTO with validation) before it uses it. In TypeScript terms: `mixed` is `unknown`, and level 10 forbids an implicit `any`.
+- Why: the API reads JSON from requests, and request data is `mixed`. At level 10 the code must check a value (`is_string()`, a DTO with validation) before it uses it. In TypeScript terms: `mixed` is `unknown`, and level 10 forbids an implicit `any`.
 - [`phpstan-phpunit`](https://github.com/phpstan/phpstan-phpunit) is added: PHPStan understands mocks and `assert*` calls in tests, and its `rules.neon` reports weak asserts.
 - Trade-off: level 10 asks for more type checks in code that reads outside data. If it costs more than it gives, lower `level` in `phpstan.dist.neon`; the PHPStan docs suggest a [baseline](https://phpstan.org/user-guide/baseline) for a large code base, which this is not.
 
@@ -67,15 +67,17 @@ All paths below are in `packages/api`.
 
 The rules are in `tests/Architecture/ArchitectureRules.php`. Each public method that starts with `test` returns one rule. The class is registered in `phpstan.dist.neon` with the tag `phpat.test`. It is not a PHPUnit test, so its name does not end with `Test`.
 
-| Rule                                              | Why                                                                                                                |
-| ------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------ |
-| Only `App\Storage` uses the `Aws\` classes        | Features use the `ObjectStorage` interface ([backend.md](backend.md#code)). A change of the SDK touches one folder |
-| `App\Storage` uses no other `App\` namespace      | The storage saves objects. It does not know what a recording is                                                    |
-| `App\Controller` does not use `Doctrine\` classes | A controller reads the request and builds the response. Queries and saving belong to a service or a repository     |
+| Rule                                                                         | Why                                                                                                                |
+| ---------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------ |
+| Only `App\Storage` uses the `Aws\` classes                                   | Features use the `ObjectStorage` interface ([backend.md](backend.md#code)). A change of the SDK touches one folder |
+| `App\Storage` uses no other `App\` namespace                                 | The storage saves objects. It does not know what a recording is                                                    |
+| `App\Controller` does not use `Doctrine\` classes                            | A controller reads the request and builds the response. Queries and saving belong to a service or a repository     |
+| `App\Entity` uses no service, controller, DTO, view, upload or storage class | Entities are the centre: other code uses them, they use no other layer                                             |
+| `App\Service`, `App\Repository` and `App\Upload` do not use `App\Controller` | The data path has one direction: Controller → Service → Repository                                                 |
 
 - A "use" is a parameter type, a return type, `new`, `extends`, `implements`, an attribute or a type in a doc comment.
 - `App\Tests` is not checked by the first rule: a test of the storage needs the mock handler of the AWS SDK.
-- The third rule is a decision for phase 4, taken from the data path in [learning-guide.md](../learning-guide.md): Controller → Service → Repository. A controller may still have an entity (`App\Entity\...`) as a parameter or a return value: the rule forbids the `Doctrine\` classes, for example `EntityManagerInterface`. If a small endpoint needs no service, change the rule: a rule that is always ignored is worse than no rule.
+- The third rule is taken from the data path in [learning-guide.md](../learning-guide.md): Controller → Service → Repository. A controller may still have an entity (`App\Entity\...`) as a parameter or a return value: the rule forbids the `Doctrine\` classes, for example `EntityManagerInterface`. A controller may call a repository directly when it only reads (`StudentController`, `AssignmentController::list()`): a service that only passes the call on adds nothing.
 - What PHPat does not see: a method call on an object that came from somewhere else. `$repository->createQueryBuilder()->...` in a controller passes, because no `Doctrine\` class name is written there. The rule stops the common cases, not every case.
 - What the third rule also stops: `catch (UniqueConstraintViolationException $e)` in a controller. The service must catch a Doctrine exception and throw its own.
 - PHPat is at version 0.12, and its README says a 0.x release can break the API. `composer.json` allows only `^0.12.5`, so an update to 0.13 is a deliberate step.
@@ -96,7 +98,7 @@ The rules are in `tests/Architecture/ArchitectureRules.php`. Each public method 
 
 - CI calls the same commands as a developer. There is no second list of checks to keep in sync.
 - `--frozen-lockfile` fails if `pnpm-lock.yaml` does not match the `package.json` files.
-- The API job builds the same Docker image as `pnpm dev:api` and starts PostgreSQL from `compose.yaml`. It needs no secrets: `.env.test` has test values, and the tests use a fake storage ([backend.md](backend.md#tests-1)).
+- The API job builds the same Docker image as `pnpm dev:api` and starts PostgreSQL from `compose.yaml`. It needs no secrets: `.env.test` has test values, the tests use a fake storage ([backend.md](backend.md#tests-1)) and send no email.
 - The repository is public, and standard GitHub-hosted runners are free for public repositories ([GitHub Actions billing](https://docs.github.com/en/billing/managing-billing-for-your-products/about-billing-for-github-actions)).
 - pnpm is installed with `pnpm/action-setup`, which reads the version from `packageManager` in `package.json`. The CI page of pnpm now shows `pnpm/setup`, but that action installs pnpm 11 and newer only ([pnpm/setup](https://github.com/pnpm/setup)); the repository uses pnpm 10.
 - The API job sets `XDEBUG_MODE=off`: `compose.override.yaml` turns Xdebug on for development, and it makes PHPStan and PHP-CS-Fixer slow.

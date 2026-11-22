@@ -32,7 +32,7 @@ Status rules and recording replacement are in [assignment-lifecycle.md](assignme
 - A sent recording does not create a duty for the teacher to answer quickly. Parents see no red warnings.
 - On the piece card, the teacher's task (what to practise at home) is shown prominently. The title alone does not tell the parent what to do.
 - Feedback is a text field on the Assignment, not a chat thread.
-- Completed Assignments show: "This work will be deleted in 30 days. Save the materials you need."
+- Completed Assignments show the day of deletion (30 days after completion): "This work will be deleted on 22 December 2026. Save the materials you need."
 - Recording length is limited. Audio is a full alternative to video.
 
 ## Workload estimate

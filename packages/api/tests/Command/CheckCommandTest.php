@@ -14,6 +14,11 @@ use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
  */
 final class CheckCommandTest extends KernelTestCase
 {
+    protected function setUp(): void
+    {
+        InMemoryObjectStorage::reset();
+    }
+
     public function testSucceedsWhenDatabaseAndStorageWork(): void
     {
         $result = self::runCommand('app:check');
@@ -42,7 +47,7 @@ final class CheckCommandTest extends KernelTestCase
     public function testFailsWhenTheStorageRefusesTheUpload(): void
     {
         // For example: the API token may read but not write.
-        self::storage()->uploadStatus = 403;
+        InMemoryObjectStorage::$uploadStatus = 403;
 
         $result = self::runCommand('app:check');
 

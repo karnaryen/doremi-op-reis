@@ -7,133 +7,524 @@ msgstr ""
 "X-Generator: @lingui/cli\n"
 "Language: nl\n"
 
-#: packages/apps/doremi/apps-doremi-ui-layout/src/RootLayout.tsx:59
+#: packages/apps/doremi/apps-doremi-module-teachers-main/src/AssignmentScreen.tsx:103
+msgid "“Ask to try again” is possible when there is a new recording."
+msgstr "‘Vraag om het opnieuw te proberen’ kan als er een nieuwe opname is."
+
+#: packages/apps/doremi/apps-doremi-ui-layout/src/RootLayout.tsx:61
 msgid "© {year} Doremi op reis"
 msgstr "© {year} Doremi op reis"
 
+#: packages/apps/doremi/apps-doremi-module-teachers-students/src/AssignScreen.tsx:248
+msgid "A file is larger than {SHEET_MUSIC_MAX_MB} MB."
+msgstr "Een bestand is groter dan {SHEET_MUSIC_MAX_MB} MB."
+
+#: packages/apps/doremi/apps-doremi-module-homepage/src/HomePage.tsx:109
+msgid "A video or an audio recording of the hands and the instrument. There are no deadlines: the family decides the speed."
+msgstr "Een video- of geluidsopname van de handen en het instrument. Er zijn geen deadlines: het gezin bepaalt het tempo."
+
 #: packages/apps/doremi/apps-doremi-module-homepage/src/AboutPage.tsx:9
-#: packages/apps/doremi/apps-doremi-ui-layout/src/RootLayout.tsx:64
-#: packages/apps/doremi/apps-doremi-utils-routes/src/index.ts:31
+#: packages/apps/doremi/apps-doremi-ui-layout/src/RootLayout.tsx:66
+#: packages/apps/doremi/apps-doremi-utils-routes/src/index.ts:32
 msgid "About"
 msgstr "Over de app"
 
-#: packages/apps/doremi/apps-doremi-utils-routes/src/index.ts:40
-#: packages/apps/doremi/apps-doremi-utils-routes/src/index.ts:51
+#: packages/apps/doremi/apps-doremi-ui-assignments/src/notices.tsx:23
+msgid "About your recordings"
+msgstr "Over je opnames"
+
+#: packages/apps/doremi/apps-doremi-utils-routes/src/index.ts:49
+#: packages/apps/doremi/apps-doremi-utils-routes/src/index.ts:75
 msgid "Active"
 msgstr "Actief"
 
-#: packages/apps/doremi/apps-doremi-module-homepage/src/HomePage.tsx:77
+#: packages/apps/doremi/apps-doremi-module-teachers-students/src/AddParentScreen.tsx:84
+msgid "Add and send invitation"
+msgstr "Toevoegen en uitnodiging sturen"
+
+#: packages/apps/doremi/apps-doremi-module-teachers-students/src/AddParentScreen.tsx:46
+#: packages/apps/doremi/apps-doremi-module-teachers-students/src/StudentsListScreen.tsx:63
+#: packages/apps/doremi/apps-doremi-utils-routes/src/index.ts:62
+msgid "Add parent"
+msgstr "Ouder toevoegen"
+
+#: packages/apps/doremi/apps-doremi-ui-assignments/src/FeedbackCard.tsx:24
+msgid "Advice for the previous attempt"
+msgstr "Advies bij de vorige poging"
+
+#: packages/apps/doremi/apps-doremi-ui-layout/src/ErrorAlert.tsx:15
+msgid "An account with this email address already exists."
+msgstr "Er bestaat al een account met dit e-mailadres."
+
+#: packages/apps/doremi/apps-doremi-module-homepage/src/DesignSystemPage.tsx:79
 msgid "An MUI theme based on the Doremi style: plum and peach colors and serif headings, adapted for an app."
 msgstr "Een MUI-thema gebaseerd op de huisstijl van Doremi: pruim- en perziktinten en koppen in een schreeflettertype, aangepast voor een app."
 
-#: packages/apps/doremi/apps-doremi-module-parents-main/src/screens.tsx:16
-#: packages/apps/doremi/apps-doremi-module-teachers-main/src/screens.tsx:16
-msgid "Assignments"
-msgstr "Opdrachten"
+#: packages/apps/doremi/apps-doremi-module-homepage/src/SignInPage.tsx:63
+msgid "Are you a parent? Your teacher sends you an invitation by email. Open the link in that email to choose a password."
+msgstr "Ben je ouder? Je docent stuurt je een uitnodiging per e-mail. Open de link in die e-mail om een wachtwoord te kiezen."
 
-#: packages/apps/doremi/apps-doremi-ui-layout/src/NotFoundPage.tsx:23
+#: packages/apps/doremi/apps-doremi-module-teachers-main/src/AssignmentScreen.tsx:88
+msgid "Ask to try again"
+msgstr "Vraag om het opnieuw te proberen"
+
+#: packages/apps/doremi/apps-doremi-module-teachers-students/src/AssignScreen.tsx:311
+msgid "Assign"
+msgstr "Stuk opgeven"
+
+#: packages/apps/doremi/apps-doremi-module-teachers-students/src/AssignScreen.tsx:122
+#: packages/apps/doremi/apps-doremi-module-teachers-students/src/StudentScreen.tsx:64
+#: packages/apps/doremi/apps-doremi-utils-routes/src/index.ts:65
+msgid "Assign a piece"
+msgstr "Stuk opgeven"
+
+#: packages/apps/doremi/apps-doremi-module-homepage/src/SetPasswordPage.tsx:75
+#: packages/apps/doremi/apps-doremi-module-homepage/src/SignUpPage.tsx:63
+msgid "At least {PASSWORD_MIN_LENGTH} characters."
+msgstr "Minstens {PASSWORD_MIN_LENGTH} tekens."
+
+#: packages/apps/doremi/apps-doremi-module-teachers-students/src/AssignScreen.tsx:243
+msgid "At most {MAX_PAGES} pages."
+msgstr "Maximaal {MAX_PAGES} pagina's."
+
+#: packages/apps/doremi/apps-doremi-ui-assignments/src/MaterialFileList.tsx:28
+msgid "Audio example"
+msgstr "Geluidsvoorbeeld"
+
+#: packages/apps/doremi/apps-doremi-module-teachers-students/src/AssignScreen.tsx:255
+msgid "Audio example (optional)"
+msgstr "Geluidsvoorbeeld (optioneel)"
+
+#: packages/apps/doremi/apps-doremi-module-parents-main/src/UploadScreen.tsx:97
+msgid "Audio only"
+msgstr "Alleen geluid"
+
+#: packages/apps/doremi/apps-doremi-ui-assignments/src/RecordingPlayer.tsx:60
+msgid "Audio recording"
+msgstr "Geluidsopname"
+
+#: packages/apps/doremi/apps-doremi-ui-assignments/src/RecordingList.tsx:37
+msgid "Audio, sent on {date}"
+msgstr "Geluid, verstuurd op {date}"
+
+#: packages/apps/doremi/apps-doremi-ui-layout/src/NotFoundPage.tsx:24
 msgid "Back home"
 msgstr "Terug naar de startpagina"
+
+#: packages/apps/doremi/apps-doremi-module-parents-main/src/UploadScreen.tsx:66
+msgid "Back to the piece"
+msgstr "Terug naar het stuk"
 
 #: packages/apps/doremi/apps-doremi-ui-layout/src/RouteBreadcrumbs.tsx:15
 msgid "Breadcrumbs"
 msgstr "Kruimelpad"
 
-#: packages/apps/doremi/apps-doremi-utils-routes/src/index.ts:41
-#: packages/apps/doremi/apps-doremi-utils-routes/src/index.ts:52
+#: packages/apps/doremi/apps-doremi-module-parents-main/src/UploadScreen.tsx:181
+#: packages/apps/doremi/apps-doremi-module-teachers-students/src/ParentScreen.tsx:130
+msgid "Cancel"
+msgstr "Annuleren"
+
+#: packages/apps/doremi/apps-doremi-module-profile/src/ProfilePage.tsx:50
+#: packages/apps/doremi/apps-doremi-module-teachers-students/src/ParentScreen.tsx:179
+msgid "Child: {childName}"
+msgstr "Kind: {childName}"
+
+#: packages/apps/doremi/apps-doremi-module-parents-main/src/UploadScreen.tsx:132
+msgid "Choose a file"
+msgstr "Bestand kiezen"
+
+#: packages/apps/doremi/apps-doremi-module-homepage/src/SetPasswordPage.tsx:42
+#: packages/apps/doremi/apps-doremi-module-homepage/src/SetPasswordPage.tsx:55
+#: packages/apps/doremi/apps-doremi-utils-routes/src/index.ts:40
+msgid "Choose a password"
+msgstr "Kies een wachtwoord"
+
+#: packages/apps/doremi/apps-doremi-module-teachers-students/src/AssignScreen.tsx:272
+msgid "Choose an audio file"
+msgstr "Geluidsbestand kiezen"
+
+#: packages/apps/doremi/apps-doremi-module-teachers-students/src/AssignScreen.tsx:200
+msgid "Choose files"
+msgstr "Bestanden kiezen"
+
+#: packages/apps/doremi/apps-doremi-module-teachers-students/src/AssignScreen.tsx:236
+msgid "Choose one PDF, or only photos. A PDF and photos together are not possible."
+msgstr "Kies één pdf, of alleen foto's. Een pdf en foto's samen kan niet."
+
+#: packages/apps/doremi/apps-doremi-module-parents-main/src/UploadScreen.tsx:150
+msgid "Chosen: {fileName} ({fileMb} MB)"
+msgstr "Gekozen: {fileName} ({fileMb} MB)"
+
+#: packages/apps/doremi/apps-doremi-module-teachers-main/src/AssignmentScreen.tsx:98
+msgid "Complete"
+msgstr "Afronden"
+
+#: packages/apps/doremi/apps-doremi-ui-assignments/src/StatusChip.tsx:11
+#: packages/apps/doremi/apps-doremi-utils-routes/src/index.ts:50
+#: packages/apps/doremi/apps-doremi-utils-routes/src/index.ts:76
 msgid "Completed"
 msgstr "Afgerond"
+
+#: packages/apps/doremi/apps-doremi-module-homepage/src/SignUpPage.tsx:70
+msgid "Create account"
+msgstr "Account aanmaken"
+
+#: packages/apps/doremi/apps-doremi-module-homepage/src/SignUpPage.tsx:34
+msgid "Create your teacher account. After that you add the parents of your students; they get an invitation by email."
+msgstr "Maak je docentaccount aan. Daarna voeg je de ouders van je leerlingen toe; zij krijgen een uitnodiging per e-mail."
 
 #: packages/web/web-ui-theme-mode/src/ThemeModeToggle.tsx:21
 msgid "Dark mode"
 msgstr "Donkere modus"
 
-#: packages/apps/doremi/apps-doremi-module-homepage/src/HomePage.tsx:67
+#: packages/apps/doremi/apps-doremi-module-teachers-students/src/ParentScreen.tsx:139
+msgid "Delete"
+msgstr "Verwijderen"
+
+#: packages/apps/doremi/apps-doremi-module-teachers-students/src/ParentScreen.tsx:112
+msgid "Delete {parentName}?"
+msgstr "{parentName} verwijderen?"
+
+#: packages/apps/doremi/apps-doremi-module-teachers-students/src/ParentScreen.tsx:103
+msgid "Delete parent"
+msgstr "Ouder verwijderen"
+
+#: packages/apps/doremi/apps-doremi-module-homepage/src/DesignSystemPage.tsx:67
+#: packages/apps/doremi/apps-doremi-module-homepage/src/DesignSystemPage.tsx:76
+#: packages/apps/doremi/apps-doremi-utils-routes/src/index.ts:34
 msgid "Design system"
 msgstr "Designsysteem"
-
-#: packages/apps/doremi/apps-doremi-module-profile/src/RolePreview.tsx:41
-msgid "Development only. Sign-in will replace this."
-msgstr "Alleen voor ontwikkeling. Later komt inloggen hiervoor in de plaats."
 
 #: packages/apps/doremi/apps-doremi-module-homepage/src/AboutPage.tsx:12
 msgid "Doremi op reis is a React single-page app. Content will follow."
 msgstr "Doremi op reis is een React single-page app. De inhoud volgt later."
 
-#: packages/apps/doremi/apps-doremi-module-homepage/src/HomePage.tsx:89
+#: packages/apps/doremi/apps-doremi-module-homepage/src/SignInPage.tsx:44
+#: packages/apps/doremi/apps-doremi-module-homepage/src/SignUpPage.tsx:52
+msgid "Email"
+msgstr "E-mailadres"
+
+#: packages/apps/doremi/apps-doremi-module-teachers-students/src/AddParentScreen.tsx:64
+msgid "Email of the parent"
+msgstr "E-mailadres van de ouder"
+
+#: packages/apps/doremi/apps-doremi-module-homepage/src/DesignSystemPage.tsx:91
 msgid "Explore tokens"
 msgstr "Bekijk de tokens"
 
-#: packages/apps/doremi/apps-doremi-module-profile/src/RolePreview.tsx:22
-msgid "Guest"
-msgstr "Gast"
+#: packages/apps/doremi/apps-doremi-module-teachers-main/src/AssignmentScreen.tsx:61
+msgid "Feedback for the student and the parent"
+msgstr "Feedback voor de leerling en de ouder"
 
-#: packages/apps/doremi/apps-doremi-utils-routes/src/index.ts:29
+#: packages/apps/doremi/apps-doremi-ui-assignments/src/FeedbackCard.tsx:26
+msgid "Feedback from the teacher"
+msgstr "Feedback van de docent"
+
+#: packages/apps/doremi/apps-doremi-module-teachers-students/src/AssignScreen.tsx:125
+msgid "For {studentName}"
+msgstr "Voor {studentName}"
+
+#: packages/apps/doremi/apps-doremi-module-teachers-students/src/AssignScreen.tsx:141
+msgid "For everyone who gets this piece: what to practise at home."
+msgstr "Voor iedereen die dit stuk krijgt: wat er thuis geoefend wordt."
+
+#: packages/apps/doremi/apps-doremi-ui-assignments/src/PieceTexts.tsx:49
+msgid "For parents"
+msgstr "Voor ouders"
+
+#: packages/apps/doremi/apps-doremi-module-teachers-students/src/AssignScreen.tsx:152
+msgid "For this student only."
+msgstr "Alleen voor deze leerling."
+
+#: packages/apps/doremi/apps-doremi-ui-assignments/src/PieceTexts.tsx:39
+msgid "From the teacher, for everyone with this piece"
+msgstr "Van de docent, voor iedereen met dit stuk"
+
+#: packages/apps/doremi/apps-doremi-ui-assignments/src/PieceTexts.tsx:45
+msgid "From the teacher, for this student"
+msgstr "Van de docent, voor deze leerling"
+
+#: packages/apps/doremi/apps-doremi-module-teachers-students/src/AssignScreen.tsx:139
+msgid "General instruction (optional)"
+msgstr "Algemene instructie (optioneel)"
+
+#: packages/apps/doremi/apps-doremi-module-teachers-students/src/AssignScreen.tsx:161
+msgid "Hint for the parent (optional)"
+msgstr "Tip voor de ouder (optioneel)"
+
+#: packages/apps/doremi/apps-doremi-utils-routes/src/index.ts:30
 msgid "Home"
 msgstr "Home"
+
+#: packages/apps/doremi/apps-doremi-module-teachers-students/src/AssignScreen.tsx:163
+msgid "How a parent can help, without music terms."
+msgstr "Hoe een ouder kan helpen, zonder muziektermen."
+
+#: packages/apps/doremi/apps-doremi-module-homepage/src/HomePage.tsx:99
+msgid "How it works"
+msgstr "Zo werkt het"
+
+#: packages/apps/doremi/apps-doremi-module-homepage/src/SignUpPage.tsx:75
+msgid "I already have an account"
+msgstr "Ik heb al een account"
+
+#: packages/apps/doremi/apps-doremi-module-homepage/src/SignInPage.tsx:71
+msgid "I am a teacher and I have no account yet"
+msgstr "Ik ben docent en heb nog geen account"
+
+#: packages/apps/doremi/apps-doremi-module-homepage/src/HomePage.tsx:87
+msgid "I am a teacher: create an account"
+msgstr "Ik ben docent: account aanmaken"
+
+#: packages/apps/doremi/apps-doremi-ui-assignments/src/StatusChip.tsx:7
+msgid "In progress"
+msgstr "Bezig"
+
+#: packages/apps/doremi/apps-doremi-module-teachers-students/src/StudentScreen.tsx:49
+msgid "invitation not accepted yet"
+msgstr "uitnodiging nog niet geaccepteerd"
+
+#: packages/apps/doremi/apps-doremi-module-teachers-students/src/StudentsListScreen.tsx:34
+msgid "Invitation not accepted yet"
+msgstr "Uitnodiging nog niet geaccepteerd"
+
+#: packages/apps/doremi/apps-doremi-module-parents-main/src/UploadScreen.tsx:91
+msgid "Kind of recording"
+msgstr "Soort opname"
 
 #: packages/apps/doremi/apps-doremi-module-profile/src/LocaleSwitcher.tsx:19
 msgid "Language"
 msgstr "Taal"
 
+#: packages/apps/doremi/apps-doremi-module-homepage/src/SignUpPage.tsx:48
+msgid "Letters only, no numbers or web addresses."
+msgstr "Alleen letters, geen cijfers of webadressen."
+
 #: packages/web/web-ui-theme-mode/src/ThemeModeToggle.tsx:20
 msgid "Light mode"
 msgstr "Lichte modus"
 
-#: packages/apps/doremi/apps-doremi-module-parents-main/src/screens.tsx:14
-#: packages/apps/doremi/apps-doremi-module-teachers-main/src/screens.tsx:14
-#: packages/apps/doremi/apps-doremi-utils-routes/src/index.ts:37
-#: packages/apps/doremi/apps-doremi-utils-routes/src/index.ts:49
+#: packages/apps/doremi/apps-doremi-ui-layout/src/PageLoader.tsx:11
+msgid "Loading"
+msgstr "Laden"
+
+#: packages/apps/doremi/apps-doremi-module-parents-main/src/ParentMain.tsx:23
+#: packages/apps/doremi/apps-doremi-module-teachers-main/src/TeacherMain.tsx:21
+#: packages/apps/doremi/apps-doremi-utils-routes/src/index.ts:46
+#: packages/apps/doremi/apps-doremi-utils-routes/src/index.ts:73
 msgid "Main"
 msgstr "Start"
 
-#: packages/apps/doremi/apps-doremi-module-parents-main/src/screens.tsx:25
-#: packages/apps/doremi/apps-doremi-module-teachers-main/src/screens.tsx:33
-msgid "No active assignments yet."
-msgstr "Nog geen actieve opdrachten."
+#: packages/apps/doremi/apps-doremi-module-homepage/src/HomePage.tsx:74
+msgid "Music lessons go on while the teacher travels. The teacher gives pieces to practise, parents send a short recording, and the teacher answers when there is time."
+msgstr "De muzieklessen gaan door terwijl de docent op reis is. De docent geeft stukken op om te oefenen, ouders sturen een korte opname en de docent reageert wanneer er tijd is."
 
-#: packages/apps/doremi/apps-doremi-module-parents-main/src/screens.tsx:33
-#: packages/apps/doremi/apps-doremi-module-teachers-main/src/screens.tsx:41
-msgid "No completed assignments yet."
-msgstr "Nog geen afgeronde opdrachten."
+#: packages/apps/doremi/apps-doremi-module-teachers-students/src/AddParentScreen.tsx:74
+msgid "Name of the child"
+msgstr "Naam van het kind"
 
-#: packages/apps/doremi/apps-doremi-module-teachers-main/src/screens.tsx:25
-msgid "No recordings to review yet."
-msgstr "Nog geen opnames om te beoordelen."
+#: packages/apps/doremi/apps-doremi-module-teachers-students/src/AddParentScreen.tsx:55
+msgid "Name of the parent"
+msgstr "Naam van de ouder"
 
-#: packages/apps/doremi/apps-doremi-ui-layout/src/NotFoundPage.tsx:20
+#: packages/apps/doremi/apps-doremi-module-homepage/src/SetPasswordPage.tsx:74
+msgid "New password"
+msgstr "Nieuw wachtwoord"
+
+#: packages/apps/doremi/apps-doremi-module-teachers-main/src/tabs.tsx:38
+msgid "No active pieces. Open a student to assign a piece."
+msgstr "Geen actieve stukken. Open een leerling om een stuk op te geven."
+
+#: packages/apps/doremi/apps-doremi-module-parents-main/src/tabs.tsx:40
+#: packages/apps/doremi/apps-doremi-module-teachers-main/src/tabs.tsx:44
+msgid "No completed pieces."
+msgstr "Geen afgeronde stukken."
+
+#: packages/apps/doremi/apps-doremi-module-teachers-students/src/StudentScreen.tsx:71
+msgid "No pieces yet."
+msgstr "Nog geen stukken."
+
+#: packages/apps/doremi/apps-doremi-module-parents-main/src/tabs.tsx:33
+msgid "No pieces yet. The teacher will give the first piece soon."
+msgstr "Nog geen stukken. De docent geeft binnenkort het eerste stuk op."
+
+#: packages/apps/doremi/apps-doremi-ui-assignments/src/RecordingList.tsx:21
+msgid "No recording yet."
+msgstr "Nog geen opname."
+
+#: packages/apps/doremi/apps-doremi-module-teachers-main/src/tabs.tsx:31
+msgid "No recordings to review."
+msgstr "Geen opnames om te beoordelen."
+
+#: packages/apps/doremi/apps-doremi-module-teachers-students/src/StudentsListScreen.tsx:73
+msgid "No students yet. Add a parent with the name of the child: the parent gets an invitation by email."
+msgstr "Nog geen leerlingen. Voeg een ouder toe met de naam van het kind: de ouder krijgt een uitnodiging per e-mail."
+
+#: packages/apps/doremi/apps-doremi-module-teachers-students/src/AssignScreen.tsx:177
+msgid "One PDF, or photos of the pages in reading order (JPEG or PNG)."
+msgstr "Eén pdf, of foto's van de pagina's in leesvolgorde (JPEG of PNG)."
+
+#: packages/apps/doremi/apps-doremi-ui-layout/src/NotFoundPage.tsx:21
 msgid "Page not found"
 msgstr "Pagina niet gevonden"
 
-#: packages/apps/doremi/apps-doremi-module-profile/src/RolePreview.tsx:24
+#: packages/apps/doremi/apps-doremi-module-profile/src/ProfilePage.tsx:46
+#: packages/apps/doremi/apps-doremi-utils-routes/src/index.ts:64
 msgid "Parent"
 msgstr "Ouder"
 
-#: packages/apps/doremi/apps-doremi-module-profile/src/ProfilePage.tsx:13
-#: packages/apps/doremi/apps-doremi-utils-routes/src/index.ts:56
+#: packages/apps/doremi/apps-doremi-module-teachers-students/src/StudentScreen.tsx:43
+#: packages/apps/doremi/apps-doremi-module-teachers-students/src/StudentsListScreen.tsx:31
+msgid "Parent: {parentName}"
+msgstr "Ouder: {parentName}"
+
+#: packages/apps/doremi/apps-doremi-module-homepage/src/HomePage.tsx:92
+msgid "Parents get their account from the teacher, by email."
+msgstr "Ouders krijgen hun account van de docent, per e-mail."
+
+#: packages/apps/doremi/apps-doremi-module-homepage/src/SignInPage.tsx:53
+#: packages/apps/doremi/apps-doremi-module-homepage/src/SignUpPage.tsx:62
+msgid "Password"
+msgstr "Wachtwoord"
+
+#: packages/apps/doremi/apps-doremi-module-teachers-students/src/AssignScreen.tsx:150
+msgid "Personal instruction (optional)"
+msgstr "Persoonlijke instructie (optioneel)"
+
+#: packages/apps/doremi/apps-doremi-utils-routes/src/index.ts:52
+#: packages/apps/doremi/apps-doremi-utils-routes/src/index.ts:78
+msgid "Piece"
+msgstr "Stuk"
+
+#: packages/apps/doremi/apps-doremi-module-parents-main/src/ParentMain.tsx:25
+#: packages/apps/doremi/apps-doremi-module-teachers-main/src/TeacherMain.tsx:23
+msgid "Pieces"
+msgstr "Stukken"
+
+#: packages/apps/doremi/apps-doremi-module-parents-main/src/ParentMain.tsx:23
+msgid "Pieces of {childName}"
+msgstr "Stukken van {childName}"
+
+#: packages/apps/doremi/apps-doremi-module-profile/src/ProfilePage.tsx:33
+#: packages/apps/doremi/apps-doremi-utils-routes/src/index.ts:86
 msgid "Profile"
 msgstr "Profiel"
+
+#: packages/apps/doremi/apps-doremi-module-parents-main/src/UploadScreen.tsx:110
+msgid "Record with the camera"
+msgstr "Opnemen met de camera"
+
+#: packages/apps/doremi/apps-doremi-ui-assignments/src/AssignmentList.tsx:60
+msgid "Recording sent on {sentOn}"
+msgstr "Opname verstuurd op {sentOn}"
+
+#: packages/apps/doremi/apps-doremi-module-teachers-main/src/AssignmentScreen.tsx:138
+msgid "Recordings"
+msgstr "Opnames"
 
 #: packages/apps/doremi/apps-doremi-ui-layout/src/RouteErrorPage.tsx:28
 msgid "Reload app"
 msgstr "App herladen"
 
-#: packages/apps/doremi/apps-doremi-module-profile/src/RolePreview.tsx:29
-msgid "Role preview"
-msgstr "Bekijken als rol"
+#: packages/apps/doremi/apps-doremi-module-teachers-students/src/AssignScreen.tsx:260
+msgid "Remove {audioName}"
+msgstr "{audioName} verwijderen"
+
+#: packages/apps/doremi/apps-doremi-module-teachers-students/src/AssignScreen.tsx:186
+msgid "Remove {fileName}"
+msgstr "{fileName} verwijderen"
+
+#: packages/apps/doremi/apps-doremi-module-teachers-main/src/AssignmentScreen.tsx:149
+msgid "Review"
+msgstr "Beoordeling"
+
+#: packages/apps/doremi/apps-doremi-module-homepage/src/SetPasswordPage.tsx:82
+msgid "Save password and sign in"
+msgstr "Wachtwoord opslaan en inloggen"
 
 #: packages/apps/doremi/apps-doremi-ui-layout/src/BottomNav.tsx:18
 #: packages/apps/doremi/apps-doremi-ui-layout/src/TopNav.tsx:16
 msgid "Sections"
 msgstr "Onderdelen"
 
-#: packages/apps/doremi/apps-doremi-module-homepage/src/HomePage.tsx:92
+#: packages/apps/doremi/apps-doremi-module-homepage/src/DesignSystemPage.tsx:94
 msgid "See components"
 msgstr "Bekijk de componenten"
+
+#: packages/apps/doremi/apps-doremi-module-parents-main/src/PieceCardScreen.tsx:68
+msgid "Send a new recording"
+msgstr "Nieuwe opname sturen"
+
+#: packages/apps/doremi/apps-doremi-module-parents-main/src/PieceCardScreen.tsx:66
+#: packages/apps/doremi/apps-doremi-module-parents-main/src/UploadScreen.tsx:212
+#: packages/apps/doremi/apps-doremi-utils-routes/src/index.ts:81
+msgid "Send a recording"
+msgstr "Opname sturen"
+
+#: packages/apps/doremi/apps-doremi-module-teachers-students/src/ParentScreen.tsx:76
+msgid "Send invitation again"
+msgstr "Uitnodiging opnieuw sturen"
+
+#: packages/apps/doremi/apps-doremi-module-parents-main/src/UploadScreen.tsx:185
+msgid "Send to the teacher"
+msgstr "Naar de docent sturen"
+
+#: packages/apps/doremi/apps-doremi-module-teachers-students/src/AssignScreen.tsx:296
+msgid "Sending file {fileNumber} of {total}…"
+msgstr "Bestand {fileNumber} van {total} wordt verstuurd…"
+
+#: packages/apps/doremi/apps-doremi-module-parents-main/src/UploadScreen.tsx:172
+msgid "Sending… Keep this page open."
+msgstr "Bezig met versturen… Houd deze pagina open."
+
+#: packages/apps/doremi/apps-doremi-ui-assignments/src/StatusChip.tsx:8
+msgid "Sent"
+msgstr "Verstuurd"
+
+#: packages/apps/doremi/apps-doremi-ui-assignments/src/MaterialFileList.tsx:32
+msgid "Sheet music"
+msgstr "Bladmuziek"
+
+#: packages/apps/doremi/apps-doremi-module-teachers-students/src/AssignScreen.tsx:174
+msgid "Sheet music (optional)"
+msgstr "Bladmuziek (optioneel)"
+
+#: packages/apps/doremi/apps-doremi-ui-assignments/src/MaterialFileList.tsx:32
+msgid "Sheet music, page {page}"
+msgstr "Bladmuziek, pagina {page}"
+
+#: packages/apps/doremi/apps-doremi-module-homepage/src/HomePage.tsx:82
+#: packages/apps/doremi/apps-doremi-module-homepage/src/SignInPage.tsx:40
+#: packages/apps/doremi/apps-doremi-module-homepage/src/SignInPage.tsx:60
+#: packages/apps/doremi/apps-doremi-module-profile/src/ProfilePage.tsx:66
+#: packages/apps/doremi/apps-doremi-utils-routes/src/index.ts:37
+msgid "Sign in"
+msgstr "Inloggen"
+
+#: packages/apps/doremi/apps-doremi-module-profile/src/ProfilePage.tsx:96
+msgid "Sign out"
+msgstr "Uitloggen"
+
+#: packages/apps/doremi/apps-doremi-ui-layout/src/ErrorAlert.tsx:23
+msgid "Some fields are not filled in correctly."
+msgstr "Sommige velden zijn niet goed ingevuld."
 
 #: packages/apps/doremi/apps-doremi-ui-layout/src/RouteErrorPage.tsx:24
 msgid "Something went wrong"
 msgstr "Er ging iets mis"
+
+#: packages/apps/doremi/apps-doremi-ui-layout/src/ErrorAlert.tsx:34
+msgid "Something went wrong. Please try again."
+msgstr "Er ging iets mis. Probeer het opnieuw."
+
+#: packages/apps/doremi/apps-doremi-utils-routes/src/index.ts:63
+msgid "Student"
+msgstr "Leerling"
+
+#: packages/apps/doremi/apps-doremi-module-teachers-students/src/StudentsListScreen.tsx:51
+#: packages/apps/doremi/apps-doremi-utils-routes/src/index.ts:59
+msgid "Students"
+msgstr "Leerlingen"
 
 #: packages/web/web-ui-theme-mode/src/ThemeModeToggle.tsx:32
 msgid "Switch theme (current: {label})"
@@ -143,10 +534,226 @@ msgstr "Thema wisselen (huidig: {label})"
 msgid "System theme"
 msgstr "Systeemthema"
 
-#: packages/apps/doremi/apps-doremi-module-profile/src/RolePreview.tsx:23
+#: packages/apps/doremi/apps-doremi-module-teachers-students/src/AssignScreen.tsx:220
+msgid "Take a photo"
+msgstr "Foto maken"
+
+#: packages/apps/doremi/apps-doremi-module-profile/src/ProfilePage.tsx:46
 msgid "Teacher"
 msgstr "Docent"
 
-#: packages/apps/doremi/apps-doremi-utils-routes/src/index.ts:39
+#: packages/apps/doremi/apps-doremi-module-homepage/src/SignUpPage.tsx:32
+#: packages/apps/doremi/apps-doremi-module-profile/src/ProfilePage.tsx:71
+#: packages/apps/doremi/apps-doremi-utils-routes/src/index.ts:38
+msgid "Teacher sign-up"
+msgstr "Registreren als docent"
+
+#: packages/apps/doremi/apps-doremi-module-teachers-students/src/ParentScreen.tsx:57
+msgid "The account exists, but the invitation email could not be sent. Try “Send invitation again” later."
+msgstr "Het account bestaat, maar de uitnodiging kon niet worden verstuurd. Probeer later ‘Uitnodiging opnieuw sturen’."
+
+#: packages/apps/doremi/apps-doremi-module-teachers-students/src/ParentScreen.tsx:116
+msgid "The account of {parentName}, the student {childName}, all pieces of {childName}, the recordings and the feedback are deleted at once. This cannot be undone. Your sheet music and audio examples stay."
+msgstr "Het account van {parentName}, de leerling {childName}, alle stukken van {childName}, de opnames en de feedback worden meteen verwijderd. Dit kan niet ongedaan worden gemaakt. Je bladmuziek en geluidsvoorbeelden blijven bewaard."
+
+#: packages/apps/doremi/apps-doremi-module-teachers-students/src/AssignScreen.tsx:283
+msgid "The audio file is larger than {AUDIO_MAX_MB} MB."
+msgstr "Het geluidsbestand is groter dan {AUDIO_MAX_MB} MB."
+
+#: packages/apps/doremi/apps-doremi-module-homepage/src/HomePage.tsx:108
+msgid "The child practises, the parent records"
+msgstr "Het kind oefent, de ouder neemt op"
+
+#: packages/apps/doremi/apps-doremi-ui-layout/src/ErrorAlert.tsx:12
+msgid "The email or the password is not correct."
+msgstr "Het e-mailadres of het wachtwoord klopt niet."
+
+#: packages/apps/doremi/apps-doremi-ui-layout/src/ErrorAlert.tsx:21
+msgid "The file did not arrive. Please send it again."
+msgstr "Het bestand is niet aangekomen. Stuur het opnieuw."
+
+#: packages/apps/doremi/apps-doremi-ui-layout/src/ErrorAlert.tsx:24
+msgid "The file storage does not answer. Please try again later."
+msgstr "De bestandsopslag reageert niet. Probeer het later opnieuw."
+
+#: packages/apps/doremi/apps-doremi-module-teachers-students/src/ParentScreen.tsx:52
+msgid "The invitation was sent to {email}."
+msgstr "De uitnodiging is verstuurd naar {email}."
+
+#: packages/apps/doremi/apps-doremi-module-teachers-students/src/AddParentScreen.tsx:49
+msgid "The parent gets an email with a link to choose a password. The link works for 7 days. Names have letters only, no numbers or web addresses."
+msgstr "De ouder krijgt een e-mail met een link om een wachtwoord te kiezen. De link werkt 7 dagen. Namen bestaan alleen uit letters, zonder cijfers of webadressen."
+
+#: packages/apps/doremi/apps-doremi-module-teachers-students/src/ParentScreen.tsx:43
+msgid "The parent has accepted the invitation and can sign in."
+msgstr "De ouder heeft de uitnodiging geaccepteerd en kan inloggen."
+
+#: packages/apps/doremi/apps-doremi-module-teachers-students/src/ParentScreen.tsx:64
+msgid "The parent has not chosen a password yet. An invitation link works for 7 days; a new invitation replaces the old link."
+msgstr "De ouder heeft nog geen wachtwoord gekozen. Een uitnodigingslink werkt 7 dagen; een nieuwe uitnodiging vervangt de oude link."
+
+#: packages/apps/doremi/apps-doremi-module-teachers-main/src/AssignmentScreen.tsx:157
+msgid "The piece"
+msgstr "Het stuk"
+
+#: packages/apps/doremi/apps-doremi-module-parents-main/src/UploadScreen.tsx:59
+msgid "The recording is sent. The teacher will watch or listen when there is time, and write feedback here."
+msgstr "De opname is verstuurd. De docent kijkt of luistert wanneer er tijd is, en schrijft hier feedback."
+
+#: packages/apps/doremi/apps-doremi-module-homepage/src/HomePage.tsx:102
+msgid "The teacher gives a piece"
+msgstr "De docent geeft een stuk op"
+
+#: packages/apps/doremi/apps-doremi-module-homepage/src/HomePage.tsx:114
+msgid "The teacher gives feedback"
+msgstr "De docent geeft feedback"
+
+#: packages/apps/doremi/apps-doremi-module-homepage/src/HomePage.tsx:115
+msgid "The teacher listens and writes what goes well and what to try next. When the piece is ready, the teacher completes it."
+msgstr "De docent luistert en schrijft wat goed gaat en wat je hierna kunt proberen. Als het stuk klaar is, rondt de docent het af."
+
+#: packages/apps/doremi/apps-doremi-ui-layout/src/ErrorAlert.tsx:31
+msgid "The upload failed. Check the internet connection and try again."
+msgstr "Het versturen is mislukt. Controleer de internetverbinding en probeer het opnieuw."
+
+#: packages/apps/doremi/apps-doremi-ui-layout/src/ErrorAlert.tsx:19
+msgid "There is no new recording to review."
+msgstr "Er is geen nieuwe opname om te beoordelen."
+
+#: packages/apps/doremi/apps-doremi-module-homepage/src/SetPasswordPage.tsx:67
+msgid "This browser is signed in as {signedInName}. When you save the password, it is signed in with the invited account instead."
+msgstr "Deze browser is ingelogd als {signedInName}. Als je het wachtwoord opslaat, wordt hij ingelogd met het uitgenodigde account."
+
+#: packages/apps/doremi/apps-doremi-ui-layout/src/ErrorAlert.tsx:27
+msgid "This does not exist (any more)."
+msgstr "Dit bestaat niet (meer)."
+
+#: packages/apps/doremi/apps-doremi-ui-layout/src/ErrorAlert.tsx:28
+msgid "This file does not exist (any more)."
+msgstr "Dit bestand bestaat niet (meer)."
+
+#: packages/apps/doremi/apps-doremi-module-parents-main/src/UploadScreen.tsx:157
+msgid "This file is larger than {maxMb} MB. Make a shorter recording, or choose a lower video quality in the camera settings of your phone."
+msgstr "Dit bestand is groter dan {maxMb} MB. Maak een kortere opname, of kies een lagere videokwaliteit in de camera-instellingen van je telefoon."
+
+#: packages/apps/doremi/apps-doremi-ui-layout/src/ErrorAlert.tsx:22
+msgid "This file is not accepted: check the type and the size of the file."
+msgstr "Dit bestand wordt niet geaccepteerd: controleer het type en de grootte van het bestand."
+
+#: packages/apps/doremi/apps-doremi-ui-layout/src/ErrorAlert.tsx:16
+msgid "This invitation link does not work any more. Ask the teacher to send a new invitation."
+msgstr "Deze uitnodigingslink werkt niet meer. Vraag de docent om een nieuwe uitnodiging."
+
+#: packages/apps/doremi/apps-doremi-module-homepage/src/SetPasswordPage.tsx:44
+msgid "This link is not complete. Open the link from the invitation email again, or ask the teacher to send a new invitation."
+msgstr "Deze link is niet compleet. Open de link uit de uitnodigingsmail opnieuw, of vraag de docent om een nieuwe uitnodiging."
+
+#: packages/apps/doremi/apps-doremi-ui-layout/src/ErrorAlert.tsx:17
+msgid "This parent has already chosen a password."
+msgstr "Deze ouder heeft al een wachtwoord gekozen."
+
+#: packages/apps/doremi/apps-doremi-ui-layout/src/ErrorAlert.tsx:18
+msgid "This piece is already completed."
+msgstr "Dit stuk is al afgerond."
+
+#: packages/apps/doremi/apps-doremi-module-parents-main/src/UploadScreen.tsx:220
+msgid "This piece is completed: it takes no new recordings."
+msgstr "Dit stuk is afgerond: je kunt geen nieuwe opnames meer sturen."
+
+#: packages/apps/doremi/apps-doremi-ui-layout/src/ErrorAlert.tsx:20
+msgid "This piece was changed in the meantime, for example by a new recording. Look at it again and try once more."
+msgstr "Dit stuk is intussen gewijzigd, bijvoorbeeld door een nieuwe opname. Bekijk het opnieuw en probeer het nog eens."
+
+#: packages/apps/doremi/apps-doremi-ui-layout/src/ErrorAlert.tsx:29
+msgid "This student does not exist (any more)."
+msgstr "Deze leerling bestaat niet (meer)."
+
+#: packages/apps/doremi/apps-doremi-ui-assignments/src/notices.tsx:13
+msgid "This work will be deleted on {date}. Save the materials you need."
+msgstr "Dit werk wordt op {date} verwijderd. Bewaar het materiaal dat je nodig hebt."
+
+#: packages/apps/doremi/apps-doremi-module-teachers-students/src/AssignScreen.tsx:130
+msgid "Title of the piece"
+msgstr "Titel van het stuk"
+
+#: packages/apps/doremi/apps-doremi-utils-routes/src/index.ts:48
 msgid "To review"
 msgstr "Te beoordelen"
+
+#: packages/apps/doremi/apps-doremi-ui-layout/src/ErrorAlert.tsx:14
+msgid "Too many requests. Please wait a while and try again."
+msgstr "Te veel verzoeken. Wacht even en probeer het opnieuw."
+
+#: packages/apps/doremi/apps-doremi-ui-layout/src/ErrorAlert.tsx:13
+msgid "Too many sign-in attempts. Please wait a few minutes and try again."
+msgstr "Te veel inlogpogingen. Wacht een paar minuten en probeer het opnieuw."
+
+#: packages/apps/doremi/apps-doremi-ui-layout/src/ErrorAlert.tsx:65
+msgid "Try again"
+msgstr "Probeer opnieuw"
+
+#: packages/apps/doremi/apps-doremi-ui-assignments/src/StatusChip.tsx:10
+msgctxt "status of a piece"
+msgid "Try again"
+msgstr "Opnieuw proberen"
+
+#: packages/apps/doremi/apps-doremi-module-parents-main/src/UploadScreen.tsx:169
+#: packages/apps/doremi/apps-doremi-module-teachers-students/src/AssignScreen.tsx:293
+msgid "Upload progress"
+msgstr "Voortgang van het versturen"
+
+#: packages/apps/doremi/apps-doremi-module-parents-main/src/UploadScreen.tsx:94
+msgid "Video"
+msgstr "Video"
+
+#: packages/apps/doremi/apps-doremi-ui-assignments/src/RecordingPlayer.tsx:50
+msgid "Video recording"
+msgstr "Video-opname"
+
+#: packages/apps/doremi/apps-doremi-ui-assignments/src/RecordingList.tsx:35
+msgid "Video, sent on {date}"
+msgstr "Video, verstuurd op {date}"
+
+#: packages/apps/doremi/apps-doremi-ui-assignments/src/notices.tsx:25
+msgid "We store only the latest video and the latest audio for each piece. A new recording replaces the previous one. All recordings and comments are deleted 30 days after the work is completed. Please film only the child's hands and the instrument, without the face."
+msgstr "We bewaren per stuk alleen de laatste video en de laatste geluidsopname. Een nieuwe opname vervangt de vorige. Alle opnames en opmerkingen worden 30 dagen na het afronden van het werk verwijderd. Film alleen de handen van het kind en het instrument, zonder het gezicht."
+
+#: packages/apps/doremi/apps-doremi-module-homepage/src/SetPasswordPage.tsx:57
+msgid "Welcome to Doremi op reis. Choose a password for your account. Next time you sign in with your email address and this password."
+msgstr "Welkom bij Doremi op reis. Kies een wachtwoord voor je account. De volgende keer log je in met je e-mailadres en dit wachtwoord."
+
+#: packages/apps/doremi/apps-doremi-module-teachers-main/src/AssignmentScreen.tsx:72
+msgid "What went well, and what to try next."
+msgstr "Wat ging goed en wat kan de leerling nu proberen?"
+
+#: packages/apps/doremi/apps-doremi-ui-assignments/src/AssignmentList.tsx:65
+msgid "Will be deleted on {deletedOn}"
+msgstr "Wordt verwijderd op {deletedOn}"
+
+#: packages/apps/doremi/apps-doremi-module-homepage/src/HomePage.tsx:103
+msgid "With sheet music, an audio example and a short instruction: what to practise at home, and how a parent can help."
+msgstr "Met bladmuziek, een geluidsvoorbeeld en een korte instructie: wat er thuis geoefend wordt, en hoe een ouder kan helpen."
+
+#: packages/apps/doremi/apps-doremi-module-teachers-main/src/AssignmentScreen.tsx:71
+msgid "Write feedback first: it is needed for both actions."
+msgstr "Schrijf eerst feedback: die is voor beide acties nodig."
+
+#: packages/apps/doremi/apps-doremi-module-profile/src/ProfilePage.tsx:61
+msgid "You are not signed in."
+msgstr "Je bent niet ingelogd."
+
+#: packages/apps/doremi/apps-doremi-ui-layout/src/ErrorAlert.tsx:26
+msgid "You have no access to this."
+msgstr "Je hebt hier geen toegang toe."
+
+#: packages/apps/doremi/apps-doremi-module-homepage/src/SignUpPage.tsx:42
+msgid "Your name"
+msgstr "Je naam"
+
+#: packages/apps/doremi/apps-doremi-module-parents-main/src/PieceCardScreen.tsx:53
+msgid "Your recordings"
+msgstr "Je opnames"
+
+#: packages/apps/doremi/apps-doremi-ui-layout/src/ErrorAlert.tsx:25
+msgid "Your session has ended. Please sign in again."
+msgstr "Je sessie is verlopen. Log opnieuw in."

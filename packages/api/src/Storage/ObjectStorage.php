@@ -47,6 +47,27 @@ interface ObjectStorage
     public function getInfo(string $key): ?ObjectInfo;
 
     /**
+     * Copies an object to a new key inside the bucket. The size and the MIME type are copied too.
+     * An object under the target key is replaced.
+     *
+     * Why the app needs it: an upload URL works until it expires, so the object under its key can still change
+     * after a check. The copy has a key that no upload URL exists for: what getInfo() says about the copy stays true.
+     *
+     * @return bool false if no object has the source key
+     *
+     * @throws StorageException
+     */
+    public function copy(string $sourceKey, string $targetKey): bool;
+
+    /**
+     * Deletes every object whose key starts with this prefix, for example "uploads/recordings/12/".
+     * Does nothing if there is none.
+     *
+     * @throws StorageException
+     */
+    public function deletePrefix(string $prefix): void;
+
+    /**
      * Deletes the object. Does nothing if no object has this key.
      *
      * @throws StorageException

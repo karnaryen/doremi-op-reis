@@ -1,0 +1,1 @@
+export { teachersStudentsScreens } from './routeScreens'

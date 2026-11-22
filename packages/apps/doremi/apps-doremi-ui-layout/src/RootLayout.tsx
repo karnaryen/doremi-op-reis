@@ -10,7 +10,7 @@ import Toolbar from '@mui/material/Toolbar'
 import Typography from '@mui/material/Typography'
 import { Outlet, Link as RouterLink } from 'react-router'
 import { ThemeModeToggle } from '@doremi/web-ui-theme-mode'
-import { useLinkTo } from '@doremi/apps-doremi-utils-routes'
+import { useLinkTo, useMainLink } from '@doremi/apps-doremi-utils-routes'
 import { BottomNav } from './BottomNav'
 import { RouteBreadcrumbs } from './RouteBreadcrumbs'
 import { TopNav } from './TopNav'
@@ -20,6 +20,8 @@ const year = new Date().getFullYear()
 export function RootLayout() {
   const linkTo = useLinkTo()
   const about = linkTo('about')
+  // A signed-in user has "Main" in the place of the homepage.
+  const start = useMainLink() ?? linkTo('home') ?? '/'
 
   return (
     <Box sx={{ display: 'flex', flexDirection: 'column', minHeight: '100dvh' }}>
@@ -27,7 +29,7 @@ export function RootLayout() {
         <Toolbar>
           <Stack
             component={RouterLink}
-            to={linkTo('home') ?? '/'}
+            to={start}
             aria-label="Doremi op reis"
             direction="row"
             spacing={1.5}

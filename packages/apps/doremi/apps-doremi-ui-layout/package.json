@@ -16,6 +16,7 @@
     "@doremi/web-utils-router": "workspace:*",
     "@fortawesome/free-solid-svg-icons": "catalog:",
     "@fortawesome/react-fontawesome": "catalog:",
+    "@lingui/core": "catalog:",
     "@lingui/react": "catalog:",
     "@mui/material": "catalog:",
     "react": "catalog:",

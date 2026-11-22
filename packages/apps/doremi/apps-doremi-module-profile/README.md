@@ -1,5 +1,5 @@
 # apps-doremi-module-profile
 
-Section "Profile", for both roles: the language choice. Sign-out and the teacher's Materials list come later ([users.md](../../../../docs/product/users.md#other-sections)).
+Section "Profile", for both roles: the name and the email of the signed-in user, the language choice and sign-out. A guest sees the sign-in and sign-up buttons instead.
 
-In a development build the page also shows a role preview, to check role-based navigation before sign-in exists. It is not in the production build.
+The teacher's Materials list comes in roadmap phase 5 ([users.md](../../../../docs/product/users.md#other-sections)).

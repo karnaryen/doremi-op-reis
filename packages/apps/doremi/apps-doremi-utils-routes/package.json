@@ -15,7 +15,8 @@
     "@doremi/org-utils-auth": "workspace:*",
     "@doremi/web-utils-router": "workspace:*",
     "@fortawesome/free-solid-svg-icons": "catalog:",
-    "@lingui/core": "catalog:"
+    "@lingui/core": "catalog:",
+    "react": "catalog:"
   },
   "nx": {
     "projectType": "library",
