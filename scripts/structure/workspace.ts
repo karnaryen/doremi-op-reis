@@ -1,10 +1,10 @@
 /**
- * Reads from the file system what the structure rules need (`structure.ts` has the rules).
+ * Reads from the file system what the structure rules need (`rules.ts` has the rules).
  * Every function gets the repository root as a parameter, so a test can use a temporary folder.
  */
 import { existsSync, readdirSync, readFileSync } from 'node:fs'
 import { join } from 'node:path'
-import type { PackageFacts } from './structure.ts'
+import type { PackageFacts } from './rules.ts'
 
 /** Folders in `packages/` that are not pnpm packages. */
 const NOT_PNPM_PACKAGES = ['api']

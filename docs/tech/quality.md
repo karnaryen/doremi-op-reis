@@ -24,7 +24,7 @@ Run `pnpm check` before a commit that changes frontend code, and `pnpm check:api
 | Code rules       | ESLint                                  | React and React Compiler rules, Lingui rules                                           |
 | Import rules     | ESLint, `@nx/enforce-module-boundaries` | A forbidden import between packages ([monorepo.md](monorepo.md#tags-and-import-rules)) |
 | Dependency lists | ESLint, `@nx/dependency-checks`         | A `package.json` that misses an imported library, or lists one that nothing imports    |
-| Structure        | `scripts/check-structure.ts`            | Wrong folder, name, tags or version format; two copies of one library                  |
+| Structure        | `scripts/structure/check.ts`            | Wrong folder, name, tags or version format; two copies of one library                  |
 | Formatting       | Prettier                                | A file that is not formatted                                                           |
 | Tests            | Vitest                                  | Broken behaviour                                                                       |
 | Message catalogs | `pnpm i18n:check`                       | A text in the code that is not in the `.po` files                                      |

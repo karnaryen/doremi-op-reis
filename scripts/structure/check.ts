@@ -1,14 +1,14 @@
 /**
  * Checks the structure rules of the monorepo: `pnpm structure:check`.
- * The rules are in `structure.ts`, the file reading is in `workspace.ts`.
+ * The rules are in `rules.ts`, the file reading is in `workspace.ts`.
  * Node runs TypeScript files directly: https://nodejs.org/api/typescript.html
  */
 import { existsSync, readFileSync } from 'node:fs'
 import { join } from 'node:path'
-import { checkLockfile, checkPackage, checkRootManifest } from './structure.ts'
+import { checkLockfile, checkPackage, checkRootManifest } from './rules.ts'
 import { factsOf, packageDirs, readJson } from './workspace.ts'
 
-const root = join(import.meta.dirname, '..')
+const root = join(import.meta.dirname, '../..')
 const lockfile = join(root, 'pnpm-lock.yaml')
 
 const problems: string[] = []

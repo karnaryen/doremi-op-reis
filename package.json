@@ -15,7 +15,7 @@
     "format:check": "prettier --check .",
     "i18n:extract": "nx run @doremi/apps-doremi:i18n:extract",
     "graph": "nx graph",
-    "structure:check": "node scripts/check-structure.ts",
+    "structure:check": "node scripts/structure/check.ts",
     "check": "nx run-many -t typecheck lint test --exclude api && pnpm structure:check && pnpm format:check && pnpm i18n:check",
     "test:api": "nx run api:test",
     "i18n:check": "pnpm i18n:extract && git diff --exit-code -- '*.po'",

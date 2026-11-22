@@ -128,7 +128,7 @@ pnpm resolves each package on its own. If two packages got two copies of `react`
 
 ## Structure check
 
-`pnpm structure:check` runs [scripts/check-structure.ts](../../scripts/check-structure.ts). It checks the rules of this page that ESLint and TypeScript cannot see. `pnpm check` and CI run it.
+`pnpm structure:check` runs [scripts/structure/check.ts](../../scripts/structure/check.ts). It checks the rules of this page that ESLint and TypeScript cannot see. `pnpm check` and CI run it.
 
 | Rule                                                                                                                           | Why                                                                                          |
 | ------------------------------------------------------------------------------------------------------------------------------ | -------------------------------------------------------------------------------------------- |
@@ -147,8 +147,8 @@ pnpm resolves each package on its own. If two packages got two copies of `react`
 | Versions are `catalog:` or `workspace:*`; the root has no `dependencies`                                                       | See [Dependencies](#dependencies)                                                            |
 | Every direct dependency is resolved in one way in `pnpm-lock.yaml`                                                             | See [One copy of every library](#one-copy-of-every-library)                                  |
 
-- The rules are functions in [scripts/structure.ts](../../scripts/structure.ts) without file system code, with tests in `structure.test.ts`.
-- The file reading is in [scripts/workspace.ts](../../scripts/workspace.ts), with tests on a temporary folder.
+- The rules are functions in [scripts/structure/rules.ts](../../scripts/structure/rules.ts) without file system code, with tests in `rules.test.ts`.
+- The file reading is in [scripts/structure/workspace.ts](../../scripts/structure/workspace.ts), with tests on a temporary folder.
 - `scripts/` is an Nx project (`project.json`) with the targets `typecheck`, `lint` and `test`, so `pnpm check` covers the scripts too. Its tag is `platform:node`. No import rule has this tag as a source, and no package may import from `scripts/`.
 - Node runs the `.ts` files directly; this is stable since Node 24.12 ([Node: TypeScript](https://nodejs.org/api/typescript.html)). Node only removes the types, so the scripts use no `enum` and write the `.ts` extension in imports.
 

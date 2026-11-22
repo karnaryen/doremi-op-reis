@@ -3,7 +3,7 @@
  * where a package is, how it is named, which tags it has and how it lists its dependencies.
  * The rules are described in docs/tech/monorepo.md.
  *
- * This file has no file system code: `check-structure.ts` reads the files and calls these functions.
+ * This file has no file system code: `workspace.ts` reads the files, and `check.ts` calls these functions.
  */
 
 export const SCOPE = '@doremi'

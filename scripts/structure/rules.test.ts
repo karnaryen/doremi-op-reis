@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import { checkLockfile, checkPackage, checkRootManifest, type PackageFacts } from './structure.ts'
+import { checkLockfile, checkPackage, checkRootManifest, type PackageFacts } from './rules.ts'
 
 /** A correct library in `packages/web`. Each test changes one thing. */
 function webLibrary(change: Partial<PackageFacts> = {}, manifest: object = {}): PackageFacts {
