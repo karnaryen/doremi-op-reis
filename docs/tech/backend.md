@@ -9,7 +9,7 @@ Roadmap phase 2: the API can reach a database and a file storage. There are no e
 | CORS         | `nelmio/cors-bundle`                                             | `config/packages/nelmio_cors.yaml`                                      |
 | Dev proxy    | Vite `server.proxy`                                              | [vite.config.ts](../../packages/apps/doremi/apps-doremi/vite.config.ts) |
 | Check        | Console command `app:check`                                      | `src/Command/CheckCommand.php`                                          |
-| Quality      | PHPUnit, PHPStan level 8 (`phpstan-symfony`, `phpstan-doctrine`) | `tests/`, `phpstan.dist.neon`                                           |
+| Quality      | PHPUnit, PHPStan, PHP-CS-Fixer: see [quality.md](quality.md#api) | `tests/`, `phpstan.dist.neon`, `.php-cs-fixer.dist.php`                 |
 
 All paths without a link are in `packages/api`.
 
@@ -20,6 +20,7 @@ All paths without a link are in `packages/api`.
 | `pnpm dev:api`            | Starts the API and PostgreSQL in Docker                            |
 | `pnpm test:api`           | Creates the test database if it is missing, then runs PHPUnit      |
 | `pnpm nx run api:phpstan` | Static analysis                                                    |
+| `pnpm check:api`          | All API checks: format, `validate`, PHPStan, tests                 |
 | `pnpm nx run api:check`   | Runs `app:check`: is PostgreSQL reachable, does R2 save and delete |
 
 After a change in `Dockerfile` or `compose*.yaml`: `pnpm nx run api:docker-build`.

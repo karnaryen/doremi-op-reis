@@ -6,22 +6,23 @@ An Nx monorepo: the React frontend (deployed on Netlify) and the Symfony API. Pr
 
 ## Stack
 
-| Concern      | Tool                                                                             |
-| ------------ | -------------------------------------------------------------------------------- |
-| Monorepo     | Nx 24 (task runner, cache, module boundaries), pnpm workspaces                   |
-| UI           | React 19 + **React Compiler** (no manual `useMemo`/`useCallback`)                |
-| Build        | Vite 8 (Rolldown), pnpm                                                          |
-| Language     | TypeScript 7 (`tsc`), TS 6 API alias for typescript-eslint                       |
-| Components   | MUI 9 (CSS variables, light/dark/system color schemes)                           |
-| Design       | MUI theme in `org-ui-theme`, fonts Merriweather + Lato (`@fontsource`)           |
-| Icons        | Font Awesome 7 Free (solid / regular / brands)                                   |
-| Routing      | React Router 8 (data router, lazy routes), built from a typed route table        |
-| Server state | TanStack Query 5                                                                 |
-| Client state | Zustand 5                                                                        |
-| i18n         | Lingui 6 (`en` source, `nl`), `.po` catalogs                                     |
-| Quality      | ESLint 10 (+ React Compiler rules, Lingui), Prettier, Vitest 5 + Testing Library |
-| API          | PHP 8.5 (FrankenPHP), Symfony 8.1, Doctrine, PHPUnit, PHPStan; in Docker         |
-| Data         | PostgreSQL 18 (Docker locally), Cloudflare R2 for files                          |
+| Concern      | Tool                                                                                               |
+| ------------ | -------------------------------------------------------------------------------------------------- |
+| Monorepo     | Nx 24 (task runner, cache, module boundaries), pnpm workspaces                                     |
+| UI           | React 19 + **React Compiler** (no manual `useMemo`/`useCallback`)                                  |
+| Build        | Vite 8 (Rolldown), pnpm                                                                            |
+| Language     | TypeScript 7 (`tsc`), TS 6 API alias for typescript-eslint                                         |
+| Components   | MUI 9 (CSS variables, light/dark/system color schemes)                                             |
+| Design       | MUI theme in `org-ui-theme`, fonts Merriweather + Lato (`@fontsource`)                             |
+| Icons        | Font Awesome 7 Free (solid)                                                                        |
+| Routing      | React Router 8 (data router, lazy routes), built from a typed route table                          |
+| Server state | TanStack Query 5                                                                                   |
+| Client state | Zustand 5                                                                                          |
+| i18n         | Lingui 6 (`en` source, `nl`), `.po` catalogs                                                       |
+| Quality      | ESLint 10 (+ React Compiler rules, Lingui), Prettier, Vitest 5 + Testing Library                   |
+| Checks       | Structure check, PHP-CS-Fixer, PHPat, GitHub Actions: [docs/tech/quality.md](docs/tech/quality.md) |
+| API          | PHP 8.5 (FrankenPHP), Symfony 8.1, Doctrine, PHPUnit, PHPStan; in Docker                           |
+| Data         | PostgreSQL 18 (Docker locally), Cloudflare R2 for files                                            |
 
 ## Getting started
 
@@ -53,23 +54,25 @@ Frontend env vars: copy `packages/apps/doremi/apps-doremi/.env.example` → `.en
 
 ## Scripts
 
-| Script                    | What it does                                                |
-| ------------------------- | ----------------------------------------------------------- |
-| `pnpm dev`                | Frontend dev server                                         |
-| `pnpm dev:api`            | Symfony API in Docker                                       |
-| `pnpm build`              | Production build to `packages/apps/doremi/apps-doremi/dist` |
-| `pnpm preview`            | Serve the production build                                  |
-| `pnpm typecheck`          | TypeScript in all packages                                  |
-| `pnpm lint`               | ESLint in all packages, with the import rules               |
-| `pnpm format`             | Prettier write                                              |
-| `pnpm test`               | Vitest in all frontend packages                             |
-| `pnpm test:api`           | PHPUnit in the API (needs Docker)                           |
-| `pnpm nx run api:phpstan` | PHPStan in the API (needs Docker)                           |
-| `pnpm nx run api:check`   | Checks PostgreSQL and R2 from the API (needs Docker)        |
-| `pnpm i18n:extract`       | Extract messages into the app's `src/locales/*/messages.po` |
-| `pnpm graph`              | Nx project graph                                            |
-| `pnpm check`              | Frontend: typecheck, lint, tests, format, message catalogs  |
-| `pnpm check:all`          | `check`, the API tests and PHPStan (needs Docker)           |
+| Script                    | What it does                                                          |
+| ------------------------- | --------------------------------------------------------------------- |
+| `pnpm dev`                | Frontend dev server                                                   |
+| `pnpm dev:api`            | Symfony API in Docker                                                 |
+| `pnpm build`              | Production build to `packages/apps/doremi/apps-doremi/dist`           |
+| `pnpm preview`            | Serve the production build                                            |
+| `pnpm typecheck`          | TypeScript in all packages                                            |
+| `pnpm lint`               | ESLint in all packages, with the import rules                         |
+| `pnpm format`             | Prettier write                                                        |
+| `pnpm test`               | Vitest in all frontend packages                                       |
+| `pnpm test:api`           | PHPUnit in the API (needs Docker)                                     |
+| `pnpm nx run api:phpstan` | PHPStan in the API (needs Docker)                                     |
+| `pnpm nx run api:check`   | Checks PostgreSQL and R2 from the API (needs Docker)                  |
+| `pnpm i18n:extract`       | Extract messages into the app's `src/locales/*/messages.po`           |
+| `pnpm graph`              | Nx project graph                                                      |
+| `pnpm check`              | Frontend: typecheck, lint, tests, structure, format, message catalogs |
+| `pnpm check:api`          | API: format, `validate`, PHPStan, tests (needs Docker)                |
+| `pnpm check:all`          | `check` and `check:api`                                               |
+| `pnpm structure:check`    | Folders, names, tags and dependency lists of the packages             |
 
 ## Architecture
 
@@ -96,6 +99,7 @@ packages/
 - Server data goes through TanStack Query (`queryOptions` + `http()`); Zustand only for client/UI state.
 - All user-visible text uses Lingui macros (`<Trans>`, `` t`...` ``, `` msg`...` ``); run `pnpm i18n:extract` and fill in `nl`.
 - Import FA icons individually (`import { faX } from '@fortawesome/free-solid-svg-icons'`) to keep tree-shaking.
+- A package lists the libraries it imports in its own `package.json`, with the version `catalog:`. Add one with `pnpm add --filter <package> <library>`; the versions are in `pnpm-workspace.yaml`.
 
 ## Design system
 

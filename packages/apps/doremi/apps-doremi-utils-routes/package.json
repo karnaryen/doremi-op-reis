@@ -13,7 +13,9 @@
   "dependencies": {
     "@doremi/common-utils-routes": "workspace:*",
     "@doremi/org-utils-auth": "workspace:*",
-    "@doremi/web-utils-router": "workspace:*"
+    "@doremi/web-utils-router": "workspace:*",
+    "@fortawesome/free-solid-svg-icons": "catalog:",
+    "@lingui/core": "catalog:"
   },
   "nx": {
     "projectType": "library",

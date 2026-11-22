@@ -10,6 +10,10 @@
     "typecheck": "tsc -p tsconfig.json",
     "lint": "eslint ."
   },
+  "dependencies": {
+    "react": "catalog:",
+    "zustand": "catalog:"
+  },
   "nx": {
     "projectType": "library",
     "tags": [

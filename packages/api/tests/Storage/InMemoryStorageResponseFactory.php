@@ -11,6 +11,7 @@ use Symfony\Contracts\HttpClient\ResponseInterface;
  * Answers the HTTP client in tests (framework.http_client.mock_response_factory), so no test sends a real request.
  * It makes the URLs of InMemoryObjectStorage work: a PUT to an upload URL saves an object,
  * a GET of a download URL returns it. Like R2, it refuses a URL that was signed for another method.
+ *
  * https://symfony.com/doc/current/http_client.html#testing
  */
 final readonly class InMemoryStorageResponseFactory
@@ -54,7 +55,8 @@ final readonly class InMemoryStorageResponseFactory
     private static function contentType(array $options): string
     {
         $headers = $options['normalized_headers'] ?? null;
-        $line = \is_array($headers) ? ($headers['content-type'][0] ?? null) : null;
+        $lines = \is_array($headers) ? ($headers['content-type'] ?? null) : null;
+        $line = \is_array($lines) ? ($lines[0] ?? null) : null;
 
         // The HTTP client gives a header as one line: "Content-Type: text/plain".
         return \is_string($line) ? trim(substr($line, \strlen('Content-Type:'))) : 'application/octet-stream';

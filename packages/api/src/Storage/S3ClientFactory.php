@@ -10,7 +10,9 @@ use Symfony\Component\DependencyInjection\Attribute\Autowire;
 
 /**
  * Builds the AWS SDK client for Cloudflare R2. R2 has the S3 API, so the S3 client works
- * with the R2 endpoint: https://developers.cloudflare.com/r2/examples/aws/aws-sdk-php/
+ * with the R2 endpoint.
+ *
+ * https://developers.cloudflare.com/r2/examples/aws/aws-sdk-php/
  *
  * config/services.yaml registers the result of create() as the S3ClientInterface service.
  */

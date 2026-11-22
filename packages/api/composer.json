@@ -21,9 +21,12 @@
         "symfony/yaml": "8.1.*"
     },
     "require-dev": {
+        "friendsofphp/php-cs-fixer": "^3.95",
         "guzzlehttp/guzzle": "^8.5",
+        "phpat/phpat": "^0.12.5",
         "phpstan/phpstan": "^2.3",
         "phpstan/phpstan-doctrine": "^2.1",
+        "phpstan/phpstan-phpunit": "^2.1",
         "phpstan/phpstan-symfony": "^2.1",
         "phpunit/phpunit": "^13.4",
         "symfony/browser-kit": "8.1.*",

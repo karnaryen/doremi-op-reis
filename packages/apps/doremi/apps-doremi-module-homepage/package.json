@@ -12,7 +12,15 @@
   },
   "dependencies": {
     "@doremi/apps-doremi-utils-routes": "workspace:*",
-    "@doremi/org-ui-theme": "workspace:*"
+    "@doremi/org-ui-theme": "workspace:*",
+    "@fortawesome/free-solid-svg-icons": "catalog:",
+    "@fortawesome/react-fontawesome": "catalog:",
+    "@lingui/react": "catalog:",
+    "@mui/material": "catalog:",
+    "react": "catalog:"
+  },
+  "devDependencies": {
+    "@types/react": "catalog:"
   },
   "nx": {
     "projectType": "library",

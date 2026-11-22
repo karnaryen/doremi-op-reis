@@ -48,6 +48,30 @@
         "cwd": "{projectRoot}"
       }
     },
+    "format-check": {
+      "executor": "nx:run-commands",
+      "cache": false,
+      "options": {
+        "command": "docker compose run --rm php vendor/bin/php-cs-fixer check --diff",
+        "cwd": "{projectRoot}"
+      }
+    },
+    "format": {
+      "executor": "nx:run-commands",
+      "cache": false,
+      "options": {
+        "command": "docker compose run --rm php vendor/bin/php-cs-fixer fix",
+        "cwd": "{projectRoot}"
+      }
+    },
+    "validate": {
+      "executor": "nx:run-commands",
+      "cache": false,
+      "options": {
+        "command": "docker compose run --rm php sh -c 'composer validate --strict --no-check-publish && php bin/console lint:container'",
+        "cwd": "{projectRoot}"
+      }
+    },
     "check": {
       "executor": "nx:run-commands",
       "cache": false,
