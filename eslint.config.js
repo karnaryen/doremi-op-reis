@@ -41,7 +41,7 @@ const depConstraints = [
   { sourceTag: 'type:module', onlyDependOnLibsWithTags: ['type:data', 'type:ui', 'type:utils'] },
   { sourceTag: 'type:data', onlyDependOnLibsWithTags: ['type:data', 'type:utils'] },
   { sourceTag: 'type:ui', onlyDependOnLibsWithTags: ['type:ui', 'type:utils'] },
-  { sourceTag: 'type:utils', onlyDependOnLibsWithTags: ['type:ui', 'type:utils'] },
+  { sourceTag: 'type:utils', onlyDependOnLibsWithTags: ['type:utils'] },
 ]
 
 export default defineConfig([

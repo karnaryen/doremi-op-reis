@@ -1,4 +1,4 @@
-# apps-doremi-utils-layout
+# apps-doremi-ui-layout
 
 The frame around every screen: header, navigation, breadcrumbs, footer, and the 404 and error pages.
 

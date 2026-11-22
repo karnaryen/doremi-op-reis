@@ -6,7 +6,7 @@
 | ------------------------ | ------------------------------------ | ----------------------------------------------------------------------------------------------------------------------------------------- |
 | 1. Monorepo              | One repository for frontend and API  | Nx monorepo                                                                                                                               |
 | 2. Backend setup         | The API can save data and files      | Symfony backend, PostgreSQL database, Cloudflare R2                                                                                       |
-| 3. Quality and structure | Code rules are checked automatically | PHPStan, ESLint, Prettier, module boundaries, apps structure and package boundaries                                                       |
+| 3. Quality and structure | Code rules are checked automatically | PHPStan, ESLint, Prettier, module boundaries, apps structure and package boundaries, per-package dependencies with a pnpm catalog         |
 | 4. MVP, part 1           | First loop: one full cycle works     | Teacher sign-up, parent invitation and deletion, sign-in, students, assign a piece, upload a recording, statuses, text feedback, complete |
 | 5. MVP, part 2           | Teacher's time: review is fast       | "To review" in sequence, one Material for several students, Materials list in Profile, auto-deletion                                      |
 | 6. Comfort               | Better contact                       | Voice feedback, email notifications, material library, music postcards                                                                    |

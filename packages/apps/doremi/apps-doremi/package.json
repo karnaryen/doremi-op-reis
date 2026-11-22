@@ -17,7 +17,7 @@
     "@doremi/apps-doremi-module-parents-main": "workspace:*",
     "@doremi/apps-doremi-module-profile": "workspace:*",
     "@doremi/apps-doremi-module-teachers-main": "workspace:*",
-    "@doremi/apps-doremi-utils-layout": "workspace:*",
+    "@doremi/apps-doremi-ui-layout": "workspace:*",
     "@doremi/apps-doremi-utils-routes": "workspace:*",
     "@doremi/org-data-api": "workspace:*",
     "@doremi/org-ui-theme": "workspace:*",

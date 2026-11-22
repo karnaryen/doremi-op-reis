@@ -17,7 +17,7 @@ packages/
     doremi/
       apps-doremi                        the app: entry point, providers, the screens of all routes
       apps-doremi-utils-routes           the route table of the app and its typed link helpers
-      apps-doremi-utils-layout           header, footer, navigation, 404 and error pages
+      apps-doremi-ui-layout              header, footer, navigation, 404 and error pages
       apps-doremi-data-profile           TanStack Query options for the profile
       apps-doremi-module-homepage        public pages
       apps-doremi-module-profile         section "Profile"
@@ -56,7 +56,7 @@ Every package has one platform, one layer and one type tag, in `package.json` â†
 | App      | `app:doremi`                                                    | An app package imports generic, org and packages of the same app.                                              |
 | Type     | `type:app`, `type:module`, `type:data`, `type:ui`, `type:utils` | `app` imports everything except apps. `module` imports `data`, `ui`, `utils`: never another module or the app. |
 
-Other type rules: `data` imports `data` and `utils`; `ui` imports `ui` and `utils`; `utils` imports `utils` and `ui`. The last one exists because `apps-doremi-utils-layout` is named `utils` but draws components.
+Other type rules: `data` imports `data` and `utils`; `ui` imports `ui` and `utils`; `utils` imports only `utils`.
 
 A second app needs its own rule for its `app:<name>` tag. Without it, the layer rule alone lets it import the packages of another app.
 
@@ -96,6 +96,7 @@ Rules:
 
 - A route id is the path of keys: `teacher.toReview`.
 - `meta.nav: 'section'` puts the route in the main navigation; `'tab'` makes it a tab of its parent.
+- `meta.navFor` lists the roles that see the route in the navigation. Example: everyone may open `home`, but only a guest has it as a section.
 - `access` lists the roles that may open the route. No `access` at all: everyone. A child inherits the access of its parent and can only narrow it.
 - `access` is not security. It hides links and screens in the browser, and the user can change the role there. The API must check access for every request (Symfony Security and Voters, roadmap phase 4).
 - A link the user may not open is not drawn: `RouteLink` returns nothing and `useLinkTo()` returns `null`. Opening such a URL shows the 404 page.

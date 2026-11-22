@@ -75,7 +75,8 @@ packages/
 ├── org/       # Knows the organization: theme, API client, auth, languages
 └── apps/doremi/
     ├── apps-doremi             # Composition root: providers, the screens of all routes, locales
-    ├── apps-doremi-utils-*     # Route table, layout
+    ├── apps-doremi-utils-*     # Route table
+    ├── apps-doremi-ui-*        # Layout
     ├── apps-doremi-data-*      # TanStack Query
     └── apps-doremi-module-*    # Screens of one section
 ```

@@ -35,8 +35,11 @@ Each piece card shows three texts. An empty text is not shown.
 
 | Role    | Sections                | Tabs in Main                 |
 | ------- | ----------------------- | ---------------------------- |
+| Guest   | Home, Profile           | —                            |
 | Parent  | Main, Profile           | Active, Completed            |
 | Teacher | Main, Students, Profile | To review, Active, Completed |
+
+A signed-in user does not see the Home section: Main takes its place.
 
 ### Tabs in Main
 

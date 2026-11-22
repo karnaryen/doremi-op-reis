@@ -63,10 +63,19 @@ describe('routing', () => {
 })
 
 describe('access', () => {
-  it('does not draw the Main section for a guest', async () => {
+  it('shows a guest the sections Home and Profile, not Main', async () => {
     renderRoute('/')
     expect(await screen.findByRole('link', { name: 'Profile' })).toBeInTheDocument()
+    expect(screen.getByRole('link', { name: 'Home' })).toBeInTheDocument()
     expect(screen.queryByRole('link', { name: 'Main' })).not.toBeInTheDocument()
+  })
+
+  it.each(['teacher', 'parent'] as const)('does not show Home to a signed-in %s', async (role) => {
+    useSessionStore.getState().setRole(role)
+    renderRoute('/profile')
+
+    expect(await screen.findByRole('link', { name: 'Main' })).toBeInTheDocument()
+    expect(screen.queryByRole('link', { name: 'Home' })).not.toBeInTheDocument()
   })
 
   it('shows 404 when a guest opens a teacher URL', async () => {

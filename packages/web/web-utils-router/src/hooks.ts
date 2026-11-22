@@ -49,6 +49,7 @@ function useItems(select: (routes: ReadonlyMap<string, FlatRoute>) => FlatRoute[
     const meta = route.meta as NavMeta | undefined
     // A route with a `:param` has no fixed URL, so it cannot be a navigation item.
     if (!meta || !canAccess(route, role) || route.fullPath.includes(':')) return []
+    if (meta.navFor && !meta.navFor.includes(role)) return []
     return [
       {
         id: route.id,

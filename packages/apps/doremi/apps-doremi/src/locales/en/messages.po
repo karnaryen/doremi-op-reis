@@ -7,18 +7,18 @@ msgstr ""
 "X-Generator: @lingui/cli\n"
 "Language: en\n"
 
-#: packages/apps/doremi/apps-doremi-utils-layout/src/RootLayout.tsx:59
+#: packages/apps/doremi/apps-doremi-ui-layout/src/RootLayout.tsx:59
 msgid "© {year} Doremi op reis"
 msgstr "© {year} Doremi op reis"
 
 #: packages/apps/doremi/apps-doremi-module-homepage/src/AboutPage.tsx:9
-#: packages/apps/doremi/apps-doremi-utils-layout/src/RootLayout.tsx:64
-#: packages/apps/doremi/apps-doremi-utils-routes/src/index.ts:25
+#: packages/apps/doremi/apps-doremi-ui-layout/src/RootLayout.tsx:64
+#: packages/apps/doremi/apps-doremi-utils-routes/src/index.ts:31
 msgid "About"
 msgstr "About"
 
-#: packages/apps/doremi/apps-doremi-utils-routes/src/index.ts:34
-#: packages/apps/doremi/apps-doremi-utils-routes/src/index.ts:45
+#: packages/apps/doremi/apps-doremi-utils-routes/src/index.ts:40
+#: packages/apps/doremi/apps-doremi-utils-routes/src/index.ts:51
 msgid "Active"
 msgstr "Active"
 
@@ -31,16 +31,16 @@ msgstr "An MUI theme based on the Doremi style: plum and peach colors and serif 
 msgid "Assignments"
 msgstr "Assignments"
 
-#: packages/apps/doremi/apps-doremi-utils-layout/src/NotFoundPage.tsx:23
+#: packages/apps/doremi/apps-doremi-ui-layout/src/NotFoundPage.tsx:23
 msgid "Back home"
 msgstr "Back home"
 
-#: packages/apps/doremi/apps-doremi-utils-layout/src/RouteBreadcrumbs.tsx:15
+#: packages/apps/doremi/apps-doremi-ui-layout/src/RouteBreadcrumbs.tsx:15
 msgid "Breadcrumbs"
 msgstr "Breadcrumbs"
 
-#: packages/apps/doremi/apps-doremi-utils-routes/src/index.ts:35
-#: packages/apps/doremi/apps-doremi-utils-routes/src/index.ts:46
+#: packages/apps/doremi/apps-doremi-utils-routes/src/index.ts:41
+#: packages/apps/doremi/apps-doremi-utils-routes/src/index.ts:52
 msgid "Completed"
 msgstr "Completed"
 
@@ -68,7 +68,7 @@ msgstr "Explore tokens"
 msgid "Guest"
 msgstr "Guest"
 
-#: packages/apps/doremi/apps-doremi-utils-routes/src/index.ts:24
+#: packages/apps/doremi/apps-doremi-utils-routes/src/index.ts:29
 msgid "Home"
 msgstr "Home"
 
@@ -82,8 +82,8 @@ msgstr "Light mode"
 
 #: packages/apps/doremi/apps-doremi-module-parents-main/src/screens.tsx:14
 #: packages/apps/doremi/apps-doremi-module-teachers-main/src/screens.tsx:14
-#: packages/apps/doremi/apps-doremi-utils-routes/src/index.ts:31
-#: packages/apps/doremi/apps-doremi-utils-routes/src/index.ts:43
+#: packages/apps/doremi/apps-doremi-utils-routes/src/index.ts:37
+#: packages/apps/doremi/apps-doremi-utils-routes/src/index.ts:49
 msgid "Main"
 msgstr "Main"
 
@@ -101,7 +101,7 @@ msgstr "No completed assignments yet."
 msgid "No recordings to review yet."
 msgstr "No recordings to review yet."
 
-#: packages/apps/doremi/apps-doremi-utils-layout/src/NotFoundPage.tsx:20
+#: packages/apps/doremi/apps-doremi-ui-layout/src/NotFoundPage.tsx:20
 msgid "Page not found"
 msgstr "Page not found"
 
@@ -110,11 +110,11 @@ msgid "Parent"
 msgstr "Parent"
 
 #: packages/apps/doremi/apps-doremi-module-profile/src/ProfilePage.tsx:13
-#: packages/apps/doremi/apps-doremi-utils-routes/src/index.ts:50
+#: packages/apps/doremi/apps-doremi-utils-routes/src/index.ts:56
 msgid "Profile"
 msgstr "Profile"
 
-#: packages/apps/doremi/apps-doremi-utils-layout/src/RouteErrorPage.tsx:28
+#: packages/apps/doremi/apps-doremi-ui-layout/src/RouteErrorPage.tsx:28
 msgid "Reload app"
 msgstr "Reload app"
 
@@ -122,8 +122,8 @@ msgstr "Reload app"
 msgid "Role preview"
 msgstr "Role preview"
 
-#: packages/apps/doremi/apps-doremi-utils-layout/src/BottomNav.tsx:18
-#: packages/apps/doremi/apps-doremi-utils-layout/src/TopNav.tsx:16
+#: packages/apps/doremi/apps-doremi-ui-layout/src/BottomNav.tsx:18
+#: packages/apps/doremi/apps-doremi-ui-layout/src/TopNav.tsx:16
 msgid "Sections"
 msgstr "Sections"
 
@@ -131,7 +131,7 @@ msgstr "Sections"
 msgid "See components"
 msgstr "See components"
 
-#: packages/apps/doremi/apps-doremi-utils-layout/src/RouteErrorPage.tsx:24
+#: packages/apps/doremi/apps-doremi-ui-layout/src/RouteErrorPage.tsx:24
 msgid "Something went wrong"
 msgstr "Something went wrong"
 
@@ -147,6 +147,6 @@ msgstr "System theme"
 msgid "Teacher"
 msgstr "Teacher"
 
-#: packages/apps/doremi/apps-doremi-utils-routes/src/index.ts:33
+#: packages/apps/doremi/apps-doremi-utils-routes/src/index.ts:39
 msgid "To review"
 msgstr "To review"

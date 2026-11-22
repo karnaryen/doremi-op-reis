@@ -1,7 +1,7 @@
 import { Trans, useLingui } from '@lingui/react/macro'
 import Stack from '@mui/material/Stack'
 import Typography from '@mui/material/Typography'
-import { RouteTabs } from '@doremi/apps-doremi-utils-layout'
+import { RouteTabs } from '@doremi/apps-doremi-ui-layout'
 import { Outlet } from 'react-router'
 
 /** Section "Main" of the teacher: title, tabs and the open tab. */

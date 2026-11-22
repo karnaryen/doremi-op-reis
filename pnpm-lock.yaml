@@ -165,9 +165,9 @@ importers:
       '@doremi/apps-doremi-module-teachers-main':
         specifier: workspace:*
         version: link:../apps-doremi-module-teachers-main
-      '@doremi/apps-doremi-utils-layout':
+      '@doremi/apps-doremi-ui-layout':
         specifier: workspace:*
-        version: link:../apps-doremi-utils-layout
+        version: link:../apps-doremi-ui-layout
       '@doremi/apps-doremi-utils-routes':
         specifier: workspace:*
         version: link:../apps-doremi-utils-routes
@@ -204,9 +204,9 @@ importers:
 
   packages/apps/doremi/apps-doremi-module-parents-main:
     dependencies:
-      '@doremi/apps-doremi-utils-layout':
+      '@doremi/apps-doremi-ui-layout':
         specifier: workspace:*
-        version: link:../apps-doremi-utils-layout
+        version: link:../apps-doremi-ui-layout
       '@doremi/apps-doremi-utils-routes':
         specifier: workspace:*
         version: link:../apps-doremi-utils-routes
@@ -225,14 +225,14 @@ importers:
 
   packages/apps/doremi/apps-doremi-module-teachers-main:
     dependencies:
-      '@doremi/apps-doremi-utils-layout':
+      '@doremi/apps-doremi-ui-layout':
         specifier: workspace:*
-        version: link:../apps-doremi-utils-layout
+        version: link:../apps-doremi-ui-layout
       '@doremi/apps-doremi-utils-routes':
         specifier: workspace:*
         version: link:../apps-doremi-utils-routes
 
-  packages/apps/doremi/apps-doremi-utils-layout:
+  packages/apps/doremi/apps-doremi-ui-layout:
     dependencies:
       '@doremi/apps-doremi-utils-routes':
         specifier: workspace:*

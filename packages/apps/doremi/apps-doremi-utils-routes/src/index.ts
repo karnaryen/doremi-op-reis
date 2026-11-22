@@ -16,12 +16,18 @@ const defineRoutes = defineRoutesFor<Role>()
  * - `access`: roles that may open the route. Children inherit it or narrow it. No `access`: everyone.
  *   It only hides links and screens. It is not security: the API must check access itself.
  * - `index`: the child that opens when the user opens the route itself.
+ * - `meta.navFor`: roles that see the route in the navigation. Omitted: all roles that may open it.
  * - `meta.nav`: `section` is an item of the main navigation (in table order), `tab` a tab of its parent.
  *
  * Sections and tabs: docs/product/users.md#navigation.
  */
 export const appRoutes = defineRoutes({
-  home: { path: '', meta: { label: msg`Home`, icon: faHouse, nav: 'section' } },
+  // Everyone may open the homepage, but only a guest has it in the navigation:
+  // a signed-in user has "Main" instead.
+  home: {
+    path: '',
+    meta: { label: msg`Home`, icon: faHouse, nav: 'section', navFor: ['guest'] },
+  },
   about: { path: 'about', meta: { label: msg`About` } },
 
   teacher: {

@@ -1,5 +1,5 @@
 {
-  "name": "@doremi/apps-doremi-utils-layout",
+  "name": "@doremi/apps-doremi-ui-layout",
   "version": "0.0.0",
   "private": true,
   "type": "module",
@@ -21,7 +21,7 @@
       "platform:web",
       "layer:app",
       "app:doremi",
-      "type:utils"
+      "type:ui"
     ]
   }
 }
