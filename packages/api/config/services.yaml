@@ -21,3 +21,23 @@ services:
 
     # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones
+
+    # The AWS SDK client for Cloudflare R2. A factory builds it, because its constructor takes one array.
+    # lazy: the factory runs at the first method call on the client, not when a class that needs the client is built.
+    # So a missing R2 setting throws StorageException in the code that uses the storage, where it can be caught.
+    Aws\S3\S3ClientInterface:
+        factory: ['@App\Storage\S3ClientFactory', 'create']
+        lazy: true
+
+when@test:
+    services:
+        # Tests never call R2: every class that asks for ObjectStorage gets the fake.
+        App\Storage\ObjectStorage: '@App\Tests\Storage\InMemoryObjectStorage'
+
+        # public: a test can read the fake from the container, or put another one in its place.
+        App\Tests\Storage\InMemoryObjectStorage:
+            autowire: true
+            public: true
+
+        App\Tests\Storage\InMemoryStorageResponseFactory:
+            autowire: true

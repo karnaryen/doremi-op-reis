@@ -1,0 +1,18 @@
+# PHPStan reads the code without running it and reports type errors.
+# https://phpstan.org/config-reference
+includes:
+    - vendor/phpstan/phpstan-symfony/extension.neon
+    - vendor/phpstan/phpstan-doctrine/extension.neon
+
+parameters:
+    # 0 is the loosest level, 10 the strictest: https://phpstan.org/user-guide/rule-levels
+    level: 8
+    paths:
+        - src/
+        - tests/
+    excludePaths:
+        # From the PHPUnit recipe, not our code.
+        - tests/bootstrap.php
+    symfony:
+        # The compiled container tells PHPStan the type of every service. `bin/console cache:warmup` writes it.
+        containerXmlPath: var/cache/dev/App_KernelDevDebugContainer.xml

@@ -13,3 +13,6 @@ when@test:
         test: true
         session:
             storage_factory_id: session.storage.factory.mock_file
+        # No test sends a real HTTP request: this class answers instead of the network.
+        http_client:
+            mock_response_factory: App\Tests\Storage\InMemoryStorageResponseFactory

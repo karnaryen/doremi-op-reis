@@ -10,7 +10,7 @@
 | Authentication   | Symfony Security                                                                          |
 | Database         | PostgreSQL                                                                                |
 | File storage     | Cloudflare R2 (S3-compatible API)                                                         |
-| Storage SDK      | `aws/aws-sdk-php` with the R2 endpoint                                                    |
+| Storage SDK      | `aws/aws-sdk-php` with the R2 endpoint. Details: [backend.md](backend.md)                 |
 | Email            | Symfony Mailer; provider is an open question ([roadmap.md](../roadmap.md#open-questions)) |
 | Background jobs  | Symfony console command, run once a day by a scheduler                                    |
 | Frontend hosting | Netlify                                                                                   |

@@ -118,12 +118,14 @@ Every module imports the one table, so a link from any module to any route is ty
 | Command                            | What it does                                                                   |
 | ---------------------------------- | ------------------------------------------------------------------------------ |
 | `pnpm dev`                         | Vite dev server of the app                                                     |
-| `pnpm dev:api`                     | Symfony API in Docker, https://localhost                                       |
+| `pnpm dev:api`                     | Symfony API and PostgreSQL in Docker, https://localhost                        |
 | `pnpm build`                       | Production build to `packages/apps/doremi/apps-doremi/dist`                    |
 | `pnpm typecheck` / `lint` / `test` | The target in all frontend packages (`nx run-many`)                            |
 | `pnpm test:api`                    | PHPUnit in the API container (needs Docker)                                    |
+| `pnpm nx run api:phpstan`          | PHPStan in the API container                                                   |
+| `pnpm nx run api:check`            | `app:check`: does the API reach PostgreSQL and R2                              |
 | `pnpm check`                       | Frontend: typecheck, lint, tests, format, and `i18n:check`                     |
-| `pnpm check:all`                   | `check` and the API tests (needs Docker)                                       |
+| `pnpm check:all`                   | `check`, the API tests and PHPStan (needs Docker)                              |
 | `pnpm i18n:check`                  | Extracts the messages and fails if a catalog file changed: commit the catalogs |
 | `pnpm graph`                       | The project graph in the browser                                               |
 | `pnpm nx run api:install`          | `composer install` in the API container                                        |
@@ -142,16 +144,15 @@ Every module imports the one table, so a link from any module to any route is ty
 - One `Dockerfile`, several stages: `frankenphp_dev` (Xdebug, file watcher) for local work, `frankenphp_prod` (the last stage, so the default build) for deploy.
 - `compose.yaml` + `compose.override.yaml` = local dev (Compose merges the override automatically). `compose.prod.yaml` is for a single server with Docker Compose; Render does not use it.
 - Removed from the template: the Mercure hub and browser hot reload (it needs Mercure). The app has no real-time features. To add them back, compare with the template.
-- One endpoint exists: `GET /api/health` → `{"status":"ok"}`.
-- Secrets: copy `.env.local.example` to `.env.local` and set `APP_SECRET`. `.env` and `.env.dev` have no secrets.
-- Deploy on Render (Docker web service). Settings: **Root Directory** `packages/api`, **Dockerfile Path** `Dockerfile` (both paths are relative to the root directory, see [Render monorepo support](https://render.com/docs/monorepo-support)), **Health Check Path** `/api/health` ([Render health checks](https://render.com/docs/health-checks)). Env vars: `SERVER_NAME=:10000` and `APP_SECRET`.
+- One endpoint exists: `GET /api/health` → `{"status":"ok"}`. It checks the PHP process only; `bin/console app:check` checks the database and the storage.
+- Secrets: copy `.env.local.example` to `.env.local` and set `APP_SECRET`; the Cloudflare R2 keys go there too ([backend.md](backend.md#file-storage-cloudflare-r2)). `.env` and `.env.dev` have no secrets.
+- Deploy on Render (Docker web service). Settings: **Root Directory** `packages/api`, **Dockerfile Path** `Dockerfile` (both paths are relative to the root directory, see [Render monorepo support](https://render.com/docs/monorepo-support)), **Health Check Path** `/api/health` ([Render health checks](https://render.com/docs/health-checks)). Env vars: `SERVER_NAME=:10000`, `APP_SECRET` and the variables of the database, the storage and CORS ([backend.md](backend.md#env-vars-in-production)).
   - Why `SERVER_NAME=:10000`: Render terminates HTTPS and sends plain HTTP to the port in `PORT`, default 10000 ([Render web services](https://render.com/docs/web-services)). An address without a host name makes Caddy serve HTTP only ([symfony-docker production](https://github.com/dunglas/symfony-docker/blob/main/docs/production.md)).
   - Render has no setting for the build stage and its docs do not say which stage it builds. Docker builds the last stage by default, and that is `frankenphp_prod`. Check the first deploy log.
-  - Checked locally: `docker build` of `packages/api`, then `docker run -e SERVER_NAME=:10000 -e APP_SECRET=… -p 10000:10000` answers on `http://localhost:10000/api/health`.
+  - Checked locally: `docker build` of `packages/api`, then `docker run` with `SERVER_NAME=:10000`, `APP_SECRET`, `CORS_ALLOW_ORIGIN` and a `DATABASE_URL` of a running PostgreSQL, `-p 10000:10000`: it answers on `http://localhost:10000/api/health`. Without a reachable database the container stops after 60 seconds ([backend.md](backend.md#production-neon)).
   - The Render docs do not mention Docker Compose or the Dockerfile `HEALTHCHECK`.
-- `compose.yaml` has no `DATABASE_URL` yet (the template has one): there is no database service. Add both with Doctrine in phase 2.
-- Local HTTPS: the dev server uses a certificate from Caddy's own local CA, so the browser warns once. The SPA on `http://localhost:5173` cannot call `https://localhost` until the certificate is accepted or trusted ([symfony-docker TLS](https://github.com/dunglas/symfony-docker/blob/main/docs/tls.md)). Decide with CORS in phase 2.
-- Database, R2 and CORS come in phase 2 ([roadmap.md](../roadmap.md)).
+- Local HTTPS: the dev server uses a certificate from Caddy's own local CA, so the browser warns once when you open the API directly ([symfony-docker TLS](https://github.com/dunglas/symfony-docker/blob/main/docs/tls.md)). The SPA does not need this: the Vite dev server proxies `/api` to the API.
+- Database, R2, CORS and the dev proxy: [backend.md](backend.md).
 
 ## Deploy (Netlify)
 

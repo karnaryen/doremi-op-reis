@@ -1,18 +1,21 @@
 # API (Symfony)
 
-The Symfony API of Doremi op reis. It runs in Docker; setup and deploy: [docs/tech/monorepo.md](../../docs/tech/monorepo.md#api-package).
+The Symfony API of Doremi op reis. It runs in Docker; setup and deploy: [docs/tech/monorepo.md](../../docs/tech/monorepo.md#api-package). Database, file storage and CORS: [docs/tech/backend.md](../../docs/tech/backend.md).
 
 | Command (repository root)      | What it does                        |
 | ------------------------------ | ----------------------------------- |
 | `pnpm nx run api:install`      | `composer install` in the container |
-| `pnpm dev:api`                 | Start the API, https://localhost    |
-| `pnpm test:api`                | PHPUnit                             |
+| `pnpm dev:api`                 | Start the API and PostgreSQL, https://localhost |
+| `pnpm test:api`                | PHPUnit (uses the database `app_test`) |
+| `pnpm nx run api:phpstan`      | PHPStan                             |
+| `pnpm nx run api:check`        | `app:check`: PostgreSQL and R2 reachable? |
 | `pnpm nx run api:docker-build` | Rebuild the image                   |
 
 The rest of this file is the guide from the Symfony skeleton (it was `AGENTS.md`): rules for people and AI agents who write code here.
 
 This is a Symfony project. Check `composer.json` for the exact Symfony/PHP version
-in use, and read `symfony.lock` to see which recipes ran. Don't assume Doctrine,
+in use, and read `symfony.lock` to see which recipes ran. Doctrine ORM, Doctrine
+Migrations, NelmioCorsBundle and the HTTP client are installed. Don't assume
 Twig, API Platform, Messenger, or Lock are installed unless one of those says so.
 
 ## Ask before generating

@@ -20,7 +20,8 @@ An Nx monorepo: the React frontend (deployed on Netlify) and the Symfony API. Pr
 | Client state | Zustand 5                                                                        |
 | i18n         | Lingui 6 (`en` source, `nl`), `.po` catalogs                                     |
 | Quality      | ESLint 10 (+ React Compiler rules, Lingui), Prettier, Vitest 5 + Testing Library |
-| API          | PHP 8.5 (FrankenPHP), Symfony 8.1, PHPUnit; in Docker                            |
+| API          | PHP 8.5 (FrankenPHP), Symfony 8.1, Doctrine, PHPUnit, PHPStan; in Docker         |
+| Data         | PostgreSQL 18 (Docker locally), Cloudflare R2 for files                          |
 
 ## Getting started
 
@@ -44,25 +45,31 @@ pnpm dev:api
 
 Frontend: http://localhost:5173. API: https://localhost/api/health. The first time, the browser warns about the local TLS certificate: accept it ([symfony-docker TLS](https://github.com/dunglas/symfony-docker/blob/main/docs/tls.md)). Ports 80 and 443 must be free. If they are in use: `HTTP_PORT=8080 HTTPS_PORT=8443 HTTP3_PORT=8443 pnpm dev:api`, then https://localhost:8443.
 
+`pnpm dev:api` also starts PostgreSQL. The frontend calls the API through the Vite dev server: http://localhost:5173/api/health gives the same answer, without a certificate warning. If the API runs on other ports, start the frontend with `API_PROXY_TARGET=https://localhost:8443 pnpm dev`.
+
+File storage: put the Cloudflare R2 values into `packages/api/.env.local`, then run `pnpm nx run api:check`. Steps: [docs/tech/backend.md](docs/tech/backend.md#file-storage-cloudflare-r2).
+
 Frontend env vars: copy `packages/apps/doremi/apps-doremi/.env.example` → `.env.local` in the same folder (only `VITE_*` reach the client).
 
 ## Scripts
 
-| Script              | What it does                                                |
-| ------------------- | ----------------------------------------------------------- |
-| `pnpm dev`          | Frontend dev server                                         |
-| `pnpm dev:api`      | Symfony API in Docker                                       |
-| `pnpm build`        | Production build to `packages/apps/doremi/apps-doremi/dist` |
-| `pnpm preview`      | Serve the production build                                  |
-| `pnpm typecheck`    | TypeScript in all packages                                  |
-| `pnpm lint`         | ESLint in all packages, with the import rules               |
-| `pnpm format`       | Prettier write                                              |
-| `pnpm test`         | Vitest in all frontend packages                             |
-| `pnpm test:api`     | PHPUnit in the API (needs Docker)                           |
-| `pnpm i18n:extract` | Extract messages into the app's `src/locales/*/messages.po` |
-| `pnpm graph`        | Nx project graph                                            |
-| `pnpm check`        | Frontend: typecheck, lint, tests, format, message catalogs  |
-| `pnpm check:all`    | `check` and the API tests (needs Docker)                    |
+| Script                    | What it does                                                |
+| ------------------------- | ----------------------------------------------------------- |
+| `pnpm dev`                | Frontend dev server                                         |
+| `pnpm dev:api`            | Symfony API in Docker                                       |
+| `pnpm build`              | Production build to `packages/apps/doremi/apps-doremi/dist` |
+| `pnpm preview`            | Serve the production build                                  |
+| `pnpm typecheck`          | TypeScript in all packages                                  |
+| `pnpm lint`               | ESLint in all packages, with the import rules               |
+| `pnpm format`             | Prettier write                                              |
+| `pnpm test`               | Vitest in all frontend packages                             |
+| `pnpm test:api`           | PHPUnit in the API (needs Docker)                           |
+| `pnpm nx run api:phpstan` | PHPStan in the API (needs Docker)                           |
+| `pnpm nx run api:check`   | Checks PostgreSQL and R2 from the API (needs Docker)        |
+| `pnpm i18n:extract`       | Extract messages into the app's `src/locales/*/messages.po` |
+| `pnpm graph`              | Nx project graph                                            |
+| `pnpm check`              | Frontend: typecheck, lint, tests, format, message catalogs  |
+| `pnpm check:all`          | `check`, the API tests and PHPStan (needs Docker)           |
 
 ## Architecture
 
