@@ -108,16 +108,17 @@ Every module imports the one table, so a link from any module to any route is ty
 
 ## Tasks
 
-| Command                            | What it does                                                |
-| ---------------------------------- | ----------------------------------------------------------- |
-| `pnpm dev`                         | Vite dev server of the app                                  |
-| `pnpm dev:api`                     | Symfony API in Docker, https://localhost                    |
-| `pnpm build`                       | Production build to `packages/apps/doremi/apps-doremi/dist` |
-| `pnpm typecheck` / `lint` / `test` | The target in all projects (`nx run-many`)                  |
-| `pnpm check`                       | Everything CI should run                                    |
-| `pnpm graph`                       | The project graph in the browser                            |
-| `pnpm nx run api:install`          | `composer install` in the API container                     |
-| `pnpm nx run api:test`             | PHPUnit in the API container                                |
+| Command                            | What it does                                                            |
+| ---------------------------------- | ----------------------------------------------------------------------- |
+| `pnpm dev`                         | Vite dev server of the app                                              |
+| `pnpm dev:api`                     | Symfony API in Docker, https://localhost                                |
+| `pnpm build`                       | Production build to `packages/apps/doremi/apps-doremi/dist`             |
+| `pnpm typecheck` / `lint` / `test` | The target in all projects (`nx run-many`)                              |
+| `pnpm check`                       | Everything CI should run                                                |
+| `pnpm graph`                       | The project graph in the browser                                        |
+| `pnpm nx run api:install`          | `composer install` in the API container                                 |
+| `pnpm nx run api:docker-build`     | Rebuild the API image (after a change in `Dockerfile` or `frankenphp/`) |
+| `pnpm nx run api:test`             | PHPUnit in the API container                                            |
 
 - A `package.json` script is an Nx target ([Nx project configuration](https://nx.dev/docs/reference/project-configuration)). `nx.json` → `targetDefaults` makes `build`, `typecheck`, `lint` and `test` cacheable.
 - The API targets are in `packages/api/project.json` and run `docker compose`. They need a running Docker. The API `test` target is part of `pnpm test`.
@@ -125,7 +126,7 @@ Every module imports the one table, so a link from any module to any route is ty
 
 ## API package
 
-`packages/api` is the Symfony skeleton (`composer create-project symfony/skeleton:"8.1.*"`, see [Symfony setup](https://symfony.com/doc/current/setup.html)). Symfony 8.1 needs PHP 8.4 or higher ([Symfony releases](https://symfony.com/releases)).
+`packages/api` is the Symfony skeleton (`composer create-project symfony/skeleton:"8.1.*"`, see [Symfony setup](https://symfony.com/doc/current/setup.html)). Symfony 8.1 needs PHP 8.4 or higher ([Symfony releases](https://symfony.com/releases)); the Docker image has PHP 8.5.
 
 - PHP runs in Docker, set up from the [symfony-docker](https://github.com/dunglas/symfony-docker) template ([existing project guide](https://github.com/dunglas/symfony-docker/blob/main/docs/existing-project.md)). Web server: [FrankenPHP](https://frankenphp.dev/) (Caddy with PHP built in), in worker mode. PHP's built-in server was dropped: PHP says it is "not intended for production usage" ([PHP manual](https://www.php.net/manual/en/features.commandline.webserver.php)).
 - One `Dockerfile`, several stages: `frankenphp_dev` (Xdebug, file watcher) for local work, `frankenphp_prod` (the last stage, so the default build) for deploy.
@@ -133,7 +134,13 @@ Every module imports the one table, so a link from any module to any route is ty
 - Removed from the template: the Mercure hub and browser hot reload (it needs Mercure). The app has no real-time features. To add them back, compare with the template.
 - One endpoint exists: `GET /api/health` → `{"status":"ok"}`.
 - Secrets: copy `.env.local.example` to `.env.local` and set `APP_SECRET`. `.env` and `.env.dev` have no secrets.
-- Deploy on Render: Docker web service from `packages/api/Dockerfile` (builds `frankenphp_prod`). Render terminates HTTPS and sends HTTP to the port in `PORT`, default 10000 ([Render web services](https://render.com/docs/web-services)). So set the env vars `SERVER_NAME=:10000` (HTTP only, see [symfony-docker production](https://github.com/dunglas/symfony-docker/blob/main/docs/production.md)) and `APP_SECRET`. Checked locally with `docker run -e SERVER_NAME=:10000 …`.
+- Deploy on Render (Docker web service). Settings: **Root Directory** `packages/api`, **Dockerfile Path** `Dockerfile` (both paths are relative to the root directory, see [Render monorepo support](https://render.com/docs/monorepo-support)), **Health Check Path** `/api/health` ([Render health checks](https://render.com/docs/health-checks)). Env vars: `SERVER_NAME=:10000` and `APP_SECRET`.
+  - Why `SERVER_NAME=:10000`: Render terminates HTTPS and sends plain HTTP to the port in `PORT`, default 10000 ([Render web services](https://render.com/docs/web-services)). An address without a host name makes Caddy serve HTTP only ([symfony-docker production](https://github.com/dunglas/symfony-docker/blob/main/docs/production.md)).
+  - Render has no setting for the build stage and its docs do not say which stage it builds. Docker builds the last stage by default, and that is `frankenphp_prod`. Check the first deploy log.
+  - Checked locally: `docker build` of `packages/api`, then `docker run -e SERVER_NAME=:10000 -e APP_SECRET=… -p 10000:10000` answers on `http://localhost:10000/api/health`.
+  - The Render docs do not mention Docker Compose or the Dockerfile `HEALTHCHECK`.
+- `compose.yaml` has no `DATABASE_URL` yet (the template has one): there is no database service. Add both with Doctrine in phase 2.
+- Local HTTPS: the dev server uses a certificate from Caddy's own local CA, so the browser warns once. The SPA on `http://localhost:5173` cannot call `https://localhost` until the certificate is accepted or trusted ([symfony-docker TLS](https://github.com/dunglas/symfony-docker/blob/main/docs/tls.md)). Decide with CORS in phase 2.
 - Database, R2 and CORS come in phase 2 ([roadmap.md](../roadmap.md)).
 
 ## Deploy (Netlify)

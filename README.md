@@ -20,7 +20,7 @@ An Nx monorepo: the React frontend (deployed on Netlify) and the Symfony API. Pr
 | Client state | Zustand 5                                                                        |
 | i18n         | Lingui 6 (`en` source, `nl`), `.po` catalogs                                     |
 | Quality      | ESLint 10 (+ React Compiler rules, Lingui), Prettier, Vitest 5 + Testing Library |
-| API          | PHP 8.4, Symfony 8.1, PHPUnit; runs in Docker                                    |
+| API          | PHP 8.5 (FrankenPHP), Symfony 8.1, PHPUnit; in Docker                            |
 
 ## Getting started
 
